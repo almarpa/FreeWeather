@@ -9,21 +9,12 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
-
-import upv.tfg.freeweather.Serializations.*;
+import upv.tfg.freeweather.Serializaciones.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,18 +31,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayData(PrediccionHoraria[] sp) {
         TextView tvDatos =  findViewById(R.id.tvDatos);
-        String texto =
+        String text =
                 "Origen: " + sp[0].getOrigen().getProductor()+"," +
                 " Elaborado: "+sp[0].getElaborado()+"," +
                 " Nombre: "+sp[0].getNombre()+"," +
                 " Provincia: "+sp[0].getProvincia();
-        tvDatos.setText(texto);
+        tvDatos.setText(text);
     }
 
-    // Conexion http con la API
+    //Conexion con la API y obtencion del JSON
     public class HTTPConnection extends AsyncTask<Void, Void, Void> {
 
-        private GsonData gs;
+        private SerializadorInicial gs;
         private PrediccionHoraria[] sp;
 
         private URL url;
@@ -72,21 +63,23 @@ public class MainActivity extends AppCompatActivity {
 
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
+                connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
                 connection.setDoInput(true);
                 connection.connect();
 
                 reader = new InputStreamReader(connection.getInputStream());
                 builder = new GsonBuilder();
                 gson = builder.create();
-                gs = gson.fromJson(reader, GsonData.class);
+                gs = gson.fromJson(reader, SerializadorInicial.class);
 
                 connection.disconnect();
 
-
                 //Segunda Peticion GET
                 url = new URL(gs.datos);
+
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
+                connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
                 connection.setDoInput(true);
                 connection.connect();
 
@@ -96,19 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 sp = gson.fromJson(reader, PrediccionHoraria[].class);
 
                 connection.disconnect();
-            /*
-                InputStream is = new URL(gs.datos).openStream();
-                try {
 
-                    BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-                    String jsonText = readAll(rd);
-
-                    Gson gson = new Gson();
-                    sp = gson.fromJson(jsonText, SpecificPrediction[].class);
-                } finally {
-                    is.close();
-                }
-            */
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -120,15 +101,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void params) {
             displayData(sp);
-        }
-
-        private String readAll(Reader rd) throws IOException {
-            StringBuilder sb = new StringBuilder();
-            int cp;
-            while ((cp = rd.read()) != -1) {
-                sb.append((char) cp);
-            }
-            return sb.toString();
         }
     }
 }

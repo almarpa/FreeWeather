@@ -1,33 +1,32 @@
 package upv.tfg.freeweather;
 
-import android.app.DownloadManager;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import upv.tfg.freeweather.Serializations.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    /*Second commit*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,20 +34,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickButton(View view) {
-        getFriendScores task = new getFriendScores();
-            task.execute();
+        HTTPConnection task = new HTTPConnection();
+        task.execute();
     }
 
-    private void rellenarDatos(GsonGeneral gs) {
+    private void displayData(PrediccionHoraria[] sp) {
         TextView tvDatos =  findViewById(R.id.tvDatos);
-        tvDatos.setText(gs.datos);
+        String texto =
+                "Origen: " + sp[0].getOrigen().getProductor()+"," +
+                " Elaborado: "+sp[0].getElaborado()+"," +
+                " Nombre: "+sp[0].getNombre()+"," +
+                " Provincia: "+sp[0].getProvincia();
+        tvDatos.setText(texto);
     }
 
+    // Conexion http con la API
+    public class HTTPConnection extends AsyncTask<Void, Void, Void> {
 
-    //Obt
-    public class getFriendScores extends AsyncTask<Void, Void, Void> {
+        private GsonData gs;
+        private PrediccionHoraria[] sp;
 
-        private GsonGeneral gs;
+        private URL url;
+        private HttpURLConnection connection;
+        private InputStreamReader reader;
+        private GsonBuilder builder;
+        private Gson gson;
 
         @Override
         protected void onPreExecute() {
@@ -57,21 +67,48 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                //Peticion GET
-                URL url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/46250?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
+                //Primera Peticion GET
+                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/46250?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
 
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setDoInput(true);
                 connection.connect();
 
-                InputStreamReader reader = new InputStreamReader(connection.getInputStream());
-                GsonBuilder builder = new GsonBuilder();
-                Gson gson = builder.create();
-                gs = gson.fromJson(reader, GsonGeneral.class);
+                reader = new InputStreamReader(connection.getInputStream());
+                builder = new GsonBuilder();
+                gson = builder.create();
+                gs = gson.fromJson(reader, GsonData.class);
 
                 connection.disconnect();
 
+
+                //Segunda Peticion GET
+                url = new URL(gs.datos);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setDoInput(true);
+                connection.connect();
+
+                reader = new InputStreamReader(connection.getInputStream());
+                builder = new GsonBuilder();
+                gson = builder.create();
+                sp = gson.fromJson(reader, PrediccionHoraria[].class);
+
+                connection.disconnect();
+            /*
+                InputStream is = new URL(gs.datos).openStream();
+                try {
+
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+                    String jsonText = readAll(rd);
+
+                    Gson gson = new Gson();
+                    sp = gson.fromJson(jsonText, SpecificPrediction[].class);
+                } finally {
+                    is.close();
+                }
+            */
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -82,7 +119,16 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void params) {
-            rellenarDatos(gs);
+            displayData(sp);
+        }
+
+        private String readAll(Reader rd) throws IOException {
+            StringBuilder sb = new StringBuilder();
+            int cp;
+            while ((cp = rd.read()) != -1) {
+                sb.append((char) cp);
+            }
+            return sb.toString();
         }
     }
 }

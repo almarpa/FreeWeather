@@ -3,12 +3,12 @@ package upv.tfg.freeweather.Serializaciones.Objetos;
 import com.google.gson.annotations.SerializedName;
 
 /*PREDICCION*/
-public class PrediccionDiaria {
+public class PrediccionD {
 
     @SerializedName("dia")
     private Diaria[] diaria;
 
-    public PrediccionDiaria(){
+    public PrediccionD(){
 
     }
 

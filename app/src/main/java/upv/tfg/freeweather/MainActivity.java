@@ -15,7 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import upv.tfg.freeweather.Serializaciones.*;
-import upv.tfg.freeweather.Serializaciones.Objetos.PrediccionHoraria;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         task.execute();
     }
 
-    private void displayData(PrediccionHorariaNEW[] sp) {
+    private void displayData(PrediccionHoraria[] sp) {
         TextView tvDatos =  findViewById(R.id.tvDatos);
         String text =
                 "HORARIA\n"+
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public class HTTPConnection extends AsyncTask<Void, Void, Void> {
 
         private SerializadorInicial gs;
-        private PrediccionHorariaNEW[] sp;
+        private PrediccionHoraria[] sp;
 
         private URL url;
         private HttpURLConnection connection;
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 reader = new InputStreamReader(connection.getInputStream());
                 builder = new GsonBuilder();
                 gson = builder.create();
-                sp = gson.fromJson(reader, PrediccionHorariaNEW[].class);
+                sp = gson.fromJson(reader, PrediccionHoraria[].class);
 
                 connection.disconnect();
 

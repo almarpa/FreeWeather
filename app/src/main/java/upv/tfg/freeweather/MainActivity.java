@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import upv.tfg.freeweather.Serializaciones.*;
-import upv.tfg.freeweather.Serializaciones.Objetos.Horaria;
+import upv.tfg.freeweather.Serializaciones.Objetos.PrediccionHoraria;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,11 +30,11 @@ public class MainActivity extends AppCompatActivity {
         task.execute();
     }
 
-    private void displayData(Prediccion[] sp) {
+    private void displayData(PrediccionHorariaNEW[] sp) {
         TextView tvDatos =  findViewById(R.id.tvDatos);
         String text =
                 "HORARIA\n"+
-                " Descripcion de predicciones: " + sp[0].getPredic().getElement(0).getElement(5).getDescripcion()+",\n" +
+                " Descripcion de predicciones: " + sp[0].getPredic().getElementHorario(0).getElement(5).getDescripcion()+",\n" +
                 " Elaborado: "+sp[0].getElaborado()+",\n" +
                 " Nombre: "+sp[0].getNombre()+",\n" +
                 " Provincia: "+sp[0].getProvincia();
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public class HTTPConnection extends AsyncTask<Void, Void, Void> {
 
         private SerializadorInicial gs;
-        private Prediccion[] sp;
+        private PrediccionHorariaNEW[] sp;
 
         private URL url;
         private HttpURLConnection connection;
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 reader = new InputStreamReader(connection.getInputStream());
                 builder = new GsonBuilder();
                 gson = builder.create();
-                sp = gson.fromJson(reader, Prediccion[].class);
+                sp = gson.fromJson(reader, PrediccionHorariaNEW[].class);
 
                 connection.disconnect();
 

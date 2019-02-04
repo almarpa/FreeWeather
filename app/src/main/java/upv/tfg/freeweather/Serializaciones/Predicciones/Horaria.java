@@ -1,6 +1,4 @@
-package upv.tfg.freeweather.Serializaciones.Objetos;
-
-import com.google.gson.annotations.SerializedName;
+package upv.tfg.freeweather.Serializaciones.Predicciones;
 
 import java.util.List;
 

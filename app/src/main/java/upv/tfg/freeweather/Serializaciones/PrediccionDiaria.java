@@ -1,7 +1,7 @@
 package upv.tfg.freeweather.Serializaciones;
 
 import com.google.gson.annotations.SerializedName;
-import upv.tfg.freeweather.Serializaciones.Objetos.*;
+import upv.tfg.freeweather.Serializaciones.Predicciones.*;
 
 public class PrediccionDiaria {
 

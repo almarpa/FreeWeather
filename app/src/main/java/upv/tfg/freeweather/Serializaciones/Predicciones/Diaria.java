@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.Serializaciones.Objetos;
+package upv.tfg.freeweather.Serializaciones.Predicciones;
 
 //Prediccion diaria
 public class Diaria {

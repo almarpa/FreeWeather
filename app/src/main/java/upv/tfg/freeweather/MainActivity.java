@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
-        String line = "";
+        String line;
 
         db = myhelper.getWritableDatabase();
         db.beginTransaction();
@@ -79,13 +79,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayData(PrediccionHoraria[] sp) {
         TextView tvDatos =  findViewById(R.id.tvDatos);
-        /*String text =
+        String text =
                 "HORARIA\n"+
                 " Descripcion de predicciones: " + sp[0].getPredic().getElementHorario(0).getElement(5).getDescripcion()+",\n" +
                 " Elaborado: "+sp[0].getElaborado()+",\n" +
                 " Nombre: "+sp[0].getNombre()+",\n" +
                 " Provincia: "+sp[0].getProvincia();
-        tvDatos.setText(text);*/
+        tvDatos.setText(text);
+
+        /* EJEMPLO DE CONSULTA A LA TABLA MUNICIPIOS
+
         db = myhelper.getWritableDatabase();
         String[] args = new String[] {"Utiel"};
         Cursor c = db.rawQuery(" SELECT * FROM tblLocalidades WHERE nombre=? ", args);
@@ -95,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
                 tvDatos.setText(cd);
             } while (c.moveToNext());
         }
+        c.close();
+        */
     }
 
     //Conexion con la API y obtencion del JSON

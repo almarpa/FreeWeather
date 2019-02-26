@@ -45,9 +45,7 @@ public class Horaria {
         return probPrecipitacion;
     }
 
-    public void setProbPrecipitacion(List probPrecipitacion) {
-        this.probPrecipitacion = probPrecipitacion;
-    }
+    public void setProbPrecipitacion(List probPrecipitacion) { this.probPrecipitacion = probPrecipitacion; }
 
     public List getProbTormenta() {
         return probTormenta;
@@ -101,9 +99,7 @@ public class Horaria {
         return vientoAndRachaMax;
     }
 
-    public void setVientoAndRachaMax(List vientoAndRachaMax) {
-        this.vientoAndRachaMax = vientoAndRachaMax;
-    }
+    public void setVientoAndRachaMax(List vientoAndRachaMax) { this.vientoAndRachaMax = vientoAndRachaMax; }
 
     public String getFecha() {
         return fecha;

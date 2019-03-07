@@ -1,13 +1,13 @@
 package upv.tfg.freeweather;
 
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,14 +32,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createDB();
+
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        boolean firstStart = prefs.getBoolean("firstStart",true);
+        if (firstStart==true){
+            fillBD();
+        }
     }
 
-    public void createDB(){
+    public void fillBD(){
+        String mCSVfile = "codmunicip_nuevo.csv";
 
-        String mCSVfile = "codMunicip_nuevo.csv";
-
-        AssetManager manager = getApplicationContext().getAssets();
+        AssetManager manager = getAssets();
         InputStream inStream = null;
 
         try {
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         db = myhelper.getWritableDatabase();
         db.beginTransaction();
+
         try {
             while ((line = buffer.readLine()) != null) {
                 String[] colums = line.split(",");
@@ -70,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
         }
         db.setTransactionSuccessful();
         db.endTransaction();
+
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("firstStart", false);
     }
 
     public void onClickButton(View view) {
@@ -79,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayData(PrediccionHoraria[] sp) {
         TextView tvDatos =  findViewById(R.id.tvDatos);
+        /*
         String text =
                 "HORARIA\n"+
                 " Descripcion de predicciones: " + sp[0].getPredic().getElementHorario(0).getElement(5).getDescripcion()+",\n" +
@@ -86,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
                 " Nombre: "+sp[0].getNombre()+",\n" +
                 " Provincia: "+sp[0].getProvincia();
         tvDatos.setText(text);
-
-        /* EJEMPLO DE CONSULTA A LA TABLA MUNICIPIOS
+        */
+        // EJEMPLO DE CONSULTA A LA TABLA MUNICIPIOS
 
         db = myhelper.getWritableDatabase();
         String[] args = new String[] {"Utiel"};
@@ -99,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
             } while (c.moveToNext());
         }
         c.close();
-        */
     }
 
     //Conexion con la API y obtencion del JSON
@@ -163,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void params) {
+
             displayData(sp);
         }
     }

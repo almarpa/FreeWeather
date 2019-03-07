@@ -1,13 +1,23 @@
 package upv.tfg.freeweather;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public class DBController extends SQLiteOpenHelper {
+
+    SQLiteDatabase db;
 
     public DBController(Context context) {
         super(context,"myDataBase.db",null,1);
+
     }
 
     @Override
@@ -19,6 +29,7 @@ public class DBController extends SQLiteOpenHelper {
                 + " cMun integer not null, "
                 + " DC integer not null, "
                 + " nombre text not null); ");
+
     }
 
     @Override

@@ -6,10 +6,17 @@ import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,11 +29,18 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import upv.tfg.freeweather.Serializaciones.*;
+import upv.tfg.freeweather.fragments.GridImageFragment;
+import upv.tfg.freeweather.fragments.ListStringFragment;
+import upv.tfg.freeweather.fragments.LogInFragment;
+import upv.tfg.freeweather.fragments.SignInFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DBController myhelper = new DBController(this);
     SQLiteDatabase db;
+
+    Toolbar toolBar;
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +52,108 @@ public class MainActivity extends AppCompatActivity {
         if (firstStart==true){
             fillBD();
         }
+
+        toolBar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolBar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+        getSupportActionBar().setTitle(R.string.app_name);
+
+        drawerLayout = findViewById(R.id.drawerLayout);
+
+        NavigationView navigationView = findViewById(R.id.navView);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        drawerLayout.openDrawer(GravityCompat.START);
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frameLayout, new LogInFragment())
+                    .commit();
+
+            ((NavigationView) findViewById(R.id.navView)).setCheckedItem(R.id.mLoginNavigation);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        Fragment fragment = null;
+        String tag = null;
+
+        switch (item.getItemId()) {
+
+            case R.id.mLoginNavigation:
+                tag = "login";
+                fragment = getSupportFragmentManager().findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = LogInFragment.newInstance("David");
+                }
+                toolBar.setTitle(R.string.title_login_fragment);
+                break;
+
+            case R.id.mSignInNavigation:
+                tag = "signin";
+                fragment = getSupportFragmentManager().findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new SignInFragment();
+                }
+                toolBar.setTitle(R.string.title_signin_fragment);
+                break;
+
+            case R.id.mListNavigation:
+                tag = "list";
+                fragment = getSupportFragmentManager().findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new ListStringFragment();
+                }
+                toolBar.setTitle(R.string.title_list_fragment);
+                break;
+
+            case R.id.mGridNavigation:
+                tag = "grid";
+                fragment = getSupportFragmentManager().findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new GridImageFragment();
+                }
+                toolBar.setTitle(R.string.title_grid_fragment);
+                break;
+        }
+
+        // Replace the existing fragment
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frameLayout, fragment, tag)
+                .commit();
+
+        item.setChecked(true);
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 
     public void fillBD(){
@@ -87,8 +203,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayData(PrediccionHoraria[] sp) {
-        TextView tvDatos =  findViewById(R.id.tvDatos);
         /*
+        TextView tvDatos =  findViewById(R.id.tvDatos);
         String text =
                 "HORARIA\n"+
                 " Descripcion de predicciones: " + sp[0].getPredic().getElementHorario(0).getElement(5).getDescripcion()+",\n" +
@@ -96,9 +212,8 @@ public class MainActivity extends AppCompatActivity {
                 " Nombre: "+sp[0].getNombre()+",\n" +
                 " Provincia: "+sp[0].getProvincia();
         tvDatos.setText(text);
-        */
-        // EJEMPLO DE CONSULTA A LA TABLA MUNICIPIOS
 
+        // EJEMPLO DE CONSULTA A LA TABLA MUNICIPIOS
         db = myhelper.getWritableDatabase();
         String[] args = new String[] {"Utiel"};
         Cursor c = db.rawQuery(" SELECT * FROM tblLocalidades WHERE nombre=? ", args);
@@ -109,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
             } while (c.moveToNext());
         }
         c.close();
+    */
     }
 
     //Conexion con la API y obtencion del JSON

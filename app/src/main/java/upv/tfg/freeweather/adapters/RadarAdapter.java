@@ -16,7 +16,7 @@ import upv.tfg.freeweather.R;
 /*
  * Adapter that maps a given array of Drawables (provided as a resource) and a GridView.
  * */
-public class GridImageAdapter extends BaseAdapter {
+public class RadarAdapter extends BaseAdapter {
 
     // Hold reference to the Context
     private Context context;
@@ -26,7 +26,7 @@ public class GridImageAdapter extends BaseAdapter {
     /*
      * Gets the required Context and obtains the array of Drawables from a resource.
      * */
-    public GridImageAdapter(Context context) {
+    public RadarAdapter(Context context) {
         this.context = context;
         // Get the array of Drawables, which is already defined as a resource
         images = context.getResources().obtainTypedArray(R.array.grid_list);

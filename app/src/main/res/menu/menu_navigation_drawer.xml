@@ -2,20 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/mLoginNavigation"
+            android:id="@+id/mLocalizame"
             android:icon="@android:drawable/ic_menu_send"
-            android:title="@string/title_login_fragment" />
+            android:title="@string/title_localizame" />
         <item
-            android:id="@+id/mSignInNavigation"
+            android:id="@+id/mFavoritos"
             android:icon="@android:drawable/ic_menu_edit"
-            android:title="@string/title_signin_fragment" />
+            android:title="@string/title_favoritos" />
         <item
-            android:id="@+id/mListNavigation"
+            android:id="@+id/mAvisos"
             android:icon="@android:drawable/ic_menu_sort_by_size"
-            android:title="@string/title_list_fragment" />
+            android:title="@string/title_avisos" />
         <item
-            android:id="@+id/mGridNavigation"
+            android:id="@+id/mRadar"
             android:icon="@android:drawable/ic_menu_gallery"
-            android:title="@string/title_grid_fragment" />
+            android:title="@string/title_radar" />
     </group>
 </menu>

@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * Create a the unique table of the database with all the localities.
+ */
 public class DBController extends SQLiteOpenHelper {
 
     SQLiteDatabase db;

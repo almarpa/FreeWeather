@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.Serializaciones.Predicciones;
+package upv.tfg.freeweather.serializations.Predicciones;
 
 import com.google.gson.annotations.SerializedName;
 

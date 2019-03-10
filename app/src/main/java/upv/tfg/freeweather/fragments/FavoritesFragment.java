@@ -19,16 +19,14 @@ import android.widget.Toast;
 import upv.tfg.freeweather.R;
 
 /**
- * Displays a List of Strings.
- * It includes no business logic, just for show.
- * It also adds actions to the ActionBar.
+ * Description.....
  */
-public class ListStringFragment extends Fragment {
+public class FavoritesFragment extends Fragment {
 
     /**
      * Required empty public constructor.
      */
-    public ListStringFragment() {
+    public FavoritesFragment() {
     }
 
     @Override
@@ -44,7 +42,7 @@ public class ListStringFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list_string, null);
+        return inflater.inflate(R.layout.fragment_favorites, container, false);
     }
 
     /**
@@ -52,7 +50,7 @@ public class ListStringFragment extends Fragment {
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_list, menu);
+        inflater.inflate(R.menu.menu_favorites, menu);
     }
 
     /**
@@ -61,14 +59,13 @@ public class ListStringFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Determine the action to take place according to the Id of the action selected
-        if (item.getItemId() == R.id.mList) {
+        if (item.getItemId() == R.id.mSignin) {
             // Notify the user that this action has been selected
-            Toast.makeText(getContext(), R.string.menu_fragment_list, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.menu_fragment_favoritos, Toast.LENGTH_SHORT).show();
             return true;
         }
         // There was no custom behaviour for that action, so let the system take care of it
         return super.onOptionsItemSelected(item);
     }
-
 
 }

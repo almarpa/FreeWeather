@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity"
+    tools:context=".NavigationDrawerActivity"
     tools:openDrawer="start">
 
     <!--The first component of a DrawerLayout is the container that will display elements on the screen-->

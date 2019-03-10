@@ -6,7 +6,6 @@ package upv.tfg.freeweather.fragments;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,26 +13,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import upv.tfg.freeweather.R;
 
 /**
- * Displays an UI to let the user sign in into a system.
- * It includes no business logic, just for show.
- * It also adds actions to the ActionBar.
+ * Description.....
  */
-public class SignInFragment extends Fragment {
+public class GeolocationFragment extends Fragment {
 
     /**
      * Required empty public constructor.
      */
-    public SignInFragment() {
+    public GeolocationFragment() {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // The Fragment can now add actions to the ActionBar and react when they are clicked
         setHasOptionsMenu(true);
     }
@@ -44,15 +43,16 @@ public class SignInFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_signin, container, false);
+        return inflater.inflate(R.layout.fragment_geolocation, null);
     }
 
     /**
-     * This method is executed when the activity is created to populate the ActionBar with actions.
+     * This method is executed when the fragment is created to populate the ActionBar with actions.
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_signin, menu);
+        // Generate the Menu object from the XML resource file
+        inflater.inflate(R.menu.menu_geolocation, menu);
     }
 
     /**
@@ -61,13 +61,12 @@ public class SignInFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Determine the action to take place according to the Id of the action selected
-        if (item.getItemId() == R.id.mSignin) {
+        if (item.getItemId() == R.id.mLocalizame) {
             // Notify the user that this action has been selected
-            Toast.makeText(getContext(), R.string.menu_fragment_signin, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.menu_fragment_localizame, Toast.LENGTH_SHORT).show();
             return true;
         }
         // There was no custom behaviour for that action, so let the system take care of it
         return super.onOptionsItemSelected(item);
     }
-
 }

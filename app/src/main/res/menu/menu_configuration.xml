@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/mList"
-        android:icon="@android:drawable/ic_menu_sort_by_size"
-        android:title="@string/menu_fragment_list"
+        android:id="@+id/mConfiguracion"
+        android:icon="@android:drawable/ic_menu_upload"
+        android:title="@string/menu_fragment_configuracion"
         app:showAsAction="never" />
 </menu>

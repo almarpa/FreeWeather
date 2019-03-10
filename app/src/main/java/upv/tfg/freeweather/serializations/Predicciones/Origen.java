@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.Serializaciones.Predicciones;
+package upv.tfg.freeweather.serializations.Predicciones;
 
 public class Origen {
 

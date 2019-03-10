@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.Serializaciones;
+package upv.tfg.freeweather.serializations;
 
 public class SerializadorInicial {
 

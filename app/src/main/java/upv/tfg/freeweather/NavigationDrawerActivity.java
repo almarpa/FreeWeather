@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -14,28 +13,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import upv.tfg.freeweather.fragments.MainWindowFragment;
-import upv.tfg.freeweather.serializations.*;
 import upv.tfg.freeweather.fragments.RadarFragment;
 import upv.tfg.freeweather.fragments.WarningsFragment;
 import upv.tfg.freeweather.fragments.GeolocationFragment;
 import upv.tfg.freeweather.fragments.FavoritesFragment;
 
 /**
- * Description.....
+ * Shows a navigation drawer activity with some options to see predictions and another options.
  */
 public class NavigationDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -76,7 +67,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                     .replace(R.id.frameLayout, new MainWindowFragment())
                     .commit();
 
-            ((NavigationView) findViewById(R.id.navView)).setCheckedItem(R.id.mLocalizame);
+            ((NavigationView) findViewById(R.id.navView)).setCheckedItem(R.id.mGeolocation);
         }
     }
 
@@ -109,7 +100,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 
         switch (item.getItemId()) {
 
-            case R.id.mLocalizame:
+            case R.id.mGeolocation:
                 tag = "geolocation";
                 fragment = getSupportFragmentManager().findFragmentByTag(tag);
                 if (fragment == null) {
@@ -118,7 +109,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                 toolBar.setTitle(R.string.title_localizame);
                 break;
 
-            case R.id.mFavoritos:
+            case R.id.mFavorites:
                 tag = "favorites";
                 fragment = getSupportFragmentManager().findFragmentByTag(tag);
                 if (fragment == null) {
@@ -127,7 +118,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                 toolBar.setTitle(R.string.title_favoritos);
                 break;
 
-            case R.id.mAvisos:
+            case R.id.mWarnings:
                 tag = "warnings";
                 fragment = getSupportFragmentManager().findFragmentByTag(tag);
                 if (fragment == null) {

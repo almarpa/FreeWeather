@@ -1,13 +1,13 @@
 package upv.tfg.freeweather.serializations;
 
-public class SerializadorInicial {
+public class Init {
 
     public String descrip;
     public String estado;
     public String datos;
     public String metadatos;
 
-    public SerializadorInicial(String descrip, String estado, String datos, String metadatos) {
+    public Init(String descrip, String estado, String datos, String metadatos) {
         this.descrip = descrip;
         this.estado = estado;
         this.datos = datos;

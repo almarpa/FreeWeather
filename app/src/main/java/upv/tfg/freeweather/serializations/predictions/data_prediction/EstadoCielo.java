@@ -1,9 +1,9 @@
-package upv.tfg.freeweather.serializations.Predicciones;
+package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
 public class EstadoCielo {
 
     private String value;
-    private int periodo;
+    private String periodo;
     private String descripcion;
 
     public EstadoCielo(){
@@ -18,11 +18,11 @@ public class EstadoCielo {
         this.value = value;
     }
 
-    public int getPeriodo() {
+    public String getPeriodo() {
         return periodo;
     }
 
-    public void setPeriodo(int periodo) {
+    public void setPeriodo(String periodo) {
         this.periodo = periodo;
     }
 

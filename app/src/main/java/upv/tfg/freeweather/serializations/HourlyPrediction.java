@@ -1,30 +1,32 @@
 package upv.tfg.freeweather.serializations;
 
-import com.google.gson.annotations.SerializedName;
-import upv.tfg.freeweather.serializations.Predicciones.*;
+import upv.tfg.freeweather.serializations.predictions.*;
 
-public class PrediccionDiaria {
+public class HourlyPrediction {
 
-    private Origen origen;
+    private Origin origin;
+
     private String elaborado;
-    private String nombre;
-    private String provincia;
-    @SerializedName("prediccion")
-    private PrediccionD predic;
 
-    public PrediccionDiaria(){
+    private String nombre;
+
+    private String provincia;
+
+    private PH prediccion;
+
+    public HourlyPrediction(){
 
     }
 
-    public Origen getOrigen() { return origen; }
+    public Origin getOrigin() { return origin; }
     public String getElaborado() {return elaborado;}
     public String getNombre() {return nombre;}
     public String getProvincia() {return provincia; }
-    public PrediccionD getPredic() { return predic; }
+    public PH getPrediccion() { return prediccion; }
 
-    public void setOrigen(Origen origen) { this.origen = origen; }
+    public void setOrigin(Origin origin) { this.origin = origin; }
     public void setElaborado(String elaborado) {this.elaborado = elaborado;}
     public void setNombre(String nombre) {this.nombre = nombre;}
     public void setProvincia(String provincia) {this.provincia = provincia;}
-    public void setPredic(PrediccionD predic) { this.predic = predic; }
+    public void setPrediccion(PH prediccion) { this.prediccion = prediccion; }
 }

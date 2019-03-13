@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/mLocalizame"
+            android:id="@+id/mGeolocation"
             android:icon="@android:drawable/ic_menu_send"
             android:title="@string/title_localizame" />
         <item
-            android:id="@+id/mFavoritos"
+            android:id="@+id/mFavorites"
             android:icon="@android:drawable/ic_menu_edit"
             android:title="@string/title_favoritos" />
         <item
-            android:id="@+id/mAvisos"
+            android:id="@+id/mWarnings"
             android:icon="@android:drawable/ic_menu_sort_by_size"
             android:title="@string/title_avisos" />
         <item

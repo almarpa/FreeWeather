@@ -1,6 +1,6 @@
-package upv.tfg.freeweather.serializations.Predicciones;
+package upv.tfg.freeweather.serializations;
 
-public class Origen {
+public class Origin {
 
     private String productor;
     private String web;
@@ -9,7 +9,7 @@ public class Origen {
     private String copyright;
     private String notaLegal;
 
-    public Origen(){
+    public Origin(){
 
     }
 

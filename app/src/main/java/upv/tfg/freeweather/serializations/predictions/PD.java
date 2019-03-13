@@ -1,14 +1,14 @@
-package upv.tfg.freeweather.serializations.Predicciones;
+package upv.tfg.freeweather.serializations.predictions;
 
 import com.google.gson.annotations.SerializedName;
 
 /*PREDICCION*/
-public class PrediccionD {
+public class PD {
 
     @SerializedName("dia")
     private Diaria[] diaria;
 
-    public PrediccionD(){
+    public PD(){
 
     }
 

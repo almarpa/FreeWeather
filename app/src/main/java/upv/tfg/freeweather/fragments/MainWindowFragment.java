@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -21,11 +22,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.serializations.PrediccionHoraria;
-import upv.tfg.freeweather.serializations.SerializadorInicial;
+import upv.tfg.freeweather.serializations.DailyPrediction;
+import upv.tfg.freeweather.serializations.HourlyPrediction;
+import upv.tfg.freeweather.serializations.Init;
 
 /**
- * Main window (Visualizar predicciones horarias y diarias)
+ * Main window allows the view of daily and hourly predictions.
  */
 public class MainWindowFragment extends Fragment {
 
@@ -40,13 +42,23 @@ public class MainWindowFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    /**
-     * Creates the View associated to this Fragment from a Layout resource.
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main_window, null);
+        View view = inflater.inflate(R.layout.fragment_main_window, null);
+
+        //Listener para el botón de pruebas JSON
+        Button btn = view.findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HTTPConnection hc = new HTTPConnection();
+                hc.execute();
+            }
+        });
+
+        return view;
+
     }
 
     @Override
@@ -62,21 +74,19 @@ public class MainWindowFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public void Btn(View view) {
-        HTTPConnection task = new HTTPConnection();
-        task.execute();
-    }
-
-    private void displayData(PrediccionHoraria[] sp) {
+    private void displayData(HourlyPrediction[] sp) {
 
         TextView tvDatos =  getView().findViewById(R.id.textView);
         String text =
                 "HORARIA\n"+
-                " Descripcion de predicciones: " + sp[0].getPredic().getElementHorario(0).getElement(5).getDescripcion()+",\n" +
-                " Elaborado: "+sp[0].getElaborado()+",\n" +
                 " Nombre: "+sp[0].getNombre()+",\n" +
-                " Provincia: "+sp[0].getProvincia();
+                " Provincia: "+sp[0].getProvincia() +
+                " Descripcion de predicciones: " + sp[0].getPrediccion().getElementHorario(0).getEstadoCielo(0).getDescripcion()+",\n" +
+                " Descripcion de predicciones: " + sp[0].getPrediccion().getElementHorario(0).getEstadoCielo(0).getValue()+",\n" +
+                " Descripcion de predicciones: " + sp[0].getPrediccion().getElementHorario(0).getEstadoCielo(0).getPeriodo()+",\n" ;
+
         tvDatos.setText(text);
+
         /*
         // EJEMPLO DE CONSULTA A LA TABLA MUNICIPIOS
         db = myhelper.getWritableDatabase();
@@ -95,8 +105,8 @@ public class MainWindowFragment extends Fragment {
     //Conexion con la API y obtencion del JSON
     public class HTTPConnection extends AsyncTask<Void, Void, Void> {
 
-        private SerializadorInicial gs;
-        private PrediccionHoraria[] sp;
+        private Init init;
+        private HourlyPrediction[] sp;
 
         private URL url;
         private HttpURLConnection connection;
@@ -123,12 +133,12 @@ public class MainWindowFragment extends Fragment {
                 reader = new InputStreamReader(connection.getInputStream());
                 builder = new GsonBuilder();
                 gson = builder.create();
-                gs = gson.fromJson(reader, SerializadorInicial.class);
+                init = gson.fromJson(reader, Init.class);
 
                 connection.disconnect();
 
                 //Segunda Peticion GET
-                url = new URL(gs.datos);
+                url = new URL(init.datos);
 
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
@@ -139,7 +149,7 @@ public class MainWindowFragment extends Fragment {
                 reader = new InputStreamReader(connection.getInputStream());
                 builder = new GsonBuilder();
                 gson = builder.create();
-                sp = gson.fromJson(reader, PrediccionHoraria[].class);
+                sp = gson.fromJson(reader, HourlyPrediction[].class);
 
                 connection.disconnect();
 

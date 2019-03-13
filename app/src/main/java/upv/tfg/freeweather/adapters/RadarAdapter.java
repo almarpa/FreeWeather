@@ -1,56 +1,33 @@
-/*
- * Copyright (c) 2016. David de Andrés and Juan Carlos Ruiz, DISCA - UPV, Development of apps for mobile devices.
- */
-
 package upv.tfg.freeweather.adapters;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
 import upv.tfg.freeweather.R;
 
-/*
- * Adapter that maps a given array of Drawables (provided as a resource) and a GridView.
- * */
+
 public class RadarAdapter extends BaseAdapter {
 
-    // Hold reference to the Context
     private Context context;
-    // Array of Drawables obtained from a resource
     private TypedArray images;
 
-    /*
-     * Gets the required Context and obtains the array of Drawables from a resource.
-     * */
     public RadarAdapter(Context context) {
         this.context = context;
-        // Get the array of Drawables, which is already defined as a resource
         images = context.getResources().obtainTypedArray(R.array.grid_list);
     }
 
-    /*
-     * Gets the number of Drawables available in the array.
-     * */
     @Override
     public int getCount() {
         return images.length();
     }
 
-    /*
-     * Gets the Drawable available in a given position in the array.
-     * */
     @Override
     public Object getItem(int position) {
         return images.getDrawable(position);
     }
 
-    /*
-     * Gets the Id of the Drawable at a given position in the array.
-     * */
     @Override
     public long getItemId(int position) {
         return position;
@@ -67,7 +44,6 @@ public class RadarAdapter extends BaseAdapter {
             // Get the existing ImageView to display the Drawable
             imageView = new ImageView(context);
         } else {
-            // Create a new ImageView to display the Drawable
             imageView = (ImageView) convertView;
         }
         // Assign the Drawable at the given position of the array to the obtained ImageView
@@ -75,10 +51,6 @@ public class RadarAdapter extends BaseAdapter {
         return imageView;
     }
 
-    /*
-     * It is necessary to recycle TypedArrays to be re-used later.
-     * The Activity/Fragment using this Adapter should call this method when no longer used.
-     * */
     public void recycle() {
         images.recycle();
     }

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/mMainWindow"
+        android:id="@+id/mNotifications"
         android:icon="@android:drawable/ic_menu_upload"
         android:title="@string/menu_fragment_main_window"
         app:showAsAction="never" />

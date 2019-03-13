@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/mGrid"
+        android:id="@+id/mRadar"
         android:icon="@android:drawable/ic_menu_gallery"
         android:title="@string/menu_fragment_radar"
         app:showAsAction="never" />

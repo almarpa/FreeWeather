@@ -2,11 +2,13 @@ package upv.tfg.freeweather.serializations.predictions;
 
 import com.google.gson.annotations.SerializedName;
 
-/*PREDICCION*/
+import java.util.List;
+
+/*PREDICCION */
 public class PH {
 
     @SerializedName("dia")
-    private Horaria[] horaria;
+    private List<Horaria> horaria;
 
     public PH(){
 
@@ -16,11 +18,7 @@ public class PH {
     Devuelve el elemento "i" del array
     Array de 3 elementos: es una prediccion horaria[0..2]
     */
-    public Horaria getElementHorario(int j){
-        return horaria[j];
-    }
-
-    public Horaria[] getHoraria() { return horaria; }
-    public void setHoraria(Horaria[] horaria) { this.horaria = horaria; }
+    public List<Horaria> getHoraria() { return horaria; }
+    public void setHoraria(List<Horaria> horaria) { this.horaria = horaria; }
 
 }

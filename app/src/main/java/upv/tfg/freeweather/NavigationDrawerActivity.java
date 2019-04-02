@@ -30,11 +30,11 @@ import upv.tfg.freeweather.fragments.FavoritesFragment;
  */
 public class NavigationDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    DBController myhelper = new DBController(this);
-    SQLiteDatabase db;
+    private DBController myhelper = new DBController(this);
+    private SQLiteDatabase db;
 
-    Toolbar toolBar;
-    DrawerLayout drawerLayout;
+    private Toolbar toolBar;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
-        getSupportActionBar().setTitle(R.string.app_name);
+        //getSupportActionBar().setTitle(R.string.app_name);
 
         drawerLayout = findViewById(R.id.drawerLayout);
 
@@ -69,6 +69,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 
             ((NavigationView) findViewById(R.id.navView)).setCheckedItem(R.id.mGeolocation);
         }
+
     }
 
     @Override
@@ -88,7 +89,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             drawerLayout.closeDrawer(GravityCompat.START);
         }
         else {
-            super.onBackPressed();
+            super.onBackPressed(); //fxdghjkl;
         }
     }
 
@@ -151,7 +152,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 
     //Fill the database with all the localities from the csv.
     public void fillBD(){
-        String mCSVfile = "codmunicip_nuevo.csv";
+        String mCSVfile = "codmunicip_v1.csv";
 
         AssetManager manager = getAssets();
         InputStream inStream = null;
@@ -190,5 +191,4 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("firstStart", false);
     }
-
 }

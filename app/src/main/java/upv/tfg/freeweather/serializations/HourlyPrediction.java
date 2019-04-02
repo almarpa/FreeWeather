@@ -1,17 +1,15 @@
 package upv.tfg.freeweather.serializations;
 
+import com.google.gson.annotations.SerializedName;
+
 import upv.tfg.freeweather.serializations.predictions.*;
 
 public class HourlyPrediction {
-
+    @SerializedName("origen")
     private Origin origin;
-
     private String elaborado;
-
     private String nombre;
-
     private String provincia;
-
     private PH prediccion;
 
     public HourlyPrediction(){
@@ -29,4 +27,7 @@ public class HourlyPrediction {
     public void setNombre(String nombre) {this.nombre = nombre;}
     public void setProvincia(String provincia) {this.provincia = provincia;}
     public void setPrediccion(PH prediccion) { this.prediccion = prediccion; }
+
+
+
 }

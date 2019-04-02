@@ -11,7 +11,9 @@
     <!--Menus-->
     <string name="menu_fragment_main_window">Notificaciones</string>
     <string name="menu_fragment_configuracion">Configuración</string>
-    <string name="menu_fragment_acerca_de">Acerca de</string>
+    <string name="menu_fragment_about_us">Acerca de</string>
+    <string name="menu_fragment_search">Búsqueda</string>
+
 
     <string name="menu_fragment_localizame">Localízame (GPS)</string>
     <string name="menu_fragment_favoritos">Favoritos</string>
@@ -32,4 +34,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_swipe_view">SwipeView</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
 </resources>

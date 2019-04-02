@@ -9,8 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.support.v7.widget.SearchView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,22 +21,24 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.serializations.DailyPrediction;
 import upv.tfg.freeweather.serializations.HourlyPrediction;
 import upv.tfg.freeweather.serializations.Init;
+import upv.tfg.freeweather.serializations.predictions.PD;
+import upv.tfg.freeweather.serializations.predictions.PH;
 
 /**
  * Main window allows the view of daily and hourly predictions.
  */
 public class MainWindowFragment extends Fragment {
 
-    public MainWindowFragment() {
-    }
+    //Hourly prediction
+    PH hp;
+    //Dialy prediction
+    PD dp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // The Fragment can now add actions to the ActionBar and react when they are clicked
         setHasOptionsMenu(true);
     }
@@ -45,49 +46,56 @@ public class MainWindowFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main_window, null);
 
-        //Listener para el botón de pruebas JSON
-        Button btn = view.findViewById(R.id.btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                HTTPConnection hc = new HTTPConnection();
-                hc.execute();
-            }
-        });
+        HTTPConnection hc = new HTTPConnection();
+        hc.execute();
 
-        return view;
-
+        return inflater.inflate(R.layout.fragment_main_window, container, false);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_search, menu);
         inflater.inflate(R.menu.menu_notifications, menu);
         inflater.inflate(R.menu.menu_configuration,menu);
+
+        //Search option in toolbar
+        MenuItem searchItem = menu.findItem(R.id.mSearch);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener((new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        }));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // There was no custom behaviour for that action, so let the system take care of it
-
         return super.onOptionsItemSelected(item);
     }
 
+
     private void displayData(HourlyPrediction[] sp) {
-
-        TextView tvDatos =  getView().findViewById(R.id.textView);
-        String text =
-                "HORARIA\n"+
-                " Nombre: "+sp[0].getNombre()+",\n" +
-                " Provincia: "+sp[0].getProvincia() +
-                " Descripcion de predicciones: " + sp[0].getPrediccion().getElementHorario(0).getEstadoCielo(0).getDescripcion()+",\n" +
-                " Descripcion de predicciones: " + sp[0].getPrediccion().getElementHorario(0).getEstadoCielo(0).getValue()+",\n" +
-                " Descripcion de predicciones: " + sp[0].getPrediccion().getElementHorario(0).getEstadoCielo(0).getPeriodo()+",\n" ;
-
+        /*
+        hp = sp[0].getPrediccion();
+        TextView tvDatos =  getView().findViewById(R.id.tvDatos);
+        String text = "Horaria\n";
+        for (int i = 0; i < hp.getHoraria().size(); i ++){
+            text += "Dia " + hp.getHoraria().get(i).getFecha() +": \n";
+            for (int j = 0; j < hp.getHoraria().get(i).getProbPrecipitacion().size(); j++) {
+                text += hp.getHoraria().get(i).getProbPrecipitacion().get(j).getPeriodo() + " " + hp.getHoraria().get(i).getProbPrecipitacion().get(j).getValue()+",\n" ;
+            }
+        }
         tvDatos.setText(text);
 
-        /*
         // EJEMPLO DE CONSULTA A LA TABLA MUNICIPIOS
         db = myhelper.getWritableDatabase();
         String[] args = new String[] {"Utiel"};
@@ -99,7 +107,7 @@ public class MainWindowFragment extends Fragment {
             } while (c.moveToNext());
         }
         c.close();
-    */
+        */
     }
 
     //Conexion con la API y obtencion del JSON
@@ -142,7 +150,7 @@ public class MainWindowFragment extends Fragment {
 
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
+                connection.setRequestProperty("Content-Type","application/json; charset=ISO-8859-1");
                 connection.setDoInput(true);
                 connection.connect();
 
@@ -163,7 +171,6 @@ public class MainWindowFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void params) {
-
             displayData(sp);
         }
     }

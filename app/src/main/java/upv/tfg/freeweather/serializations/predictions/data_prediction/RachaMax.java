@@ -1,20 +1,12 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-import com.google.gson.annotations.SerializedName;
+public class RachaMax {
 
-public class HumedadRelativa {
     private String value;
     private String periodo;
 
-    public HumedadRelativa(){
-    }
+    public RachaMax() {
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     public String getPeriodo() {
@@ -23,5 +15,13 @@ public class HumedadRelativa {
 
     public void setPeriodo(String periodo) {
         this.periodo = periodo;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

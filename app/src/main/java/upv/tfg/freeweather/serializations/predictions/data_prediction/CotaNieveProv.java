@@ -1,12 +1,11 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-import com.google.gson.annotations.SerializedName;
+public class CotaNieveProv {
 
-public class HumedadRelativa {
     private String value;
     private String periodo;
 
-    public HumedadRelativa(){
+    public CotaNieveProv(){
     }
 
     public String getValue() {

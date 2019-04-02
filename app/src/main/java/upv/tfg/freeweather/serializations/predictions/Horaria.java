@@ -1,5 +1,7 @@
 package upv.tfg.freeweather.serializations.predictions;
 
+import java.util.List;
+
 import upv.tfg.freeweather.serializations.predictions.data_prediction.EstadoCielo;
 import upv.tfg.freeweather.serializations.predictions.data_prediction.HumedadRelativa;
 import upv.tfg.freeweather.serializations.predictions.data_prediction.Nieve;
@@ -13,110 +15,90 @@ import upv.tfg.freeweather.serializations.predictions.data_prediction.Temperatur
 /*Prediccion horaria*/
 public class Horaria {
 
-    private EstadoCielo[] estadoCielo;
-    private Precipitacion[] precipitacion;
-    private ProbPrecipitacion[] probPrecipitacion;
-    private ProbTormenta[] probTormenta;
-    private Nieve[] nieve;
-    private ProbNieve[] probNieve;
-    private Temperatura[] temperatura;
-    private SensTermica[] sensTermica;
-    private HumedadRelativa[] humedadRelativa;
+    private List<EstadoCielo> estadoCielo;
+    private List<Precipitacion> precipitacion;
+    private List<ProbPrecipitacion> probPrecipitacion;
+    private List<ProbTormenta> probTormenta;
+    private List<Nieve> nieve;
+    private List<ProbNieve> probNieve;
+    private List<Temperatura> temperatura;
+    private List<SensTermica> sensTermica;
+    private List<HumedadRelativa> humedadRelativa;
     private String fecha;
 
     public Horaria() {
 
     }
 
-    public EstadoCielo[] getEstadoCielo() {
+    public List<EstadoCielo> getEstadoCielo() {
         return estadoCielo;
     }
-    public EstadoCielo getEstadoCielo(int i) {
-        return estadoCielo[i];
-    }
-    public void setEstadoCielo(EstadoCielo[] estadoCielo) {
+
+    public void setEstadoCielo(List<EstadoCielo> estadoCielo) {
         this.estadoCielo = estadoCielo;
     }
 
-    public Precipitacion[] getPrecipitacion() {
+    public List<Precipitacion> getPrecipitacion() {
         return precipitacion;
     }
-    public Precipitacion getPrecipitacion(int i) {
-        return precipitacion[i];
-    }
-    public void setPrecipitacion(Precipitacion[] precipitacion) {
+
+    public void setPrecipitacion(List<Precipitacion> precipitacion) {
         this.precipitacion = precipitacion;
     }
 
-    public ProbPrecipitacion[] getProbPrecipitacion() {
+    public List<ProbPrecipitacion> getProbPrecipitacion() {
         return probPrecipitacion;
     }
-    public ProbPrecipitacion getProbPrecipitacion(int i) {
-        return probPrecipitacion[i];
-    }
-    public void setProbPrecipitacion(ProbPrecipitacion[] probPrecipitacion) {
+
+    public void setProbPrecipitacion(List<ProbPrecipitacion> probPrecipitacion) {
         this.probPrecipitacion = probPrecipitacion;
     }
 
-    public ProbTormenta[] getProbTormenta() {
+    public List<ProbTormenta> getProbTormenta() {
         return probTormenta;
     }
-    public ProbTormenta getProbTormenta(int i) {
-        return probTormenta[i];
-    }
-    public void setProbTormenta(ProbTormenta[] probTormenta) {
+
+    public void setProbTormenta(List<ProbTormenta> probTormenta) {
         this.probTormenta = probTormenta;
     }
 
-    public Nieve[] getNieve() {
+    public List<Nieve> getNieve() {
         return nieve;
     }
-    public Nieve getNieve(int i) {
-        return nieve[i];
-    }
-    public void setNieve(Nieve[] nieve) {
+
+    public void setNieve(List<Nieve> nieve) {
         this.nieve = nieve;
     }
 
-    public ProbNieve[] getProbNieve() {
+    public List<ProbNieve> getProbNieve() {
         return probNieve;
     }
-    public ProbNieve getProbNieve(int i) {
-        return probNieve[i];
-    }
 
-    public void setProbNieve(ProbNieve[] probNieve) {
+    public void setProbNieve(List<ProbNieve> probNieve) {
         this.probNieve = probNieve;
     }
 
-    public Temperatura[] getTemperatura() {
+    public List<Temperatura> getTemperatura() {
         return temperatura;
     }
-    public Temperatura getTemperatura(int i) {
-        return temperatura[i];
-    }
 
-    public void setTemperatura(Temperatura[] temperatura) {
+    public void setTemperatura(List<Temperatura> temperatura) {
         this.temperatura = temperatura;
     }
 
-    public SensTermica[] getSensTermica() {
+    public List<SensTermica> getSensTermica() {
         return sensTermica;
     }
-    public SensTermica getSensTermica(int i) {
-        return sensTermica[i];
-    }
-    public void setSensTermica(SensTermica[] sensTermica) {
+
+    public void setSensTermica(List<SensTermica> sensTermica) {
         this.sensTermica = sensTermica;
     }
 
-    public HumedadRelativa[] getHumedadRelativa() {
+    public List<HumedadRelativa> getHumedadRelativa() {
         return humedadRelativa;
     }
-    public HumedadRelativa getHumedadRelativa(int i) {
-        return humedadRelativa[i];
-    }
-    public void setHumedadRelativa(HumedadRelativa[] humedadRelativa) {
+
+    public void setHumedadRelativa(List<HumedadRelativa> humedadRelativa) {
         this.humedadRelativa = humedadRelativa;
     }
 

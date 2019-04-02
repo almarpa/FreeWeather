@@ -2,11 +2,13 @@ package upv.tfg.freeweather.serializations.predictions;
 
 import com.google.gson.annotations.SerializedName;
 
-/*PREDICCION*/
+import java.util.List;
+
+/*PREDICCION */
 public class PD {
 
     @SerializedName("dia")
-    private Diaria[] diaria;
+    private List<Diaria> diaria;
 
     public PD(){
 
@@ -14,13 +16,9 @@ public class PD {
 
     /*
     Devuelve el elemento "i" del array
-    Array de 5 elementos: es una prediccion diaria[0..4]
+    Array de 7 elementos: es una prediccion diaria[0..6]
     */
-    public Diaria getElementDiario(int j){
-        return diaria[j];
-    }
-
-    public Diaria[] getHoraria() { return diaria; }
-    public void setHoraria(Diaria[] diaria) { this.diaria = diaria; }
+    public List<Diaria> getDiaria() { return diaria; }
+    public void setDiaria(List<Diaria> diaria) { this.diaria = diaria; }
 
 }

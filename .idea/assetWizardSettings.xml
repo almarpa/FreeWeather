@@ -35,7 +35,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_search_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/toggle/ic_star_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -67,9 +67,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_menu_search" />
+                                      <entry key="imageAsset" value="C:\Users\alex_\AndroidStudioProjects\FreeWeather\app\src\main\res\drawable-anydpi\nube.png" />
+                                      <entry key="outputName" value="favorite_item_pressed" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="ffffff" />
+                                      <entry key="themeColor" value="e1e502" />
                                     </map>
                                   </option>
                                 </PersistentState>

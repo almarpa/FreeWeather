@@ -1,95 +1,56 @@
 package upv.tfg.freeweather.fragments.predictions;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import upv.tfg.freeweather.R;
+import upv.tfg.freeweather.fragments.MainWindowFragment;
+import upv.tfg.freeweather.serializations.HourlyPrediction;
+import upv.tfg.freeweather.serializations.Init;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TodayFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TodayFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TodayFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+    private View view;
 
     public TodayFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TodayFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TodayFragment newInstance(String param1, String param2) {
-        TodayFragment fragment = new TodayFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_today, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        view =  inflater.inflate(R.layout.fragment_tab_today, container, false);
+        return view;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     /**
@@ -103,7 +64,32 @@ public class TodayFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
+
+    private void displayData(HourlyPrediction[] sp) {
+
+        TextView descripcion =  getView().findViewById(R.id.tvEstado);
+        TextView humedad =  getView().findViewById(R.id.tvHumedad);
+        TextView precipitacion =  getView().findViewById(R.id.tvPrecipitacion);
+        TextView sensTermica =  getView().findViewById(R.id.tvSensTermica);
+
+        descripcion.setText(sp[0].getPrediccion().getHoraria().get(0).getEstadoCielo().get(0).getDescripcion());
+        humedad.setText(sp[0].getPrediccion().getHoraria().get(0).getHumedadRelativa().get(0).getValue());
+        precipitacion.setText(sp[0].getPrediccion().getHoraria().get(0).getPrecipitacion().get(0).getValue());
+        sensTermica.setText(sp[0].getPrediccion().getHoraria().get(0).getSensTermica().get(0).getValue());
+
+        /*
+        hp = sp[0].getPrediccion();
+        TextView tvDatos =  getView().findViewById(R.id.tvDatos);
+        String text = "Horaria\n";
+        for (int i = 0; i < hp.getHoraria().size(); i ++){
+            text += "Dia " + hp.getHoraria().get(i).getFecha() +": \n";
+            for (int j = 0; j < hp.getHoraria().get(i).getProbPrecipitacion().size(); j++) {
+                text += hp.getHoraria().get(i).getProbPrecipitacion().get(j).getPeriodo() + " " + hp.getHoraria().get(i).getProbPrecipitacion().get(j).getValue()+",\n" ;
+            }
+        }
+        tvDatos.setText(text);
+        */
+    }
+
 }

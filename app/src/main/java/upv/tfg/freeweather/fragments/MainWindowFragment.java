@@ -2,7 +2,9 @@ package upv.tfg.freeweather.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,21 +12,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.w3c.dom.Text;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.Locale;
 
 import upv.tfg.freeweather.R;
+import upv.tfg.freeweather.adapters.ViewPagerAdapter;
+import upv.tfg.freeweather.fragments.predictions.DailyFragment;
+import upv.tfg.freeweather.fragments.predictions.HourlyFragment;
+import upv.tfg.freeweather.fragments.predictions.TodayFragment;
 import upv.tfg.freeweather.serializations.HourlyPrediction;
 import upv.tfg.freeweather.serializations.Init;
 import upv.tfg.freeweather.serializations.predictions.PD;
 import upv.tfg.freeweather.serializations.predictions.PH;
+import upv.tfg.freeweather.utils.Utils;
 
 /**
  * Main window allows the view of daily and hourly predictions.
@@ -32,9 +48,15 @@ import upv.tfg.freeweather.serializations.predictions.PH;
 public class MainWindowFragment extends Fragment {
 
     //Hourly prediction
-    PH hp;
+    private PH hp;
     //Dialy prediction
-    PD dp;
+    private PD dp;
+
+    private Utils utils;
+
+    private View view;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,10 +69,25 @@ public class MainWindowFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        view = inflater.inflate(R.layout.fragment_main_window, container, false);
+
+        tabLayout = (TabLayout) view.findViewById(R.id.tlPredicciones);
+        viewPager = (ViewPager) view.findViewById(R.id.viewpager_id);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+
+        adapter.addFragment(new TodayFragment(),"Hoy");
+        adapter.addFragment(new HourlyFragment(),"Horaria");
+        adapter.addFragment(new DailyFragment(),"Diaria");
+
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+        //Obtenemos la prediccion en Valencia por defecto
+        //Falta por inmplementar la búsqueda por localidades
         HTTPConnection hc = new HTTPConnection();
         hc.execute();
 
-        return inflater.inflate(R.layout.fragment_main_window, container, false);
+        return view;
     }
 
     @Override
@@ -84,6 +121,15 @@ public class MainWindowFragment extends Fragment {
 
 
     private void displayData(HourlyPrediction[] sp) {
+
+        TextView location =  getView().findViewById(R.id.tvLocalidad);
+        TextView date = getView().findViewById(R.id.tvFechayHora);
+
+        String dat = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        date.setText(dat);
+        location.setText(sp[0].getProvincia());
+
+
         /*
         hp = sp[0].getPrediccion();
         TextView tvDatos =  getView().findViewById(R.id.tvDatos);
@@ -95,6 +141,7 @@ public class MainWindowFragment extends Fragment {
             }
         }
         tvDatos.setText(text);
+
 
         // EJEMPLO DE CONSULTA A LA TABLA MUNICIPIOS
         db = myhelper.getWritableDatabase();
@@ -130,15 +177,15 @@ public class MainWindowFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             try {
                 //Primera Peticion GET
-                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/46250?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
+                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/46249?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
 
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
+                connection.setRequestProperty("Content-Type","application/json; charset=ISO_8859_1");
                 connection.setDoInput(true);
                 connection.connect();
 
-                reader = new InputStreamReader(connection.getInputStream());
+                reader = new InputStreamReader(connection.getInputStream(),StandardCharsets.ISO_8859_1);
                 builder = new GsonBuilder();
                 gson = builder.create();
                 init = gson.fromJson(reader, Init.class);
@@ -150,11 +197,11 @@ public class MainWindowFragment extends Fragment {
 
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type","application/json; charset=ISO-8859-1");
+                connection.setRequestProperty("Content-Type","application/json; charset=ISO_8859_1");
                 connection.setDoInput(true);
                 connection.connect();
 
-                reader = new InputStreamReader(connection.getInputStream());
+                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
                 builder = new GsonBuilder();
                 gson = builder.create();
                 sp = gson.fromJson(reader, HourlyPrediction[].class);

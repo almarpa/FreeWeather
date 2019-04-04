@@ -13,14 +13,11 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.adapters.RadarAdapter;
 
 /**
- * Description.....
+ * This fragment...
  */
 public class RadarFragment extends Fragment {
-
-    RadarAdapter adapter;
 
     public RadarFragment() {
     }
@@ -34,17 +31,7 @@ public class RadarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        GridView grid = (GridView) inflater.inflate(R.layout.fragment_radar, null);
-        adapter = new RadarAdapter(getContext());
-        grid.setAdapter(adapter);
-
-        return grid;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        adapter.recycle();
+        return inflater.inflate(R.layout.fragment_menu_radar, null);
     }
 
     @Override

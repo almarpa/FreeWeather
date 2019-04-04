@@ -6,9 +6,10 @@ package upv.tfg.freeweather.utils;
  */
 public class Utils {
 
-    // Method to eliminate comas in a string variable
-    public String eliminateCommas(String variable){
-        return "";
+    // Method to obtain a substring from character '/'
+    public String cutStringBy(String variable){
+        String substr= variable.substring(variable.indexOf('a'));
+        return substr;
     }
 
     //...........

@@ -11,7 +11,7 @@ import android.widget.Toast;
 import upv.tfg.freeweather.R;
 
 /**
- *  Description...
+ *  This fragment...
  */
 public class GeolocationFragment extends Fragment {
 
@@ -27,7 +27,7 @@ public class GeolocationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_geolocation, null);
+        return inflater.inflate(R.layout.fragment_menu_geolocation, null);
     }
 
     @Override

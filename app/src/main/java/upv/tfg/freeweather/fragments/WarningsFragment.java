@@ -14,7 +14,7 @@ import android.widget.Toast;
 import upv.tfg.freeweather.R;
 
 /**
- *  Description...
+ *  This fragment shows warnings provided by AEMET (Agencia Estatal de Meteorología Española).
  */
 public class WarningsFragment extends Fragment {
 
@@ -30,7 +30,7 @@ public class WarningsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_warnings, null);
+        return inflater.inflate(R.layout.fragment_menu_warnings, null);
     }
 
     @Override

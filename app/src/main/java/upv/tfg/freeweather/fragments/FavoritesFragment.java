@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import upv.tfg.freeweather.R;
 
+/**
+ * This fragment ...
+ */
 public class FavoritesFragment extends Fragment {
 
     public FavoritesFragment() {
@@ -25,7 +28,7 @@ public class FavoritesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_favorites, container, false);
+        return inflater.inflate(R.layout.fragment_menu_favorites, container, false);
     }
 
     @Override

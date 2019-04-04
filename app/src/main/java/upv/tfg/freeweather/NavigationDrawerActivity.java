@@ -26,7 +26,7 @@ import upv.tfg.freeweather.fragments.GeolocationFragment;
 import upv.tfg.freeweather.fragments.FavoritesFragment;
 
 /**
- * Shows a navigation drawer activity with some options to see predictions and another options.
+ * Shows a navigation drawer activity with some options.
  */
 public class NavigationDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,6 +41,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
 
+        //If the app starts for the first time, the database is loaded.
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart",true);
         if (firstStart==true){
@@ -52,24 +53,19 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
-        //getSupportActionBar().setTitle(R.string.app_name);
 
         drawerLayout = findViewById(R.id.drawerLayout);
+        drawerLayout.openDrawer(GravityCompat.START);
 
         NavigationView navigationView = findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
-
-        drawerLayout.openDrawer(GravityCompat.START);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frameLayout, new MainWindowFragment())
                     .commit();
-
-            ((NavigationView) findViewById(R.id.navView)).setCheckedItem(R.id.mGeolocation);
         }
-
     }
 
     @Override
@@ -89,7 +85,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
             drawerLayout.closeDrawer(GravityCompat.START);
         }
         else {
-            super.onBackPressed(); //fxdghjkl;
+            super.onBackPressed();
         }
     }
 
@@ -150,7 +146,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         return true;
     }
 
-    //Fill the database with all the localities from the csv.
+    //Fill the database with all the locations from the .csv file.
     public void fillBD(){
         String mCSVfile = "codmunicip_v1.csv";
 

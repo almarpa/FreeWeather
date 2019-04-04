@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".fragments.predictions.TodayFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:cardCornerRadius="10dp">
+        >
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="3"
+                android:gravity="center|right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvEstado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="Descripción"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:id="@+id/ivEstado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="120dp"
+                    android:background="@drawable/nube" />
+                />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lblHumedad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:height="1dp"
+                        android:text="Humedad:" />
+
+                    <TextView
+                        android:id="@+id/tvHumedad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:height="1dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lblPrecipitacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:height="1dp"
+                        android:text="Precipitación:" />
+
+                    <TextView
+                        android:id="@+id/tvPrecipitacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:height="1dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lblProbTormenta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:height="1dp"
+                        android:text="Prob. de Tormenta:" />
+
+                    <TextView
+                        android:id="@+id/tvProbTormenta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:height="1dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lblCotaNieveProv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:height="1dp"
+                        android:text="Prob. de nieve:" />
+
+                    <TextView
+                        android:id="@+id/tvCotaNieveProv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:height="1dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lblSensTermica"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:height="1dp"
+                        android:text="Sensación Térmica:" />
+
+                    <TextView
+                        android:id="@+id/tvSensTermica"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:height="1dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

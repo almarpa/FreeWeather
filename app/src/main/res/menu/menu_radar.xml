@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mRadar"
-        android:icon="@android:drawable/ic_dialog_info"
         android:title="@string/menu_fragment_radar"
         app:showAsAction="never" />
 </menu>

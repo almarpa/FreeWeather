@@ -19,11 +19,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import upv.tfg.freeweather.fragments.MainWindowFragment;
-import upv.tfg.freeweather.fragments.RadarFragment;
-import upv.tfg.freeweather.fragments.WarningsFragment;
-import upv.tfg.freeweather.fragments.GeolocationFragment;
-import upv.tfg.freeweather.fragments.FavoritesFragment;
+import upv.tfg.freeweather.view.MainWindowFragment;
+import upv.tfg.freeweather.view.menu_options.RadarFragment;
+import upv.tfg.freeweather.view.menu_options.WarningsFragment;
+import upv.tfg.freeweather.view.menu_options.GeolocationFragment;
+import upv.tfg.freeweather.view.menu_options.FavoritesFragment;
 
 /**
  * Shows a navigation drawer activity with some options.
@@ -59,6 +59,12 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
 
         NavigationView navigationView = findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.getMenu().getItem(0).setIcon(R.drawable.ic_my_location_black_24dp);
+        navigationView.getMenu().getItem(1).setIcon(R.drawable.ic_stars_black_24dp);
+        navigationView.getMenu().getItem(2).setIcon(R.drawable.ic_info_black_24dp);
+        navigationView.getMenu().getItem(3).setIcon(R.drawable.ic_map_black_24dp);
+
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()

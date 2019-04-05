@@ -1,7 +1,8 @@
-package upv.tfg.freeweather.serializations;
+package upv.tfg.freeweather.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import upv.tfg.freeweather.serializations.Origin;
 import upv.tfg.freeweather.serializations.predictions.*;
 
 public class DailyPrediction {

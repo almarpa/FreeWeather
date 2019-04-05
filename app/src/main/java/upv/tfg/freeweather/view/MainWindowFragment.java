@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.fragments;
+package upv.tfg.freeweather.view;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,9 +17,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -27,16 +24,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.Locale;
 
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.ViewPagerAdapter;
-import upv.tfg.freeweather.fragments.predictions.DailyFragment;
-import upv.tfg.freeweather.fragments.predictions.HourlyFragment;
-import upv.tfg.freeweather.fragments.predictions.TodayFragment;
-import upv.tfg.freeweather.serializations.HourlyPrediction;
+import upv.tfg.freeweather.view.predictions.DailyFragment;
+import upv.tfg.freeweather.view.predictions.HourlyFragment;
+import upv.tfg.freeweather.view.predictions.TodayFragment;
+import upv.tfg.freeweather.model.HourlyPrediction;
 import upv.tfg.freeweather.serializations.Init;
 import upv.tfg.freeweather.serializations.predictions.PD;
 import upv.tfg.freeweather.serializations.predictions.PH;
@@ -51,9 +46,7 @@ public class MainWindowFragment extends Fragment {
     private PH hp;
     //Dialy prediction
     private PD dp;
-
-    private Utils utils;
-
+    
     private View view;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -127,22 +120,9 @@ public class MainWindowFragment extends Fragment {
 
         String dat = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         date.setText(dat);
-        location.setText(sp[0].getProvincia());
-
+        location.setText(sp[0].getNombre());
 
         /*
-        hp = sp[0].getPrediccion();
-        TextView tvDatos =  getView().findViewById(R.id.tvDatos);
-        String text = "Horaria\n";
-        for (int i = 0; i < hp.getHoraria().size(); i ++){
-            text += "Dia " + hp.getHoraria().get(i).getFecha() +": \n";
-            for (int j = 0; j < hp.getHoraria().get(i).getProbPrecipitacion().size(); j++) {
-                text += hp.getHoraria().get(i).getProbPrecipitacion().get(j).getPeriodo() + " " + hp.getHoraria().get(i).getProbPrecipitacion().get(j).getValue()+",\n" ;
-            }
-        }
-        tvDatos.setText(text);
-
-
         // EJEMPLO DE CONSULTA A LA TABLA MUNICIPIOS
         db = myhelper.getWritableDatabase();
         String[] args = new String[] {"Utiel"};
@@ -177,7 +157,7 @@ public class MainWindowFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             try {
                 //Primera Peticion GET
-                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/46249?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
+                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/46250?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
 
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");

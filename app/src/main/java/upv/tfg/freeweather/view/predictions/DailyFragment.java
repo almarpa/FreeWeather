@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.fragments.predictions;
+package upv.tfg.freeweather.view.predictions;
 
 import android.content.Context;
 import android.net.Uri;

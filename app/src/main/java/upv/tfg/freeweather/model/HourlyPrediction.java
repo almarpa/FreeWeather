@@ -1,7 +1,8 @@
-package upv.tfg.freeweather.serializations;
+package upv.tfg.freeweather.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import upv.tfg.freeweather.serializations.Origin;
 import upv.tfg.freeweather.serializations.predictions.*;
 
 public class HourlyPrediction {
@@ -29,5 +30,24 @@ public class HourlyPrediction {
     public void setPrediccion(PH prediccion) { this.prediccion = prediccion; }
 
 
-
+    //
+    //  MÉTODOS PARA OBTENER LA INFORMACIÓN, GRÁFICAS, ETC. DE LA PREDICCIÓN
+    //
+    public String getTemperatura(){
+        String res;
+        res = prediccion.getHoraria().get(0).getTemperatura().get(0).getValue();
+        return res;
+    }
+    /*
+        hp = sp[0].getPrediccion();
+        TextView tvDatos =  getView().findViewById(R.id.tvDatos);
+        String text = "Horaria\n";
+        for (int i = 0; i < hp.getHoraria().size(); i ++){
+            text += "Dia " + hp.getHoraria().get(i).getFecha() +": \n";
+            for (int j = 0; j < hp.getHoraria().get(i).getProbPrecipitacion().size(); j++) {
+                text += hp.getHoraria().get(i).getProbPrecipitacion().get(j).getPeriodo() + " " + hp.getHoraria().get(i).getProbPrecipitacion().get(j).getValue()+",\n" ;
+            }
+        }
+        tvDatos.setText(text);
+        */
 }

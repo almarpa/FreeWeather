@@ -1,7 +1,5 @@
-package upv.tfg.freeweather.fragments;
-
+package upv.tfg.freeweather.view.menu_options;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,19 +8,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import upv.tfg.freeweather.R;
 
 /**
- *  This fragment shows warnings provided by AEMET (Agencia Estatal de Meteorología Española).
+ *  This fragment...
  */
-public class WarningsFragment extends Fragment {
+public class GeolocationFragment extends Fragment {
 
-    public WarningsFragment() {
+    public GeolocationFragment() {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -30,22 +27,20 @@ public class WarningsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_menu_warnings, null);
+        return inflater.inflate(R.layout.fragment_menu_geolocation, null);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_warnings, menu);
+        inflater.inflate(R.menu.menu_geolocation, menu);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.mWarnings) {
-            Toast.makeText(getContext(), R.string.menu_fragment_avisos, Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.mGeolocation) {
+            Toast.makeText(getContext(), R.string.menu_fragment_localizame, Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

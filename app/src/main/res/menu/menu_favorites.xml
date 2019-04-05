@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mFavorites"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@android:drawable/ic_menu_view"
         android:title="@string/menu_fragment_favoritos"
         app:showAsAction="never" />
 </menu>

@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".fragments.predictions.TodayFragment">
+    tools:context=".view.predictions.TodayFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="30dp">
         >
 
         <LinearLayout
@@ -25,32 +25,101 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="3"
+                android:layout_margin="5dp"
+                android:layout_weight="2"
                 android:gravity="center|right"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvEstado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center"
-                    android:text="Descripción"
-                    android:textSize="20sp" />
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/ivEstado"
-                    android:layout_width="wrap_content"
-                    android:layout_height="120dp"
-                    android:background="@drawable/nube" />
+                    <TextView
+                        android:id="@+id/tvState"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.93"
+                        app:layout_constraintStart_toEndOf="@+id/tvMinDegree"
+                        app:layout_constraintTop_toBottomOf="@+id/ivState"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <ImageView
+                        android:id="@+id/ivState"
+                        android:layout_width="149dp"
+                        android:layout_height="96dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/nube"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvMinDegree"
+                        android:layout_width="59dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="-"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ivState"
+                        app:layout_constraintHorizontal_bias="0.134"
+                        app:layout_constraintStart_toEndOf="@+id/tvDegree"
+                        app:layout_constraintTop_toBottomOf="@+id/tvMaxDegree"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tvMaxDegree"
+                        android:layout_width="59dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="-"
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toStartOf="@+id/ivState"
+                        app:layout_constraintHorizontal_bias="0.126"
+                        app:layout_constraintStart_toEndOf="@+id/tvDegree"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvDegree"
+                        android:layout_width="70dp"
+                        android:layout_height="85dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textAlignment="center"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+                </android.support.constraint.ConstraintLayout>
+                <![CDATA[
+
                 />
 
+            ]]>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">

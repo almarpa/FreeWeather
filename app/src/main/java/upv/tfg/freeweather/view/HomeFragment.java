@@ -35,18 +35,17 @@ import upv.tfg.freeweather.model.HourlyPrediction;
 import upv.tfg.freeweather.serializations.Init;
 import upv.tfg.freeweather.serializations.predictions.PD;
 import upv.tfg.freeweather.serializations.predictions.PH;
-import upv.tfg.freeweather.utils.Utils;
 
 /**
  * Main window allows the view of daily and hourly predictions.
  */
-public class MainWindowFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     //Hourly prediction
     private PH hp;
     //Dialy prediction
     private PD dp;
-    
+
     private View view;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -62,7 +61,7 @@ public class MainWindowFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_main_window, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
 
         tabLayout = (TabLayout) view.findViewById(R.id.tlPredicciones);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager_id);
@@ -76,7 +75,7 @@ public class MainWindowFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
         //Obtenemos la prediccion en Valencia por defecto
-        //Falta por inmplementar la búsqueda por localidades
+        //Falta por implementar la búsqueda por localidades
         HTTPConnection hc = new HTTPConnection();
         hc.execute();
 
@@ -111,7 +110,6 @@ public class MainWindowFragment extends Fragment {
         // There was no custom behaviour for that action, so let the system take care of it
         return super.onOptionsItemSelected(item);
     }
-
 
     private void displayData(HourlyPrediction[] sp) {
 

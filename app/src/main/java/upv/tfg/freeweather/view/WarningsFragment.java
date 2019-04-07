@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.view.menu_options;
+package upv.tfg.freeweather.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

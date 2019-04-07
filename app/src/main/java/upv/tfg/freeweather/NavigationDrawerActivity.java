@@ -19,11 +19,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import upv.tfg.freeweather.view.MainWindowFragment;
-import upv.tfg.freeweather.view.menu_options.RadarFragment;
-import upv.tfg.freeweather.view.menu_options.WarningsFragment;
-import upv.tfg.freeweather.view.menu_options.GeolocationFragment;
-import upv.tfg.freeweather.view.menu_options.FavoritesFragment;
+import upv.tfg.freeweather.view.HomeFragment;
+import upv.tfg.freeweather.view.RadarFragment;
+import upv.tfg.freeweather.view.WarningsFragment;
+import upv.tfg.freeweather.view.GeolocationFragment;
+import upv.tfg.freeweather.view.FavoritesFragment;
 
 /**
  * Shows a navigation drawer activity with some options.
@@ -55,21 +55,16 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
 
         drawerLayout = findViewById(R.id.drawerLayout);
-        drawerLayout.openDrawer(GravityCompat.START);
+        //drawerLayout.openDrawer(GravityCompat.START);
 
         NavigationView navigationView = findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
-
-        navigationView.getMenu().getItem(0).setIcon(R.drawable.ic_my_location_black_24dp);
-        navigationView.getMenu().getItem(1).setIcon(R.drawable.ic_stars_black_24dp);
-        navigationView.getMenu().getItem(2).setIcon(R.drawable.ic_info_black_24dp);
-        navigationView.getMenu().getItem(3).setIcon(R.drawable.ic_map_black_24dp);
-
+        navigationView.getMenu().getItem(0).setChecked(true);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.frameLayout, new MainWindowFragment())
+                    .replace(R.id.frameLayout, new HomeFragment())
                     .commit();
         }
     }
@@ -102,6 +97,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         String tag = null;
 
         switch (item.getItemId()) {
+            case R.id.mHome:
+                tag = "home";
+                fragment = getSupportFragmentManager().findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new HomeFragment();
+                }
+                toolBar.setTitle(R.string.title_home);
+                break;
 
             case R.id.mGeolocation:
                 tag = "geolocation";

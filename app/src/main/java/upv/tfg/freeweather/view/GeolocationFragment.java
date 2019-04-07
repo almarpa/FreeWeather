@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.view.menu_options;
+package upv.tfg.freeweather.view;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.view.predictions;
+package upv.tfg.freeweather.view;
 
 import android.content.Context;
 import android.net.Uri;

@@ -12,7 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.SearchView;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,33 +30,57 @@ import java.util.Date;
 
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.ViewPagerAdapter;
-import upv.tfg.freeweather.view.predictions.DailyFragment;
-import upv.tfg.freeweather.view.predictions.HourlyFragment;
-import upv.tfg.freeweather.view.predictions.TodayFragment;
+import upv.tfg.freeweather.model.HomeInteractor;
+import upv.tfg.freeweather.presenter.HomePresenter;
+import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
 import upv.tfg.freeweather.model.HourlyPrediction;
 import upv.tfg.freeweather.serializations.Init;
 import upv.tfg.freeweather.serializations.predictions.PD;
 import upv.tfg.freeweather.serializations.predictions.PH;
+import upv.tfg.freeweather.view.interfaces.I_HomeView;
+import upv.tfg.freeweather.view.interfaces.ShowPredictions;
 
 /**
  * Main window allows the view of daily and hourly predictions.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements I_HomeView, View.OnClickListener {
 
-    //Hourly prediction
+    //Hourly prediction and diarly prediction
     private PH hp;
-    //Dialy prediction
     private PD dp;
+
+    private ShowPredictions sp;
 
     private View view;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private ViewPagerAdapter adapter;
+    private ImageButton b;
+    private TextView tv;
+
+    //Presenter reference
+    I_HomePresenter homePresenter;
+
+    /**
+     * Setup Model View Presenter pattern
+     */
+    private void setupMVP() {
+        // Create the Presenter
+        I_HomePresenter presenter = new HomePresenter(this);
+        // Create the Model
+        HomeInteractor model = new HomeInteractor(presenter,getContext());
+        // Set presenter model
+        presenter.setModel(model);
+        // Set the Presenter as a interface
+        homePresenter = presenter;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // The Fragment can now add actions to the ActionBar and react when they are clicked
         setHasOptionsMenu(true);
+
+        setupMVP();
     }
 
     @Override
@@ -65,7 +91,7 @@ public class HomeFragment extends Fragment {
 
         tabLayout = (TabLayout) view.findViewById(R.id.tlPredicciones);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager_id);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+        adapter = new ViewPagerAdapter(getFragmentManager());
 
         adapter.addFragment(new TodayFragment(),"Hoy");
         adapter.addFragment(new HourlyFragment(),"Horaria");
@@ -74,10 +100,9 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        //Obtenemos la prediccion en Valencia por defecto
-        //Falta por implementar la búsqueda por localidades
-        HTTPConnection hc = new HTTPConnection();
-        hc.execute();
+        b =  view.findViewById(R.id.imageButton);
+        b.setOnClickListener(this);
+        tv = view.findViewById(R.id.tvLocalidad);
 
         return view;
     }
@@ -94,12 +119,25 @@ public class HomeFragment extends Fragment {
 
         searchView.setOnQueryTextListener((new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String location) {
+                //Recover the location code by the location name and obtain the prediction
+                Integer code = homePresenter.notifyGetCode(location);
+                HTTPConnection hc = new HTTPConnection();
+                hc.execute(code);
+
+                //Check if the location is already favourite or not
+                if(homePresenter.notifyIsItFavourite(location)){
+                    b.setBackgroundResource(R.drawable.favourite_item_pressed);
+                }else{
+                    b.setBackgroundResource(R.drawable.favourite_item_default);
+                }
+
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String text) {
+                homePresenter.notifySearchTextChanged(text);
                 return false;
             }
         }));
@@ -107,8 +145,18 @@ public class HomeFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // There was no custom behaviour for that action, so let the system take care of it
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        String location = tv.getText().toString();
+        switch (v.getId()) {
+            case R.id.imageButton:
+                //El presentador notifica al interactor que es quien decide si añade o elimina en favoritos
+                homePresenter.notifyFavButtonClicked(location);
+                break;
+        }
     }
 
     private void displayData(HourlyPrediction[] sp) {
@@ -119,24 +167,24 @@ public class HomeFragment extends Fragment {
         String dat = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         date.setText(dat);
         location.setText(sp[0].getNombre());
-
-        /*
-        // EJEMPLO DE CONSULTA A LA TABLA MUNICIPIOS
-        db = myhelper.getWritableDatabase();
-        String[] args = new String[] {"Utiel"};
-        Cursor c = db.rawQuery(" SELECT * FROM tblLocalidades WHERE nombre=? ", args);
-        if(c.moveToFirst() && c.getCount() >= 1) {
-            do {
-                String cd = c.getInt(1) + "" + c.getInt(2) + "" + c.getInt(3) + "" + c.getInt(4) + " " + c.getString(5);
-                tvDatos.setText(cd);
-            } while (c.moveToNext());
-        }
-        c.close();
-        */
     }
 
-    //Conexion con la API y obtencion del JSON
-    public class HTTPConnection extends AsyncTask<Void, Void, Void> {
+    /////////////////////////////////
+    ////////   MVP METHODS   ////////
+    /////////////////////////////////
+    @Override
+    public void makeFavourite() {
+        b.setBackgroundResource(R.drawable.favourite_item_pressed);
+    }
+    @Override
+    public void removeFavourite() {
+        b.setBackgroundResource(R.drawable.favourite_item_default);
+    }
+
+    /////////////////////////////////
+    ////////   CONEXION API  ////////
+    /////////////////////////////////
+    public class HTTPConnection extends AsyncTask<Integer, Void, Void> {
 
         private Init init;
         private HourlyPrediction[] sp;
@@ -152,10 +200,10 @@ public class HomeFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(Integer... params) {
             try {
                 //Primera Peticion GET
-                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/46250?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
+                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/"+params[0]+"?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
 
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");

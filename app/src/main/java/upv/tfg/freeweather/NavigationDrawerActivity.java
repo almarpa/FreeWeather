@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import upv.tfg.freeweather.model.db.DBInitializator;
 import upv.tfg.freeweather.view.HomeFragment;
 import upv.tfg.freeweather.view.RadarFragment;
 import upv.tfg.freeweather.view.WarningsFragment;
@@ -30,7 +31,7 @@ import upv.tfg.freeweather.view.FavoritesFragment;
  */
 public class NavigationDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DBController myhelper = new DBController(this);
+    private DBInitializator myhelper = new DBInitializator(this);
     private SQLiteDatabase db;
 
     private Toolbar toolBar;
@@ -42,7 +43,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         setContentView(R.layout.activity_navigation_drawer);
 
         //If the app starts for the first time, the database is loaded.
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("SHARED_PREFERENCES", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart",true);
         if (firstStart==true){
             fillBD();
@@ -55,7 +56,6 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
 
         drawerLayout = findViewById(R.id.drawerLayout);
-        //drawerLayout.openDrawer(GravityCompat.START);
 
         NavigationView navigationView = findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);

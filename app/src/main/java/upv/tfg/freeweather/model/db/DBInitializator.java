@@ -1,4 +1,4 @@
-package upv.tfg.freeweather;
+package upv.tfg.freeweather.model.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,11 +14,11 @@ import java.io.InputStreamReader;
 /**
  * Create a the unique table of the database with all the localities.
  */
-public class DBController extends SQLiteOpenHelper {
+public class DBInitializator extends SQLiteOpenHelper {
 
     SQLiteDatabase db;
 
-    public DBController(Context context) {
+    public DBInitializator(Context context) {
         super(context,"myDataBase.db",null,1);
 
     }
@@ -32,7 +32,9 @@ public class DBController extends SQLiteOpenHelper {
                 + " cMun integer not null, "
                 + " DC integer not null, "
                 + " nombre text not null); ");
-
+        db.execSQL("CREATE TABLE IF NOT EXISTS tblFavourites ("
+                + " nombre text PRIMARY KEY, "
+                + " codigo integer not null); ");
     }
 
     @Override

@@ -19,19 +19,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import upv.tfg.freeweather.model.db.DBInitializator;
+import upv.tfg.freeweather.model.db.DBInitialization;
 import upv.tfg.freeweather.view.HomeFragment;
-import upv.tfg.freeweather.view.RadarFragment;
+import upv.tfg.freeweather.view.MapsFragment;
 import upv.tfg.freeweather.view.WarningsFragment;
 import upv.tfg.freeweather.view.GeolocationFragment;
-import upv.tfg.freeweather.view.FavoritesFragment;
+import upv.tfg.freeweather.view.FavouritesFragment;
 
 /**
  * Shows a navigation drawer activity with some options.
  */
 public class NavigationDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DBInitializator myhelper = new DBInitializator(this);
+    private DBInitialization myhelper = new DBInitialization(this);
     private SQLiteDatabase db;
 
     private Toolbar toolBar;
@@ -119,7 +119,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                 tag = "favorites";
                 fragment = getSupportFragmentManager().findFragmentByTag(tag);
                 if (fragment == null) {
-                    fragment = new FavoritesFragment();
+                    fragment = new FavouritesFragment();
                 }
                 toolBar.setTitle(R.string.title_favoritos);
                 break;
@@ -133,13 +133,13 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                 toolBar.setTitle(R.string.title_avisos);
                 break;
 
-            case R.id.mRadar:
-                tag = "radar";
+            case R.id.mMaps:
+                tag = "maps";
                 fragment = getSupportFragmentManager().findFragmentByTag(tag);
                 if (fragment == null) {
-                    fragment = new RadarFragment();
+                    fragment = new MapsFragment();
                 }
-                toolBar.setTitle(R.string.title_radar);
+                toolBar.setTitle(R.string.title_mapa);
                 break;
         }
 
@@ -167,14 +167,13 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
-        String line;
-
-        db = myhelper.getWritableDatabase();
-        db.beginTransaction();
-
         try {
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream, "ISO-8859-1"));
+            String line;
+
+            db = myhelper.getWritableDatabase();
+            db.beginTransaction();
+
             while ((line = buffer.readLine()) != null) {
                 String[] colums = line.split(",");
 
@@ -186,7 +185,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                 cv.put("nombre", colums[4].trim());
                 db.insert("tblLocalidades", null, cv);
             }
-        } catch (IOException e) {
+        } catch (IOException e ) {
             e.printStackTrace();
         }
         db.setTransactionSuccessful();

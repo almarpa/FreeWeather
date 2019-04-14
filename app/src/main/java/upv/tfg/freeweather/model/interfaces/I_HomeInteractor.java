@@ -7,11 +7,10 @@ import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
 
 public interface I_HomeInteractor {
     void notifyFavButtonClicked(String location);
-    Map<String, ?> getAllFavourites();
     boolean isItFavourite(String location);
     Integer getCodeByLocation(String location);
+    String getLocationByName(String fav_item_to_search);
     void findPossibleLocation(String text);
     void onAttachPresenter(I_HomePresenter presenter);
     void onDetachPresenter();
-
 }

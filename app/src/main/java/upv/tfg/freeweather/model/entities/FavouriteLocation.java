@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.model;
+package upv.tfg.freeweather.model.entities;
 
 public class FavouriteLocation {
 

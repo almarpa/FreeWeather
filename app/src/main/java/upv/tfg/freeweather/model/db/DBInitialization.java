@@ -14,11 +14,11 @@ import java.io.InputStreamReader;
 /**
  * Create a the unique table of the database with all the localities.
  */
-public class DBInitializator extends SQLiteOpenHelper {
+public class DBInitialization extends SQLiteOpenHelper {
 
     SQLiteDatabase db;
 
-    public DBInitializator(Context context) {
+    public DBInitialization(Context context) {
         super(context,"myDataBase.db",null,1);
 
     }

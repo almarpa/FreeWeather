@@ -18,8 +18,8 @@
             android:icon="@drawable/menu_icon_warnings"
             android:title="@string/title_avisos" />
         <item
-            android:id="@+id/mRadar"
+            android:id="@+id/mMaps"
             android:icon="@drawable/menu_icon_geolocation"
-            android:title="@string/title_radar" />
+            android:title="@string/title_mapa" />
     </group>
 </menu>

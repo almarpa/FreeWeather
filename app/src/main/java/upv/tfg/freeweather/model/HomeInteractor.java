@@ -13,8 +13,11 @@ import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
 
 public class HomeInteractor implements I_HomeInteractor {
 
+    //Presenter reference
     private I_HomePresenter homePresenter;
+    //Database helper reference
     private DatabaseHelper dbhelper;
+    //Preferences helper reference
     private PreferencesHelper prefHelper;
 
     private Context context;
@@ -41,11 +44,6 @@ public class HomeInteractor implements I_HomeInteractor {
     }
 
     @Override
-    public Map<String, ?> getAllFavourites() {
-        return prefHelper.getAllPreferences();
-    }
-
-    @Override
     public boolean isItFavourite(String location) {
         return prefHelper.isItFavourite(location);
     }
@@ -57,6 +55,11 @@ public class HomeInteractor implements I_HomeInteractor {
     @Override
     public Integer getCodeByLocation(String location) {
         return dbhelper.getCodeByLocation(location);
+    }
+
+    @Override
+    public String getLocationByName(String fav_item_to_search) {
+        return prefHelper.getLocationByName(fav_item_to_search);
     }
 
     @Override

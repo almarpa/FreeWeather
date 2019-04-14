@@ -32,4 +32,12 @@ public class PreferencesHelper {
             Map<String,?> keys = prefs.getAll();
         return keys;
     }
+
+    public void addFavItemToSearch(String location) {
+        prefs.edit().putString("FAV_ITEM_TO_SEARCH",location);
+    }
+
+    public String getLocationByName(String fav_item_to_search) {
+        return prefs.getString(fav_item_to_search,null);
+    }
 }

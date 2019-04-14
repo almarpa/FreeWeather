@@ -50,6 +50,11 @@ public class HomePresenter implements I_HomePresenter {
         return homeInteractor.getCodeByLocation(location);
     }
 
+    @Override
+    public String notifyGetLocation(String fav_item_to_search) {
+        return homeInteractor.getLocationByName(fav_item_to_search);
+    }
+
     //////////////////////////////
     //    AFFECTS TO THE VIEW   //
     //////////////////////////////

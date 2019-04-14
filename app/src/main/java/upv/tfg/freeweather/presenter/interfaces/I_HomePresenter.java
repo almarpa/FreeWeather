@@ -15,6 +15,7 @@ public interface I_HomePresenter {
     boolean notifyIsItFavourite(String location);
     void notifySearchTextChanged(String text);
     Integer notifyGetCode(String location);
+    String notifyGetLocation(String fav_item_to_search);
 
     //MODEL NOTIFICATIONS THAT AFFECT TO THE VIEW
     void makeFavourite();

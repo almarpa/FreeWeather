@@ -10,11 +10,11 @@ import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
 
 public class DatabaseHelper {
 
-    private DBInitializator myhelper;
+    private DBInitialization myhelper;
     private SQLiteDatabase db;
 
     public DatabaseHelper(Context context){
-        myhelper = new DBInitializator(context);
+        myhelper = new DBInitialization(context);
         db = myhelper.getWritableDatabase();
     }
 

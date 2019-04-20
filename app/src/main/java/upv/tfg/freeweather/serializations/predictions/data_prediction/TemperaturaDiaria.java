@@ -1,8 +1,10 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
+
+import java.io.Serializable;
 import java.util.List;
 
-public class TemperaturaDiaria {
+public class TemperaturaDiaria implements Serializable {
 
     private String maxima;
     private String minima;
@@ -34,4 +36,5 @@ public class TemperaturaDiaria {
     public void setDato(List<Dato> dato) {
         this.dato = dato;
     }
+
 }

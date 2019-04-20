@@ -10,5 +10,4 @@ public interface I_FavouritesPresenter {
     Context getContext();
     void setModel(FavouritesInteractor model);
     Map<String, ?> notifyGetAllFavorites();
-    void notifyGoFromFavPrediction(String location);
 }

@@ -2,8 +2,10 @@ package upv.tfg.freeweather.model;
 
 
 import android.content.Context;
+import android.database.Cursor;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.Map;
 
 import upv.tfg.freeweather.model.db.DatabaseHelper;
@@ -63,8 +65,8 @@ public class HomeInteractor implements I_HomeInteractor {
     }
 
     @Override
-    public void findPossibleLocation(String text) {
-        dbhelper.findPossibleLocation(text);
+    public List<String> findPossibleLocation(String text) {
+        return dbhelper.findPossibleLocation(text);
     }
 
     @Override

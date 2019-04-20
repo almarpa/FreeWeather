@@ -1,6 +1,8 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-public class EstadoCielo {
+import java.io.Serializable;
+
+public class EstadoCielo implements Serializable {
 
     private String value;
     private String periodo;

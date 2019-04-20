@@ -1,6 +1,8 @@
 package upv.tfg.freeweather.serializations;
 
-public class Origin {
+import java.io.Serializable;
+
+public class Origin implements Serializable {
 
     private String productor;
     private String web;

@@ -1,12 +1,14 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-public class VientoDiario {
+import java.io.Serializable;
+
+public class Viento implements Serializable {
 
     String direccion;
     Integer velocidad;
     String periodo;
 
-    public VientoDiario() {
+    public Viento() {
 
     }
 

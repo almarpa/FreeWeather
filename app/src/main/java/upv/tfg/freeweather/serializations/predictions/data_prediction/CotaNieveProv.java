@@ -1,11 +1,14 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-public class CotaNieveProv {
+import java.io.Serializable;
+
+public class CotaNieveProv implements Serializable {
 
     private String value;
     private String periodo;
 
     public CotaNieveProv(){
+
     }
 
     public String getValue() {

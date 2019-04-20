@@ -34,9 +34,4 @@ public class FavouritesPresenter implements I_FavouritesPresenter {
     public Map<String, ?> notifyGetAllFavorites() {
         return favInteractor.getAllFavourites();
     }
-
-    @Override
-    public void notifyGoFromFavPrediction(String location) {
-        favInteractor.goFromFavPrediction(location);
-    }
 }

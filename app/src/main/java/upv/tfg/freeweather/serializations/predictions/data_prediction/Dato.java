@@ -1,6 +1,8 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-class Dato {
+import java.io.Serializable;
+
+public class Dato implements Serializable {
 
     String value;
     Byte hora;

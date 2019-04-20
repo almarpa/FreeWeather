@@ -1,10 +1,14 @@
 package upv.tfg.freeweather.view;
 
-import android.os.AsyncTask;
+import android.app.SearchManager;
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,15 +20,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -35,37 +30,46 @@ import upv.tfg.freeweather.model.entities.DailyPrediction;
 import upv.tfg.freeweather.presenter.HomePresenter;
 import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
 import upv.tfg.freeweather.model.entities.HourlyPrediction;
-import upv.tfg.freeweather.serializations.Init;
-import upv.tfg.freeweather.serializations.predictions.PD;
-import upv.tfg.freeweather.serializations.predictions.PH;
 import upv.tfg.freeweather.view.interfaces.I_HomeView;
-import upv.tfg.freeweather.view.interfaces.ShowPredictions;
 
 /**
  * Main window allows the view of daily and hourly predictions.
  */
 public class HomeFragment extends Fragment implements I_HomeView, View.OnClickListener {
 
-    //Hourly prediction and diarly prediction
-    private PH hp;
-    private PD dp;
+    private View view;
+    private Context context;
 
     //Presenter reference
     I_HomePresenter homePresenter;
-    private ShowPredictions sp;
 
-    private View view;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    //Adapters
     private ViewPagerAdapter adapter;
+    private CursorAdapter suggestionAdapter;
+    //Widgets
+    private TabLayout tabLayout;
+    private SearchView searchView;
+    private ViewPager viewPager;
     private ImageButton ivFavourite;
     private TextView tvLocation;
     private TextView tvDate;
+    private TextView location;
 
+    public HomeFragment() { }
 
-    public HomeFragment() {
-        //HTTPConnection hc = new HTTPConnection();
-        //hc.execute(code);
+    public static HomeFragment newInstance(String location){
+        HomeFragment hFragment = new HomeFragment();
+
+        // Get arguments passed in, if any
+        Bundle args = hFragment.getArguments();
+        if (args == null) {
+            args = new Bundle();
+        }
+        // Add parameters to the argument bundle
+        args.putString("FAVOURITE_ITEM", location);
+        hFragment.setArguments(args);
+
+        return hFragment;
     }
 
     /**
@@ -80,6 +84,7 @@ public class HomeFragment extends Fragment implements I_HomeView, View.OnClickLi
         presenter.setModel(model);
         // Set the Presenter as a interface
         homePresenter = presenter;
+
     }
 
     @Override
@@ -87,20 +92,27 @@ public class HomeFragment extends Fragment implements I_HomeView, View.OnClickLi
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setupMVP();
+
+        //Check if it comes from FavouritesFragment and in that case, search the fav. location
+        Bundle args = getArguments();
+        if (args != null) {
+            String code = args.getString("FAVOURITE_ITEM");
+            homePresenter.notifySearchPrediction(code);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
+        context = view.getContext();
 
         ivFavourite = view.findViewById(R.id.imageButton);
         ivFavourite.setOnClickListener(this);
         tvLocation = view.findViewById(R.id.tvLocalidad);
         tvDate = view.findViewById(R.id.tvFechayHora);
 
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        tvDate.setText(date);
+        tvDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 
         return view;
     }
@@ -111,29 +123,46 @@ public class HomeFragment extends Fragment implements I_HomeView, View.OnClickLi
         inflater.inflate(R.menu.menu_notifications, menu);
         inflater.inflate(R.menu.menu_configuration, menu);
 
-        //Search option in toolbar
+        //Search View initialization
         MenuItem searchItem = menu.findItem(R.id.mSearch);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint("Busque una localidad...");
+
+        //Suggestion adapter initialization
+        suggestionAdapter = new SimpleCursorAdapter(getContext(),
+                R.layout.layout_suggested_item, null,
+                new String[]{SearchManager.SUGGEST_COLUMN_TEXT_1},
+                new int[]{R.id.tvSuggestion}, 0);
+        searchView.setSuggestionsAdapter(suggestionAdapter);
 
         searchView.setOnQueryTextListener((new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String location) {
-                //Recover the location code with the location name and obtain the prediction
-                Integer code = homePresenter.notifyGetCode(location);
-                if (code != null) {
-                    HTTPConnection hc = new HTTPConnection();
-                    hc.execute(code);
-                } else {
-                    //Shows a warning msg
-                    Toast.makeText(getContext(), "No se encuentra la localidad introducida", Toast.LENGTH_SHORT).show();
-                }
-                return false;
+                homePresenter.notifySearchPrediction(location);
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String text) {
                 homePresenter.notifySearchTextChanged(text);
+                return true;
+            }
+        }));
+        searchView.setOnSuggestionListener((new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int position) {
                 return false;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+                CursorAdapter adapter = searchView.getSuggestionsAdapter();
+                Cursor cursor = adapter.getCursor();
+                if (cursor != null) {
+                    String location = cursor.getString(1);
+                    homePresenter.notifySearchPrediction(location);
+                }
+                return true;
             }
         }));
     }
@@ -148,56 +177,59 @@ public class HomeFragment extends Fragment implements I_HomeView, View.OnClickLi
         String location = tvLocation.getText().toString();
         switch (v.getId()) {
             case R.id.imageButton:
-                //Presenter notifies the interactor who decides if add or delete the favourite
+                //Notifies the presenter that button fav has been pressed
                 homePresenter.notifyFavButtonClicked(location);
                 break;
         }
     }
 
-    private void displayPredictions(HourlyPrediction[] hp, DailyPrediction[] dp) {
+    ///////////////////////////////////////////////////////
+    ////////  AVAILABLE METHODS FOR THE PRESENTER  ////////
+    ///////////////////////////////////////////////////////
+    @Override
+    public void displayPredictions(HourlyPrediction[] hp, DailyPrediction[] dp) {
         tabLayout = view.findViewById(R.id.tlPredicciones);
         viewPager = view.findViewById(R.id.viewpager_id);
         adapter = new ViewPagerAdapter(getFragmentManager());
 
-        Bundle bundle = new Bundle();
+        Bundle bundle1 = new Bundle();
+        Bundle bundle2 = new Bundle();
+        Bundle bundle3 = new Bundle();
 
         //Tab TodayFragment
         TodayFragment tFragment = new TodayFragment();
-        bundle.putSerializable("TODAY", hp);
-        tFragment.setArguments(bundle);
+        bundle1.putSerializable("TODAY", dp);
+        tFragment.setArguments(bundle1);
 
         //Tab HourlyFragment
         HourlyFragment hFragment = new HourlyFragment();
-        bundle.putSerializable("HOURLY", hp);
-        tFragment.setArguments(bundle);
+        bundle2.putSerializable("HOURLY", hp);
+        hFragment.setArguments(bundle2);
 
         //Tab DialyFragment
         DailyFragment dFragment = new DailyFragment();
-        bundle.putSerializable("DAILY", dp);
-        tFragment.setArguments(bundle);
+        bundle3.putSerializable("DAILY", dp);
+        dFragment.setArguments(bundle3);
 
-        adapter.addFragment(tFragment, "Hoy");
+        adapter.addFragment(tFragment, "Ahora");
         adapter.addFragment(hFragment, "Horaria");
         adapter.addFragment(dFragment, "Diaria");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        TextView location = getView().findViewById(R.id.tvLocalidad);
-        location.setText(hp[0].getNombre());
+        location = getView().findViewById(R.id.tvLocalidad);
+        location.setText(dp[0].getNombre());
 
-        //Check if the location is already favourite or not
-        if (homePresenter.notifyIsItFavourite(location.getText().toString())) {
-            ivFavourite.setBackgroundResource(R.drawable.favourite_item_pressed);
-        } else {
-            ivFavourite.setBackgroundResource(R.drawable.favourite_item_default);
-        }
+        //Ask the presenter if the location is already favourite or not
+        homePresenter.notifyIsItFavourite(location.getText().toString());
     }
 
+    @Override
+    public void displaySearchSuggestions(Cursor c) {
+        suggestionAdapter.swapCursor(c);
+    }
 
-    /////////////////////////////////
-    ////////   MVP METHODS   ////////
-    /////////////////////////////////
     @Override
     public void makeFavourite() {
         ivFavourite.setBackgroundResource(R.drawable.favourite_item_pressed);
@@ -208,116 +240,8 @@ public class HomeFragment extends Fragment implements I_HomeView, View.OnClickLi
         ivFavourite.setBackgroundResource(R.drawable.favourite_item_default);
     }
 
-
-    /////////////////////////////////
-    ////////  API CONNECTION    /////
-    ////////  HOURLY and DAILY  /////
-    ////////  PREDICTION        /////
-    /////////////////////////////////
-    public class HTTPConnection extends AsyncTask<Integer, Void, Void> {
-
-        private Init init;
-        private HourlyPrediction[] hp;
-        private DailyPrediction[] dp;
-
-        private URL url;
-        private HttpURLConnection connection;
-        private InputStreamReader reader;
-        private GsonBuilder builder;
-        private Gson gson;
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected Void doInBackground(Integer... params) {
-            try {
-                //  HOURLY PREDICTION   //
-                //1º HTTP REQUEST
-                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/" + params[0] + "?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
-
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                builder = new GsonBuilder();
-                gson = builder.create();
-                init = gson.fromJson(reader, Init.class);
-
-                connection.disconnect();
-
-                //2º HTTP REQUEST
-                url = new URL(init.datos);
-
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                builder = new GsonBuilder();
-                gson = builder.create();
-                hp = gson.fromJson(reader, HourlyPrediction[].class);
-
-                connection.disconnect();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-                //DAILY PREDICTION
-            /*
-            try {
-                //Primera Peticion GET
-                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/" + params[0] + "?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
-
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                builder = new GsonBuilder();
-                gson = builder.create();
-                init = gson.fromJson(reader, Init.class);
-
-                connection.disconnect();
-
-                //Segunda Peticion GET
-                url = new URL(init.datos);
-
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                builder = new GsonBuilder();
-                gson = builder.create();
-                dp = gson.fromJson(reader, DailyPrediction[].class);
-
-                connection.disconnect();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            */
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void params) {
-            displayPredictions(hp,dp);
-        }
+    @Override
+    public void showMsgNoLocation(String location) {
+        Toast.makeText(context, "No hay información acerca de la localidad: "+ location,Toast.LENGTH_SHORT);
     }
 }

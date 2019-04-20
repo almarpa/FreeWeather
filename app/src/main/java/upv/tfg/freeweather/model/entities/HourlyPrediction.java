@@ -6,16 +6,14 @@ import upv.tfg.freeweather.serializations.Origin;
 import upv.tfg.freeweather.serializations.predictions.*;
 
 public class HourlyPrediction {
-    @SerializedName("origen")
+    @SerializedName("")
     private Origin origin;
     private String elaborado;
     private String nombre;
     private String provincia;
     private PH prediccion;
 
-    public HourlyPrediction(){
-
-    }
+    public HourlyPrediction(){ }
 
     public Origin getOrigin() { return origin; }
     public String getElaborado() {return elaborado;}
@@ -30,9 +28,10 @@ public class HourlyPrediction {
     public void setPrediccion(PH prediccion) { this.prediccion = prediccion; }
 
 
-    //
-    //  MÉTODOS PARA OBTENER LA INFORMACIÓN, GRÁFICAS, ETC. DE LA PREDICCIÓN
-    //
+    ///////////////////////////////////////////////////////////////////////////////
+    ///      METHODS TO OBTAIN PREDICTION INFO FOR GRAPHICS, CARDS, ETC         ///
+    ///////////////////////////////////////////////////////////////////////////////
+
     public String getTemperatura(){
         String res;
         res = prediccion.getHoraria().get(0).getTemperatura().get(0).getValue();

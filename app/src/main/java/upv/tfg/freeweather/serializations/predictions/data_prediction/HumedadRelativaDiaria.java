@@ -1,6 +1,8 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-public class HumedadRelativaDiaria {
+import java.io.Serializable;
+
+public class HumedadRelativaDiaria implements Serializable {
     private String maxima;
     private String minima;
     private Dato[] dato;

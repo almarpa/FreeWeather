@@ -1,5 +1,7 @@
 package upv.tfg.freeweather.serializations.predictions;
 
+
+import java.io.Serializable;
 import java.util.List;
 
 import upv.tfg.freeweather.serializations.predictions.data_prediction.CotaNieveProv;
@@ -9,107 +11,80 @@ import upv.tfg.freeweather.serializations.predictions.data_prediction.ProbPrecip
 import upv.tfg.freeweather.serializations.predictions.data_prediction.RachaMax;
 import upv.tfg.freeweather.serializations.predictions.data_prediction.SensTermicaDiaria;
 import upv.tfg.freeweather.serializations.predictions.data_prediction.TemperaturaDiaria;
-import upv.tfg.freeweather.serializations.predictions.data_prediction.VientoDiario;
+import upv.tfg.freeweather.serializations.predictions.data_prediction.Viento;
 
-//Prediccion diaria
-public class Diaria {
+//Daily prediction
+public class Diaria implements Serializable {
 
-    private List<ProbPrecipitacionDiaria> probPrecipitacionDiaria;
-    private List<CotaNieveProv> probNieve;
+    private List<ProbPrecipitacionDiaria> probPrecipitacion;
+    private List<CotaNieveProv> cotaNieveProv;
     private List<EstadoCielo> estadoCielo;
-    private List<VientoDiario> vientoDiario;
+    private List<Viento> viento;
     private List<RachaMax> rachaMax;
-    //private List<TemperaturaDiaria> temperaturaDiaria;
-    //private List<SensTermicaDiaria> sensTermicaDiaria;
-    //private List<HumedadRelativaDiaria> humedadRelativaDiaria;
+    private TemperaturaDiaria temperatura;
+    private SensTermicaDiaria sensTermica;
+    private HumedadRelativaDiaria humedadRelativa;
     private String fecha;
-    private String uvMax;
 
     public Diaria(){
 
     }
 
-        public List<EstadoCielo> getEstadoCielo() {
-            return estadoCielo;
-        }
+    public List<EstadoCielo> getEstadoCielo() {
+        return estadoCielo;
+    }
 
-        public void setEstadoCielo(List<EstadoCielo> estadoCielo) {
-            this.estadoCielo = estadoCielo;
-        }
+    public void setEstadoCielo(List<EstadoCielo> estadoCielo) {
+        this.estadoCielo = estadoCielo;
+    }
 
-        public List<ProbPrecipitacionDiaria> getProbPrecipitacionDiaria() {
-            return probPrecipitacionDiaria;
-        }
+    public List<ProbPrecipitacionDiaria> getProbPrecipitacion() {
+        return probPrecipitacion;
+    }
 
-        public void setProbPrecipitacionDiaria(List<ProbPrecipitacionDiaria> probPrecipitacionDiaria) {
-            this.probPrecipitacionDiaria = probPrecipitacionDiaria;
-        }
+    public void setProbPrecipitacion(List<ProbPrecipitacionDiaria> probPrecipitacionDiaria) {
+        this.probPrecipitacion = probPrecipitacionDiaria;
+    }
 
-        public void setProbNieve(List<CotaNieveProv> probNieve) {
-            this.probNieve = probNieve;
-        }
+    public List<Viento> getViento() {
+        return viento;
+    }
 
-        public List<VientoDiario> getVientoDiario() {
-            return vientoDiario;
-        }
+    public void setViento(List<Viento> viento) {
+        this.viento = viento;
+    }
 
-        public void setVientoDiario(List<VientoDiario> vientoDiario) {
-            this.vientoDiario = vientoDiario;
-        }
+    public List<CotaNieveProv> getProbNieve() {
+            return cotaNieveProv;
+    }
 
-        public List<CotaNieveProv> getProbNieve() {
-                return probNieve;
-        }
+    public void setProbNieve(List<CotaNieveProv> probNieve) { this.cotaNieveProv = probNieve; }
 
-        public List<RachaMax> getRachaMax() {
-            return rachaMax;
-        }
+    public List<RachaMax> getRachaMax() {
+        return rachaMax;
+    }
 
-        public void setRachaMax(List<RachaMax> rachaMax) {
-            this.rachaMax = rachaMax;
-        }
-/*
-        public void setProbNieve(List<CotaNieveProv> probNieve) {
-            this.probNieve = probNieve;
-        }
+    public void setRachaMax(List<RachaMax> rachaMax) {
+        this.rachaMax = rachaMax;
+    }
 
-        public List<TemperaturaDiaria> getTemperaturaDiaria() {
-            return temperaturaDiaria;
-        }
+    public TemperaturaDiaria getTemperatura() {return temperatura;}
 
-        public void setTemperaturaDiaria(List<TemperaturaDiaria> temperaturaDiaria) {
-            this.temperaturaDiaria = temperaturaDiaria;
-        }
+    public void setTemperaturaDiaria(TemperaturaDiaria temperaturaDiaria) { this.temperatura = temperaturaDiaria; }
 
-        public List<SensTermicaDiaria> getSensTermicaDiaria() {
-            return sensTermicaDiaria;
-        }
+    public SensTermicaDiaria getSensTermica() { return sensTermica; }
 
-        public void setSensTermicaDiaria(List<SensTermicaDiaria> sensTermicaDiaria) {
-            this.sensTermicaDiaria = sensTermicaDiaria;
-        }
+    public void setSensTermicaDiaria(SensTermicaDiaria sensTermicaDiaria) { this.sensTermica = sensTermicaDiaria; }
 
-        public List<HumedadRelativaDiaria> getHumedadRelativaDiaria() {
-            return humedadRelativaDiaria;
-        }
+    public HumedadRelativaDiaria getHumedadRelativa() {return humedadRelativa;}
 
-        public void setHumedadRelativaDiaria(List<HumedadRelativaDiaria> humedadRelativaDiaria) {
-            this.humedadRelativaDiaria = humedadRelativaDiaria;
-        }
-    */
+    public void setHumedadRelativaDiaria(HumedadRelativaDiaria humedadRelativaDiaria) {this.humedadRelativa = humedadRelativaDiaria;}
+
     public String getFecha() {
         return fecha;
     }
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
-    }
-
-    public String getUvMax() {
-        return uvMax;
-    }
-
-    public void setUvMax(String uvMax) {
-        this.uvMax = uvMax;
     }
 }

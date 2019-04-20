@@ -1,6 +1,8 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-public class RachaMax {
+import java.io.Serializable;
+
+public class RachaMax implements Serializable {
 
     private String value;
     private String periodo;

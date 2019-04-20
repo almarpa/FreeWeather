@@ -94,8 +94,9 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
                 NavigationView navigationView = getActivity().findViewById(R.id.navView);
                 navigationView.getMenu().getItem(0).setChecked(true);
 
-                //Create a new HomeFragment to search the prediction of the location.
-                HomeFragment homeFragment = new HomeFragment();
+                //Create a new HomeFragment with the prediction searched
+                HomeFragment homeFragment = new HomeFragment().newInstance(location);
+
 
                 getFragmentManager()
                 .beginTransaction()

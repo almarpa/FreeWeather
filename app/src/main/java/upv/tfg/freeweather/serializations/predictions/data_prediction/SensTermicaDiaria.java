@@ -1,8 +1,9 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SensTermicaDiaria {
+public class SensTermicaDiaria implements Serializable {
     private String maxima;
     private String minima;
     private List<Dato> dato;

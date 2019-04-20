@@ -3,7 +3,9 @@ package upv.tfg.freeweather.model.db;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.CursorAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
@@ -43,11 +45,10 @@ public class DatabaseHelper {
     public List<String> getAllFavourites() {
         List<String> list = null;
 
-        Cursor  cursor = db.rawQuery("select * from tblFavourites",null);
+        Cursor cursor = db.rawQuery("select * from tblFavourites",null);
         if (cursor.moveToFirst() && cursor.getCount() >= 1) {
             while (!cursor.isAfterLast()) {
                 String name = cursor.getString(5);
-
                 list.add(name);
                 cursor.moveToNext();
             }
@@ -55,7 +56,22 @@ public class DatabaseHelper {
         return  list;
     }
 
-    public void findPossibleLocation(String text) {
+    public List<String> findPossibleLocation(String newText) {
+        List<String> list = new ArrayList<>();
+
+        String[] selectionArgs = new String[] { newText + "%" };
+
+        Cursor cursor = db.rawQuery("SELECT * FROM tblLocalidades WHERE nombre like ?", selectionArgs);
+        if (cursor.moveToFirst() && cursor.getCount() >= 1) {
+            int cont = 0;
+            while (!cursor.isAfterLast() && cont != 3) {
+                String name = cursor.getString(5);
+                list.add(name);
+                cursor.moveToNext();
+                cont++;
+            }
+        }
+        return  list;
 
     }
 

@@ -9,17 +9,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import upv.tfg.freeweather.R;
+import upv.tfg.freeweather.model.entities.DailyPrediction;
 import upv.tfg.freeweather.model.entities.HourlyPrediction;
 
 public class TodayFragment extends Fragment {
 
-    private HourlyPrediction[] dp;
+    private DailyPrediction[] dp;
 
     private View view;
     private TextView tvState;
-    private TextView tvHumidity;
+    private TextView tvHumidityMax;
+    private TextView tvHumidityMin;
     private TextView tvRainfall;
-    private TextView tvThermalSens;
+    private TextView tvWind;
+    private TextView tvSnow;
+    private TextView tvDegree;
+    private TextView tvDegreeMax;
+    private TextView tvDegreeMin;
+    private TextView tvTermalSenseMin;
+    private TextView tvTermalSenseMax;
+
 
     public TodayFragment() {}
 
@@ -28,14 +37,20 @@ public class TodayFragment extends Fragment {
                              Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_tab_today, container, false);
 
-        dp = (HourlyPrediction[]) getArguments().getSerializable(
-                "TODAY");
+        dp = (DailyPrediction[]) getArguments().getSerializable("TODAY");
 
         //Find view elements
         tvState = view.findViewById(R.id.tvState);
-        tvHumidity =  view.findViewById(R.id.tvHumedad);
-        tvRainfall =  view.findViewById(R.id.tvPrecipitacion);
-        tvThermalSens =  view.findViewById(R.id.tvSensTermica);
+        tvHumidityMax =  view.findViewById(R.id.tvHumidityMax);
+        tvHumidityMin =  view.findViewById(R.id.tvHumidityMin);
+        tvTermalSenseMax = view.findViewById(R.id.tvTermalSense);
+        tvTermalSenseMin = view.findViewById(R.id.tvTermalSense2);
+        tvRainfall =  view.findViewById(R.id.tvPrecipitation);
+        tvWind =  view.findViewById(R.id.tvWind);
+        tvSnow = view.findViewById(R.id.tvSnow);
+        tvDegree = view.findViewById(R.id.tvDegree);
+        tvDegreeMax =  view.findViewById(R.id.tvMaxDegree);
+        tvDegreeMin =  view.findViewById(R.id.tvMinDegree);
 
         displayData(dp);
 
@@ -52,11 +67,20 @@ public class TodayFragment extends Fragment {
         super.onDetach();
     }
 
-    private void displayData(HourlyPrediction[] dp) {
-        tvState.setText(dp[0].getPrediccion().getHoraria().get(0).getEstadoCielo().get(0).getDescripcion());
-        tvHumidity.setText(dp[0].getPrediccion().getHoraria().get(0).getHumedadRelativa().get(0).getValue());
-        tvRainfall.setText(dp[0].getPrediccion().getHoraria().get(0).getPrecipitacion().get(0).getValue());
-        tvThermalSens.setText(dp[0].getPrediccion().getHoraria().get(0).getSensTermica().get(0).getValue());
+    private void displayData(DailyPrediction[] dp) {
+        //PRUEBA
+        tvDegree.setText(dp[0].getTemperatura());
+        tvDegreeMax.setText(dp[0].getTemperaturaMaxima());
+        tvDegreeMin.setText(dp[0].getTemperaturaMinima());
+
+        tvRainfall.setText(dp[0].getProbPrecipitacion());
+        tvState.setText(dp[0].getEstadoCielo());
+        tvTermalSenseMax.setText(dp[0].getSensTermicaMaxima());
+        tvTermalSenseMin.setText(dp[0].getSensTermicaMinima());
+        tvHumidityMax.setText(dp[0].getHumRelativaMaxima());
+        tvHumidityMin.setText(dp[0].getHumRelativaMinima());
+        tvWind.setText(dp[0].getViento());
+        tvSnow.setText(dp[0].getProbNieve());
     }
 
 }

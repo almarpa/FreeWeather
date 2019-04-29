@@ -34,8 +34,7 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
 
     //Presenter reference
     I_FavouritesPresenter favPresenter;
-
-    NavigationDrawerActivity navAct;
+    //Fragment home view
     HomeFragment homeFragment;
 
     View view;
@@ -67,21 +66,10 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_menu_favorites, container, false);
-
-        ArrayList<String> list = new ArrayList<String>();
-        Map<String, ?> map = favPresenter.notifyGetAllFavorites();
-        for (Map.Entry<String, ?> entry : map.entrySet()) {
-            //Check if the location is saved as favourite
-            if(entry.getValue().toString() == "true"){
-                list.add(entry.getKey());
-            }
-        }
-
-        //Instantiate adapter
-        FavouriteAdapter adapter = new FavouriteAdapter(list, getContext());
-        //Handle listview and assign adapter
         lView = view.findViewById(R.id.favourites_listview);
-        lView.setAdapter(adapter);
+
+        //Notifies the presenter to get all favourite locations saved
+        favPresenter.notifyGetAllFavorites();
 
         lView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -94,14 +82,13 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
                 NavigationView navigationView = getActivity().findViewById(R.id.navView);
                 navigationView.getMenu().getItem(0).setChecked(true);
 
-                //Create a new HomeFragment with the prediction searched
-                HomeFragment homeFragment = new HomeFragment().newInstance(location);
-
+                //Create a new HomeFragment with the location to search as a parameter
+                homeFragment = new HomeFragment().newInstance(location);
 
                 getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frameLayout, homeFragment, "home")
-                .commit();
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, homeFragment, "home")
+                        .commit();
             }
         });
         return view;
@@ -119,5 +106,11 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setAdapter(FavouriteAdapter favAdapter) {
+        //Assign adapter
+        lView.setAdapter(favAdapter);
     }
 }

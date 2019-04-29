@@ -1,6 +1,8 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-public class SensTermica {
+import java.io.Serializable;
+
+public class SensTermica implements Serializable {
     private String value;
     private String periodo;
 

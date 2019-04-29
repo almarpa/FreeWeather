@@ -1,6 +1,8 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-public class ProbNieve {
+import java.io.Serializable;
+
+public class ProbNieve implements Serializable {
 
     private String value;
     private String periodo;

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.model.entities.DailyPrediction;
-import upv.tfg.freeweather.model.entities.HourlyPrediction;
 
 public class TodayFragment extends Fragment {
 
@@ -39,8 +38,7 @@ public class TodayFragment extends Fragment {
 
         dp = (DailyPrediction[]) getArguments().getSerializable("TODAY");
 
-        //Find view elements
-        tvState = view.findViewById(R.id.tvState);
+        tvState = view.findViewById(R.id.tvDescrip);
         tvHumidityMax =  view.findViewById(R.id.tvHumidityMax);
         tvHumidityMin =  view.findViewById(R.id.tvHumidityMin);
         tvTermalSenseMax = view.findViewById(R.id.tvTermalSense);
@@ -68,19 +66,19 @@ public class TodayFragment extends Fragment {
     }
 
     private void displayData(DailyPrediction[] dp) {
-        //PRUEBA
-        tvDegree.setText(dp[0].getTemperatura());
-        tvDegreeMax.setText(dp[0].getTemperaturaMaxima());
-        tvDegreeMin.setText(dp[0].getTemperaturaMinima());
+        if (dp != null) {
+            tvDegree.setText(dp[0].getTemperatura());
+            tvDegreeMax.setText(dp[0].getTemperaturaMaxima());
+            tvDegreeMin.setText(dp[0].getTemperaturaMinima());
 
-        tvRainfall.setText(dp[0].getProbPrecipitacion());
-        tvState.setText(dp[0].getEstadoCielo());
-        tvTermalSenseMax.setText(dp[0].getSensTermicaMaxima());
-        tvTermalSenseMin.setText(dp[0].getSensTermicaMinima());
-        tvHumidityMax.setText(dp[0].getHumRelativaMaxima());
-        tvHumidityMin.setText(dp[0].getHumRelativaMinima());
-        tvWind.setText(dp[0].getViento());
-        tvSnow.setText(dp[0].getProbNieve());
+            tvRainfall.setText(dp[0].getProbPrecipitacion());
+            tvState.setText(dp[0].getEstadoCielo());
+            tvTermalSenseMax.setText(dp[0].getSensTermicaMaxima());
+            tvTermalSenseMin.setText(dp[0].getSensTermicaMinima());
+            tvHumidityMax.setText(dp[0].getHumRelativaMaxima());
+            tvHumidityMin.setText(dp[0].getHumRelativaMinima());
+            tvWind.setText(dp[0].getViento());
+            tvSnow.setText(dp[0].getProbNieve());
+        }
     }
-
 }

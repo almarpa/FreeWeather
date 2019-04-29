@@ -2,7 +2,9 @@ package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
 import com.google.gson.annotations.SerializedName;
 
-public class HumedadRelativa {
+import java.io.Serializable;
+
+public class HumedadRelativa implements Serializable {
     private String value;
     private String periodo;
 

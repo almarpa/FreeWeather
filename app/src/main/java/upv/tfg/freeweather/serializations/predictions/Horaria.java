@@ -1,5 +1,6 @@
 package upv.tfg.freeweather.serializations.predictions;
 
+import java.io.Serializable;
 import java.util.List;
 
 import upv.tfg.freeweather.serializations.predictions.data_prediction.EstadoCielo;
@@ -13,7 +14,7 @@ import upv.tfg.freeweather.serializations.predictions.data_prediction.SensTermic
 import upv.tfg.freeweather.serializations.predictions.data_prediction.Temperatura;
 
 /*Prediccion horaria*/
-public class Horaria {
+public class Horaria implements Serializable {
 
     private List<EstadoCielo> estadoCielo;
     private List<Precipitacion> precipitacion;

@@ -2,10 +2,11 @@ package upv.tfg.freeweather.serializations.predictions;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /*PREDICCION */
-public class PH {
+public class PH implements Serializable {
 
     @SerializedName("dia")
     private List<Horaria> horaria;

@@ -1,6 +1,8 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-public class Temperatura {
+import java.io.Serializable;
+
+public class Temperatura implements Serializable {
 
     private String value;
     private String periodo;

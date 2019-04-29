@@ -27,6 +27,15 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         return fragmentListTitles.size();
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        int index = fragmentList.indexOf (object);
+
+        if (index == -1)
+            return POSITION_NONE;
+        else
+            return index;
+    }
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
@@ -36,5 +45,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public void addFragment(Fragment fragment, String title) {
         fragmentList.add(fragment);
         fragmentListTitles.add(title);
+    }
+
+    public void removeFragments() {
+
     }
 }

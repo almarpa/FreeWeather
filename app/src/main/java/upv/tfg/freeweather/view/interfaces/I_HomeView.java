@@ -8,9 +8,16 @@ import upv.tfg.freeweather.model.entities.HourlyPrediction;
 
 public interface I_HomeView {
     Context getContext();
+
     void displayPredictions(HourlyPrediction[] hp, DailyPrediction[] dp);
     void displaySearchSuggestions(Cursor c);
+
     void makeFavourite();
     void removeFavourite();
+
+    void setProgressBarVisible();
+    void setProgressBarInvisible();
+
     void showMsgNoLocation(String location);
+    void showMsgHTTPError();
 }

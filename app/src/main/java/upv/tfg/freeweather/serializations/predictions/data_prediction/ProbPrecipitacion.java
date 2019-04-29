@@ -1,6 +1,8 @@
 package upv.tfg.freeweather.serializations.predictions.data_prediction;
 
-public class ProbPrecipitacion {
+import java.io.Serializable;
+
+public class ProbPrecipitacion implements Serializable {
 
     private String periodo;
     private String value;

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.SearchView;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ import upv.tfg.freeweather.view.interfaces.I_HomeView;
 /**
  * Main window allows the view of daily and hourly predictions.
  */
-public class HomeFragment extends Fragment implements I_HomeView, View.OnClickListener {
+public class HomeFragment extends Fragment implements I_HomeView {
 
     private View view;
     private Context context;
@@ -54,10 +55,11 @@ public class HomeFragment extends Fragment implements I_HomeView, View.OnClickLi
     private TextView tvLocation;
     private TextView tvDate;
     private TextView location;
+    private ProgressBar progressBar;
 
     public HomeFragment() { }
 
-    public static HomeFragment newInstance(String location){
+    public HomeFragment newInstance(String location){
         HomeFragment hFragment = new HomeFragment();
 
         // Get arguments passed in, if any
@@ -102,15 +104,26 @@ public class HomeFragment extends Fragment implements I_HomeView, View.OnClickLi
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         context = view.getContext();
 
-        ivFavourite = view.findViewById(R.id.imageButton);
-        ivFavourite.setOnClickListener(this);
         tvLocation = view.findViewById(R.id.tvLocalidad);
         tvDate = view.findViewById(R.id.tvFechayHora);
+        ivFavourite = view.findViewById(R.id.imageButton);
+        ivFavourite.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String location = tvLocation.getText().toString();
+                //Notifies the presenter that button fav has been pressed
+                homePresenter.notifyFavButtonClicked(location);
+            }
+        }));
+
+        progressBar = view.findViewById(R.id.progressBar);
+        tabLayout = view.findViewById(R.id.tlPredicciones);
+        viewPager = view.findViewById(R.id.viewpager_id);
+        adapter = new ViewPagerAdapter(getFragmentManager());
 
         tvDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
 
@@ -172,25 +185,14 @@ public class HomeFragment extends Fragment implements I_HomeView, View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View v) {
-        String location = tvLocation.getText().toString();
-        switch (v.getId()) {
-            case R.id.imageButton:
-                //Notifies the presenter that button fav has been pressed
-                homePresenter.notifyFavButtonClicked(location);
-                break;
-        }
-    }
+
 
     ///////////////////////////////////////////////////////
     ////////  AVAILABLE METHODS FOR THE PRESENTER  ////////
     ///////////////////////////////////////////////////////
     @Override
     public void displayPredictions(HourlyPrediction[] hp, DailyPrediction[] dp) {
-        tabLayout = view.findViewById(R.id.tlPredicciones);
-        viewPager = view.findViewById(R.id.viewpager_id);
-        adapter = new ViewPagerAdapter(getFragmentManager());
+        searchView.clearFocus(); // close the keyboard on load
 
         Bundle bundle1 = new Bundle();
         Bundle bundle2 = new Bundle();
@@ -211,8 +213,8 @@ public class HomeFragment extends Fragment implements I_HomeView, View.OnClickLi
         bundle3.putSerializable("DAILY", dp);
         dFragment.setArguments(bundle3);
 
-        adapter.addFragment(tFragment, "Ahora");
         adapter.addFragment(hFragment, "Horaria");
+        adapter.addFragment(tFragment, "Ahora");
         adapter.addFragment(dFragment, "Diaria");
 
         viewPager.setAdapter(adapter);
@@ -221,7 +223,7 @@ public class HomeFragment extends Fragment implements I_HomeView, View.OnClickLi
         location = getView().findViewById(R.id.tvLocalidad);
         location.setText(dp[0].getNombre());
 
-        //Ask the presenter if the location is already favourite or not
+        //Ask the presenter if this location is favourite or not
         homePresenter.notifyIsItFavourite(location.getText().toString());
     }
 
@@ -241,7 +243,26 @@ public class HomeFragment extends Fragment implements I_HomeView, View.OnClickLi
     }
 
     @Override
+    public void setProgressBarVisible() {
+        if(progressBar != null){
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void setProgressBarInvisible() {
+        if(progressBar != null) {
+            progressBar.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
     public void showMsgNoLocation(String location) {
         Toast.makeText(context, "No hay información acerca de la localidad: "+ location,Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void showMsgHTTPError() {
+        Toast.makeText(context, "No se pudo obtener la predicción debido a un error",Toast.LENGTH_SHORT);
     }
 }

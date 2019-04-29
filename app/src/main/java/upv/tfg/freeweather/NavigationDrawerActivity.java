@@ -155,6 +155,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         return true;
     }
 
+
     //Fill the database with all the locations from the .csv file.
     public void fillBD(){
         String mCSVfile = "codmunicip_v1.csv";

@@ -1,9 +1,11 @@
 package upv.tfg.freeweather.view;
 
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,73 +13,59 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import upv.tfg.freeweather.DetailedHourInfo;
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.RecyclerViewAdapter;
+import upv.tfg.freeweather.model.entities.HourlyPrediction;
 
-public class HourlyFragment extends Fragment {
+public class HourlyFragment extends Fragment implements RecyclerViewAdapter.OnRecyclerItemListener{
 
     private View view;
+    private Context context;
 
-    //vars
+    private HourlyPrediction[] hp;
+
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapter adapter;
+    private LinearLayoutManager llm;
+    private ArrayList<String> mDays = new ArrayList<>();
     private ArrayList<String> mHours = new ArrayList<>();
     private ArrayList<String> mTemperatures = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<Integer> mStateImages = new ArrayList<>();
+    private ArrayList<Integer> mTempImages = new ArrayList<>();
 
     public HourlyFragment() {
 
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_tab_hourly, container, false);
+        context = view.getContext();
 
-        //INITIALIZATION
-        mHours.add("1");
-        mHours.add("2");
-        mHours.add("3");
-        mHours.add("4");
-        mHours.add("5");
+        recyclerView = view.findViewById(R.id.recyclerView);
+        llm = new LinearLayoutManager(context);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
 
-        mTemperatures.add("10");
-        mTemperatures.add("11");
-        mTemperatures.add("12");
-        mTemperatures.add("10");
-        mTemperatures.add("11");
+        hp = (HourlyPrediction[]) getArguments().getSerializable("HOURLY");
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        //Instantiate adapter
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext(), mHours, mImageUrls, mTemperatures);
-        //Handle listview and assign adapter
+        mDays = hp[0].getDays();
+        mHours = hp[0].getHours();
+        mTemperatures = hp[0].getTemperatures();
+        mStateImages = hp[0].getImages();
+        mTempImages = hp[0].getTempImages();
+
+        adapter = new RecyclerViewAdapter(context, this, mDays, mHours, mTemperatures, mStateImages, mTempImages);
         recyclerView.setAdapter(adapter);
-        /*
-        //Assign listener to the items
-        lView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View v, int position,
-                                    long arg3)
-            {
-                String location = lView.getAdapter().getItem(position).toString();
 
-                NavigationView navigationView = getActivity().findViewById(R.id.navView);
-                navigationView.getMenu().getItem(0).setChecked(true);
-
-                //Create a new HomeFragment to search the prediction of the location.
-                HomeFragment homeFragment = new HomeFragment();
-
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frameLayout, homeFragment, "home")
-                        .commit();
-            }
-        });
-        */
         return view;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
     }
 
     @Override
@@ -90,6 +78,11 @@ public class HourlyFragment extends Fragment {
         super.onDetach();
     }
 
-    public interface OnFragmentInteractionListener {
+    @Override
+    public void onAdapterItemClick(int position) {
+        Intent intent = new Intent(context, DetailedHourInfo.class);
+        intent.putExtra("HourlyPrediction",hp);
+        intent.putExtra("Item_Position",position);
+        startActivity(intent);
     }
 }

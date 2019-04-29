@@ -55,7 +55,7 @@ public class HomeInteractor implements I_HomeInteractor {
     //           MODEL          //
     //////////////////////////////
     @Override
-    public Integer getCodeByLocation(String location) {
+    public String getCodeByLocation(String location) {
         return dbhelper.getCodeByLocation(location);
     }
 

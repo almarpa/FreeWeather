@@ -75,22 +75,21 @@ public class DatabaseHelper {
 
     }
 
-    public Integer getCodeByLocation(String location) {
+    public String getCodeByLocation(String location) {
         Integer codPro;
         Integer codMun;
-        String code;
-        Integer codigo = null;
+        String code = null;
 
         String[] args = new String[] {location};
         Cursor c = db.rawQuery(" SELECT * FROM tblLocalidades WHERE nombre=? ", args);
         if(c.moveToFirst() && c.getCount() >= 1) {
             codPro = c.getInt(2);
             codMun = c.getInt(3);
-            code = codPro.toString()+""+codMun.toString();
-            codigo = Integer.parseInt(code);
+            code = complete2Digits(codPro)+""+complete3Digits(codMun);
         }
         c.close();
-        return codigo;
+
+        return code;
     }
 
     public void onAttachPresenter(I_HomePresenter presenter) {
@@ -99,5 +98,27 @@ public class DatabaseHelper {
 
     public void onDetachPresenter() {
 
+    }
+
+    //UTILS METHODS
+    public String complete2Digits(Integer code){
+        String res = code.toString();
+        if(code.toString().length() < 2){
+            if(code.toString().length() == 1) {
+                res = "0" + code.toString();
+            }
+        }
+        return res;
+    }
+    public String complete3Digits(Integer code){
+        String res = code.toString();
+        if(code.toString().length() < 3){
+            if(code.toString().length() == 2){
+                res = "0" + code.toString();
+            }else if(res.toString().length() == 1){
+                res = "00" + code.toString();
+            }
+        }
+        return res;
     }
 }

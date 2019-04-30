@@ -90,6 +90,16 @@ public class HourlyPrediction implements Serializable {
     }
 
     //DETAILED HOUR INFO
+    public String getTime(int pos){
+        String  res;
+        int count = getPrediccion().getHoraria().get(0).getTemperatura().size();
+        if(pos < count){
+            res = getPrediccion().getHoraria().get(0).getTemperatura().get(pos).getPeriodo();
+        }else{
+            res = getPrediccion().getHoraria().get(1).getTemperatura().get(pos-count).getPeriodo();
+        }
+        return res.concat(":00");
+    }
     public String getDegrees(int pos){
         String  res;
         int count = getPrediccion().getHoraria().get(0).getTemperatura().size();
@@ -98,7 +108,7 @@ public class HourlyPrediction implements Serializable {
         }else{
             res = getPrediccion().getHoraria().get(1).getTemperatura().get(pos-count).getValue();
         }
-        return res;
+        return res.concat("º");
     }
     public Integer getStateImage(int pos){
         Integer res;
@@ -269,13 +279,31 @@ public class HourlyPrediction implements Serializable {
             case "17n":
                 res = R.drawable.nube_noche;
                 break;
+            case "26":
+                res = R.drawable.nube_lluvia;
+                break;
+            case "26n":
+                res = R.drawable.nube_lluvia;
+                break;
             case "43":
                 res = R.drawable.intervalos_nubosos_con_lluvia_escasa;
+                break;
+            case "44":
+                res = R.drawable.muy_nuboso_con_lluvia_escasa;
+                break;
+            case "44n":
+                res = R.drawable.muy_nuboso_con_lluvia_escasa;
                 break;
             case "45":
                 res = R.drawable.muy_nuboso_con_lluvia_escasa;
                 break;
+            case "45n":
+                res = R.drawable.muy_nuboso_con_lluvia_escasa;
+                break;
             case "46":
+                res = R.drawable.cubierto_con_lluvia_escasa;
+                break;
+            case "46n":
                 res = R.drawable.cubierto_con_lluvia_escasa;
                 break;
             default:
@@ -286,11 +314,11 @@ public class HourlyPrediction implements Serializable {
     private int getProbabilityByHour(String hour){
         int res;
         int h = Integer.parseInt(hour);
-        if (2 < h && h <= 8){
+        if (2 <= h && h < 8){
             res = 0;
-        }else if(8 < h && h <= 14){
+        }else if(8 <= h && h < 14){
             res = 1;
-        }else if(14 < h && h <= 20){
+        }else if(14 <= h && h < 20){
             res = 2;
         }else{
             res = 3;

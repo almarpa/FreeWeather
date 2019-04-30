@@ -22,6 +22,7 @@ public class DetailedHourInfo extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ImageView ivState;
+    private TextView tvTime;
     private TextView tvDegrees;
     private TextView tvDescrip;
     private TextView tvThermSense;
@@ -51,6 +52,7 @@ public class DetailedHourInfo extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        tvTime = findViewById(R.id.tvTime);
         ivState = findViewById(R.id.ivState);
         tvDegrees = findViewById(R.id.tvDegrees);
         tvDescrip = findViewById(R.id.tvDescrip);
@@ -66,7 +68,8 @@ public class DetailedHourInfo extends AppCompatActivity {
     }
 
     private void displayInfo(HourlyPrediction[] hp) {
-        tvDegrees.setText(hp[0].getDegrees(pos).concat("º"));
+        tvTime.setText(hp[0].getTime(pos));
+        tvDegrees.setText(hp[0].getDegrees(pos));
         tvDescrip.setText(hp[0].getStateDescription(pos));
         Glide.with(getApplicationContext())
                 .load(hp[0].getStateImage(pos))

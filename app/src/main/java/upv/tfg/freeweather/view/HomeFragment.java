@@ -213,9 +213,9 @@ public class HomeFragment extends Fragment implements I_HomeView {
         bundle3.putSerializable("DAILY", dp);
         dFragment.setArguments(bundle3);
 
-        adapter.addFragment(hFragment, "Horaria");
-        adapter.addFragment(tFragment, "Ahora");
-        adapter.addFragment(dFragment, "Diaria");
+        adapter.addFragment(hFragment, "Hourly");
+        adapter.addFragment(tFragment, "Today");
+        adapter.addFragment(dFragment, "Daily");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

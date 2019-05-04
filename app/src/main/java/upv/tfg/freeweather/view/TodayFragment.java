@@ -80,7 +80,7 @@ public class TodayFragment extends Fragment {
             tvDegreeMin.setText(dp[0].getTemperaturaMinima());
             Glide.with(getContext())
                     .load(dp[0].getStateImage())
-                    .override(275, 275)
+                    //.override(275, 275)
                     .into(ivState);
             tvRain.setText(dp[0].getProbPrecipitacion());
             tvState.setText(dp[0].getEstadoCielo());

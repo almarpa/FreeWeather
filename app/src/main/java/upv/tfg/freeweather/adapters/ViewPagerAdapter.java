@@ -4,11 +4,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private final List<Fragment> fragmentList = new ArrayList<>();
     private final List<String> fragmentListTitles = new ArrayList<>();
@@ -29,13 +30,18 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
+        /*
         int index = fragmentList.indexOf (object);
 
         if (index == -1)
             return POSITION_NONE;
         else
             return index;
+        */
+        return POSITION_NONE;
+
     }
+
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
@@ -46,8 +52,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         fragmentList.add(fragment);
         fragmentListTitles.add(title);
     }
-
-    public void removeFragments() {
-
+    public void clearFragments(){
+        fragmentList.clear();
+        fragmentListTitles.clear();
     }
 }

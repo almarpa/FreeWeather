@@ -18,6 +18,6 @@ public interface I_HomeView {
     void setProgressBarVisible();
     void setProgressBarInvisible();
 
-    void showMsgNoLocation(String location);
+    void showMsgNoLocationFound(String location);
     void showMsgHTTPError();
 }

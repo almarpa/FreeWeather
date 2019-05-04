@@ -129,6 +129,12 @@ public class DailyPrediction  implements Serializable {
             case "17n":
                 res = R.drawable.nube_noche;
                 break;
+            case "25":
+                res = R.drawable.nube_lluvia;
+                break;
+            case "25n":
+                res = R.drawable.nube_lluvia;
+                break;
             case "26":
                 res = R.drawable.nube_lluvia;
                 break;
@@ -137,6 +143,12 @@ public class DailyPrediction  implements Serializable {
                 break;
             case "43":
                 res = R.drawable.intervalos_nubosos_con_lluvia_escasa;
+                break;
+            case "44":
+                res = R.drawable.muy_nuboso_con_lluvia_escasa;
+                break;
+            case "44n":
+                res = R.drawable.muy_nuboso_con_lluvia_escasa;
                 break;
             case "45":
                 res = R.drawable.muy_nuboso_con_lluvia_escasa;
@@ -149,6 +161,24 @@ public class DailyPrediction  implements Serializable {
                 break;
             case "46n":
                 res = R.drawable.cubierto_con_lluvia_escasa;
+                break;
+            case "51":
+                res = R.drawable.nube_trueno;
+                break;
+            case "51n":
+                res = R.drawable.nube_trueno;
+                break;
+            case "52":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "52n":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "64":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "64n":
+                res = R.drawable.nube_lluvia_trueno;
                 break;
             default:
                 res = R.drawable.copo_nieve;

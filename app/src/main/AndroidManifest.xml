@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".DetailedHourInfo"
+            android:name=".HourlyInfoActivity"
             android:label="@string/title_activity_detailed_hour_info"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

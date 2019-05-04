@@ -36,10 +36,10 @@ public class HomeInteractor implements I_HomeInteractor {
     //////////////////////////////
     @Override
     public void notifyFavButtonClicked(String location) {
-        if(prefHelper.isItFavourite(location)){
+        if (prefHelper.isItFavourite(location)) {
             prefHelper.deleteFavourite(location);
             homePresenter.removeFavourite();
-        }else{
+        } else {
             prefHelper.addFavourite(location);
             homePresenter.makeFavourite();
         }
@@ -67,15 +67,5 @@ public class HomeInteractor implements I_HomeInteractor {
     @Override
     public List<String> findPossibleLocation(String text) {
         return dbhelper.findPossibleLocation(text);
-    }
-
-    @Override
-    public void onAttachPresenter(I_HomePresenter presenter) {
-        dbhelper.onAttachPresenter(presenter);
-    }
-
-    @Override
-    public void onDetachPresenter() {
-        dbhelper.onDetachPresenter();
     }
 }

@@ -33,7 +33,7 @@ public class HourlyPrediction implements Serializable {
     ///      METHODS TO OBTAIN PREDICTION INFO FOR GRAPHICS, CARDS, ETC         ///
     ///////////////////////////////////////////////////////////////////////////////
 
-    //HOURLY FRAGMENT
+    //HOURLY FRAGMENT (Adapter item elements)
     public ArrayList<Integer> getImages() {
         ArrayList<Integer> res = new ArrayList<>();
         for (int i= 0; i < getPrediccion().getHoraria().size(); i++) {
@@ -68,10 +68,10 @@ public class HourlyPrediction implements Serializable {
     public ArrayList<String> getDays() {
         ArrayList<String> res = new ArrayList<>();
         for (int i= 0; i < getPrediccion().getHoraria().get(0).getEstadoCielo().size(); i++) {
-            res.add("Hoy");
+            res.add("Tod.");
         }
         for (int i= 0; i < getPrediccion().getHoraria().get(1).getEstadoCielo().size(); i++) {
-            res.add("Mañ.");
+            res.add("Tom.");
         }
         return res;
     }
@@ -279,6 +279,12 @@ public class HourlyPrediction implements Serializable {
             case "17n":
                 res = R.drawable.nube_noche;
                 break;
+            case "25":
+                res = R.drawable.nube_lluvia;
+                break;
+            case "25n":
+                res = R.drawable.nube_lluvia;
+                break;
             case "26":
                 res = R.drawable.nube_lluvia;
                 break;
@@ -305,6 +311,24 @@ public class HourlyPrediction implements Serializable {
                 break;
             case "46n":
                 res = R.drawable.cubierto_con_lluvia_escasa;
+                break;
+            case "51":
+                res = R.drawable.nube_trueno;
+                break;
+            case "51n":
+                res = R.drawable.nube_trueno;
+                break;
+            case "52":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "52n":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "64":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "64n":
+                res = R.drawable.nube_lluvia_trueno;
                 break;
             default:
                 res = R.drawable.copo_nieve;

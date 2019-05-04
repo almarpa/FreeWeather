@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import upv.tfg.freeweather.DetailedHourInfo;
+import upv.tfg.freeweather.HourlyInfoActivity;
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.RecyclerViewAdapter;
 import upv.tfg.freeweather.model.entities.HourlyPrediction;
@@ -80,7 +80,7 @@ public class HourlyFragment extends Fragment implements RecyclerViewAdapter.OnRe
 
     @Override
     public void onAdapterItemClick(int position) {
-        Intent intent = new Intent(context, DetailedHourInfo.class);
+        Intent intent = new Intent(context, HourlyInfoActivity.class);
         intent.putExtra("HourlyPrediction",hp);
         intent.putExtra("Item_Position",position);
         startActivity(intent);

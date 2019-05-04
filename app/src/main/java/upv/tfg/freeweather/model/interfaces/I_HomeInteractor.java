@@ -14,6 +14,4 @@ public interface I_HomeInteractor {
     String getCodeByLocation(String location);
     String getLocationByName(String fav_item_to_search);
     List<String> findPossibleLocation(String text);
-    void onAttachPresenter(I_HomePresenter presenter);
-    void onDetachPresenter();
 }

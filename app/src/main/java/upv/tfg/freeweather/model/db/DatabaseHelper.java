@@ -92,14 +92,6 @@ public class DatabaseHelper {
         return code;
     }
 
-    public void onAttachPresenter(I_HomePresenter presenter) {
-
-    }
-
-    public void onDetachPresenter() {
-
-    }
-
     //UTILS METHODS
     public String complete2Digits(Integer code){
         String res = code.toString();

@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import upv.tfg.freeweather.model.entities.HourlyPrediction;
 import upv.tfg.freeweather.serializations.predictions.PH;
 
-public class DetailedHourInfo extends AppCompatActivity {
+public class HourlyInfoActivity extends AppCompatActivity {
 
     //Hourly prediction
     private HourlyPrediction[] hp;
@@ -68,13 +68,13 @@ public class DetailedHourInfo extends AppCompatActivity {
     }
 
     private void displayInfo(HourlyPrediction[] hp) {
+        Glide.with(getApplicationContext())
+                .load(hp[0].getStateImage(pos))
+                //.override(350, 350)
+                .into(ivState);
         tvTime.setText(hp[0].getTime(pos));
         tvDegrees.setText(hp[0].getDegrees(pos));
         tvDescrip.setText(hp[0].getStateDescription(pos));
-        Glide.with(getApplicationContext())
-                .load(hp[0].getStateImage(pos))
-                .override(350, 350)
-                .into(ivState);
         tvThermSense.setText(hp[0].getThermSense(pos));
         tvRain.setText(hp[0].getRain(pos));
         tvHumidity.setText(hp[0].getHumidity(pos));

@@ -11,107 +11,135 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="1dp"
-        app:cardBackgroundColor="@color/colorBackground"
-        app:cardCornerRadius="20dp">
+        android:layout_marginBottom="5dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="10dp">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="308dp"
-                android:layout_weight="2"
-                android:gravity="center|right"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|right">
-
-                    <TextView
-                        android:id="@+id/tvDegree"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="56dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_weight="1"
-                        android:height="1dp"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textAlignment="center"
-                        android:textSize="36sp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvMaxDegree"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="16dp"
-                            android:text="-"
-                            android:textAlignment="inherit"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvMinDegree"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:text="-"
-                            android:textAlignment="inherit"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/ivState"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="12dp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvDescrip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center|right"
-                    android:text="-"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivState"
-                    app:layout_constraintVertical_bias="1.0" />
-            </LinearLayout>
+            android:layout_height="wrap_content">
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2">
+                android:layout_margin="5dp">
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tvDegree"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_weight="1"
+                                    android:autoSizeMaxTextSize="100sp"
+                                    android:autoSizeMinTextSize="12sp"
+                                    android:autoSizeStepGranularity="2sp"
+                                    android:gravity="center"
+                                    android:text="-"
+                                    android:textSize="36sp"
+                                    android:textStyle="bold" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="2"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tvMaxDegree"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:autoSizeMaxTextSize="100sp"
+                                        android:autoSizeMinTextSize="12sp"
+                                        android:autoSizeStepGranularity="2sp"
+                                        android:text="-"
+                                        android:textAlignment="center"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/tvMinDegree"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:autoSizeMaxTextSize="100sp"
+                                        android:autoSizeMinTextSize="12sp"
+                                        android:autoSizeStepGranularity="2sp"
+                                        android:text="-"
+                                        android:textAlignment="center"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/ivState"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="12dp"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="centerInside" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvDescrip"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginBottom="8dp"
+                                android:gravity="center|right"
+                                android:text="-"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -133,7 +161,7 @@
                                 android:gravity="center"
                                 android:text="Thermal sens.(max):"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorWhite"
+                                android:textColor="@color/colorBackground"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -142,7 +170,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:height="1dp"
                                 android:gravity="center|top"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -162,7 +189,7 @@
                                 android:gravity="center"
                                 android:text="Thermal sens.(min):"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorWhite"
+                                android:textColor="@color/colorBackground"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -171,7 +198,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:height="1dp"
                                 android:gravity="center|top"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -182,8 +208,7 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -205,7 +230,7 @@
                                 android:gravity="center"
                                 android:text="Gusts:"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorWhite"
+                                android:textColor="@color/colorBackground"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -214,7 +239,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:height="1dp"
                                 android:gravity="center|top"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -234,7 +258,7 @@
                                 android:gravity="center"
                                 android:text="Wind:"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorWhite"
+                                android:textColor="@color/colorBackground"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -243,7 +267,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:height="1dp"
                                 android:gravity="center|top"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
@@ -254,8 +277,7 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -276,7 +298,7 @@
                                 android:gravity="center"
                                 android:text="Humidity(max):"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorWhite"
+                                android:textColor="@color/colorBackground"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -303,7 +325,7 @@
                                 android:gravity="center"
                                 android:text="Humidity(min):"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorWhite"
+                                android:textColor="@color/colorBackground"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -322,8 +344,7 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -345,7 +366,7 @@
                                 android:gravity="center"
                                 android:text="Rain:"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorWhite"
+                                android:textColor="@color/colorBackground"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -374,7 +395,7 @@
                                 android:gravity="center"
                                 android:text="Snow probability:"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorWhite"
+                                android:textColor="@color/colorBackground"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
@@ -393,7 +414,7 @@
                 </TableRow>
 
             </TableLayout>
-
-        </LinearLayout>
+        </ScrollView>
     </android.support.v7.widget.CardView>
+
 </FrameLayout>

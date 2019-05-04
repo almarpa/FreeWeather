@@ -3,20 +3,8 @@ package upv.tfg.freeweather.presenter;
 import android.app.SearchManager;
 import android.content.Context;
 import android.database.MatrixCursor;
-import android.os.AsyncTask;
 import android.provider.BaseColumns;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +13,7 @@ import upv.tfg.freeweather.model.entities.DailyPrediction;
 import upv.tfg.freeweather.model.entities.HourlyPrediction;
 import upv.tfg.freeweather.model.interfaces.I_HomeInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
-import upv.tfg.freeweather.serializations.Init;
+import upv.tfg.freeweather.tasks.TaskGetPredictions;
 import upv.tfg.freeweather.view.interfaces.I_HomeView;
 
 public class HomePresenter implements I_HomePresenter {
@@ -43,20 +31,13 @@ public class HomePresenter implements I_HomePresenter {
     // AVAILABLE METHODS FOR THE VIEW //
     ////////////////////////////////////
     @Override
-    public Context getContext() {
-        return getContext();
-    }
-
-    @Override
     public void setModel(HomeInteractor model) {
         homeInteractor = model;
     }
-
     @Override
     public void notifyFavButtonClicked(String location) {
         homeInteractor.notifyFavButtonClicked(location);
     }
-
     @Override
     public void notifyIsItFavourite(String location) {
         boolean isFavourite = homeInteractor.isItFavourite(location);
@@ -66,10 +47,9 @@ public class HomePresenter implements I_HomePresenter {
             homeView.removeFavourite();
         }
     }
-
     @Override
     public void notifySearchTextChanged(String text) {
-        //Obtain the list of possible locations suggested by the text
+        //Obtain the list of possible locations suggested by the text introduced
         List<String> possibleLocations = homeInteractor.findPossibleLocation(text);
         List<String> suggestions = new ArrayList<>();
 
@@ -88,17 +68,16 @@ public class HomePresenter implements I_HomePresenter {
             homeView.displaySearchSuggestions(c);
         }
     }
-
     @Override
     public void notifySearchPrediction(String location) {
         String code = homeInteractor.getCodeByLocation(location);
         if (code != null) {
-            //Obtain the predictions from the API
-            HTTPConnection hc = new HTTPConnection();
-            hc.execute(code);
+            homeView.setProgressBarVisible();
+            //Obtain predictions from the API
+            TaskGetPredictions task = new TaskGetPredictions(this);
+            task.execute(code);
         } else {
-            //Notify view to show a warning msg
-            homeView.showMsgNoLocation(location);
+            homeView.showMsgNoLocationFound(location);
         }
     }
 
@@ -109,121 +88,21 @@ public class HomePresenter implements I_HomePresenter {
     public void makeFavourite() {
         homeView.makeFavourite();
     }
-
     @Override
     public void removeFavourite() {
         homeView.removeFavourite();
     }
 
-
-    /////////////////////////////////
-    ////////  API CONNECTION    /////
-    ////////  HOURLY and DAILY  /////
-    ////////  PREDICTION        /////
-    /////////////////////////////////
-    public class HTTPConnection extends AsyncTask<String, Void, Void> {
-
-        private Init init;
-        private HourlyPrediction[] hp;
-        private DailyPrediction[] dp;
-
-        private URL url;
-        private HttpURLConnection connection;
-        private InputStreamReader reader;
-        private GsonBuilder builder;
-        private Gson gson;
-
-
-        @Override
-        protected void onPreExecute() {
-            homeView.setProgressBarVisible();
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            try {
-                //  HOURLY PREDICTION   //
-                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/" + params[0] + "?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                builder = new GsonBuilder();
-                gson = builder.create();
-                init = gson.fromJson(reader, Init.class);
-
-                connection.disconnect();
-
-                url = new URL(init.datos);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                builder = new GsonBuilder();
-                gson = builder.create();
-                hp = gson.fromJson(reader, HourlyPrediction[].class);
-
-                connection.disconnect();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            //DAILY PREDICTION
-            try {
-                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/" + params[0] + "?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                builder = new GsonBuilder();
-                gson = builder.create();
-                init = gson.fromJson(reader, Init.class);
-
-                connection.disconnect();
-
-                url = new URL(init.datos);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                //if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                builder = new GsonBuilder();
-                gson = builder.create();
-                dp = gson.fromJson(reader, DailyPrediction[].class);
-
-                connection.disconnect();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void params) {
-            if (hp != null && dp != null){
-                homeView.displayPredictions(hp, dp);
-                homeView.setProgressBarInvisible();
-            }else{
-                homeView.showMsgHTTPError();
-            }
-        }
+    /////////////////////////////////////
+    // METHODS CALLED FROM ASYNCTASK  //
+    /////////////////////////////////////
+    public void onTaskCompleted(HourlyPrediction[] hp, DailyPrediction[] dp){
+        homeView.displayPredictions(hp,dp);
+        homeView.setProgressBarInvisible();
     }
+    public void onTaskError(){
+        homeView.showMsgHTTPError();
+    }
+
+
 }

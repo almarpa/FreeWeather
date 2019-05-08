@@ -16,6 +16,14 @@ public class PreferencesHelper {
         prefs = context.getSharedPreferences(preferencesFile,Context.MODE_PRIVATE);
     }
 
+    public boolean getIsFirstTimeRunning() {
+        return prefs.getBoolean("firstStart", true);
+    }
+
+    public void saveDBCreation() {
+        prefs.edit().putBoolean("firstStart", false).apply();
+    }
+
     public boolean isItFavourite(String location){
         return prefs.getBoolean(location,false);
     }

@@ -2,6 +2,7 @@ package upv.tfg.freeweather.view;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -178,6 +180,17 @@ public class HomeFragment extends Fragment implements I_HomeView {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent i;
+        switch (item.getItemId()) {
+            case R.id.mNotifications:
+                i = new Intent(getContext(), NotificationsActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.mConfiguration:
+                //i = new Intent(getContext(), ConfigurationActivity.class);
+                //startActivity(i);
+                //return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

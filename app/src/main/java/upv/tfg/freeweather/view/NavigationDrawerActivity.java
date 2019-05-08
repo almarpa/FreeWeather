@@ -1,6 +1,7 @@
-package upv.tfg.freeweather;
+package upv.tfg.freeweather.view;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,43 +20,56 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import upv.tfg.freeweather.R;
+import upv.tfg.freeweather.model.NavigationDrawerInteractor;
 import upv.tfg.freeweather.model.db.DBInitialization;
+import upv.tfg.freeweather.model.interfaces.I_NavigationDrawerInteractor;
+import upv.tfg.freeweather.presenter.NavigationDrawerPresenter;
+import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
+import upv.tfg.freeweather.presenter.interfaces.I_NavigationDrawerPresenter;
 import upv.tfg.freeweather.view.HomeFragment;
 import upv.tfg.freeweather.view.MapsFragment;
 import upv.tfg.freeweather.view.WarningsFragment;
 import upv.tfg.freeweather.view.GeolocationFragment;
 import upv.tfg.freeweather.view.FavouritesFragment;
+import upv.tfg.freeweather.view.interfaces.I_NavigationDrawerView;
+
+import static java.security.AccessController.getContext;
 
 /**
- * Shows a navigation drawer activity with some options.
+ * Shows a navigation drawer activity with some menu options.
  */
-public class NavigationDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class NavigationDrawerActivity extends AppCompatActivity implements I_NavigationDrawerView, NavigationView.OnNavigationItemSelectedListener {
 
-    private DBInitialization myhelper = new DBInitialization(this);
-    private SQLiteDatabase db;
+    //Presenter reference
+    I_NavigationDrawerPresenter navDrawerPresenter;
 
     private Toolbar toolBar;
     private DrawerLayout drawerLayout;
+
+    private void setupMVP() {
+        // Create the Presenter
+        I_NavigationDrawerPresenter presenter = new NavigationDrawerPresenter(this);
+        // Create the Model
+        NavigationDrawerInteractor model = new NavigationDrawerInteractor(presenter,getApplicationContext());
+        // Set presenter model
+        presenter.setModel(model);
+        // Set the Presenter as a interface
+        navDrawerPresenter = presenter;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
 
-        //If the app starts for the first time, the database is loaded.
-        SharedPreferences prefs = getSharedPreferences("SHARED_PREFERENCES", MODE_PRIVATE);
-        boolean firstStart = prefs.getBoolean("firstStart",true);
-        if (firstStart==true){
-            fillBD();
-        }
-
         toolBar = findViewById(R.id.toolBar);
-        setSupportActionBar(toolBar);
+        drawerLayout = findViewById(R.id.drawerLayout);
 
+        setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
-
-        drawerLayout = findViewById(R.id.drawerLayout);
 
         NavigationView navigationView = findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
@@ -67,6 +81,11 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                     .replace(R.id.frameLayout, new HomeFragment())
                     .commit();
         }
+
+        //Initialize MVP pattern
+        setupMVP();
+        //Notifies presenter to fill the database if it was necessary
+        navDrawerPresenter.notifyFillDatabase();
     }
 
     @Override
@@ -76,9 +95,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
-
 
     @Override
     public void onBackPressed() {
@@ -153,47 +171,5 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Navig
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
-    }
-
-
-    //Fill the database with all the locations from the .csv file.
-    public void fillBD(){
-        String mCSVfile = "codmunicip_v1.csv";
-
-        AssetManager manager = getAssets();
-        InputStream inStream = null;
-
-        try {
-            inStream = manager.open(mCSVfile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream, "ISO-8859-1"));
-            String line;
-
-            db = myhelper.getWritableDatabase();
-            db.beginTransaction();
-
-            while ((line = buffer.readLine()) != null) {
-                String[] colums = line.split(",");
-
-                ContentValues cv = new ContentValues();
-                cv.put("codAuto", colums[0].trim());
-                cv.put("cPro", colums[1].trim());
-                cv.put("cMun", colums[2].trim());
-                cv.put("DC", colums[3].trim());
-                cv.put("nombre", colums[4].trim());
-                db.insert("tblLocalidades", null, cv);
-            }
-        } catch (IOException e ) {
-            e.printStackTrace();
-        }
-        db.setTransactionSuccessful();
-        db.endTransaction();
-
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("firstStart", false);
     }
 }

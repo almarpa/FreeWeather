@@ -11,15 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TooManyListenersException;
-
-import upv.tfg.freeweather.NavigationDrawerActivity;
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.FavouriteAdapter;
 import upv.tfg.freeweather.model.FavouritesInteractor;

@@ -2,11 +2,8 @@ package upv.tfg.freeweather.model;
 
 
 import android.content.Context;
-import android.database.Cursor;
-import android.widget.Toast;
 
 import java.util.List;
-import java.util.Map;
 
 import upv.tfg.freeweather.model.db.DatabaseHelper;
 import upv.tfg.freeweather.model.db.PreferencesHelper;

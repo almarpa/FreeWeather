@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import upv.tfg.freeweather.R;
 
 
-public class FavouriteAdapter extends BaseAdapter implements ListAdapter {
+public class FavouriteItemAdapter extends BaseAdapter implements ListAdapter {
 
     private ArrayList<String> list = new ArrayList<String>();
     private Context context;
     private SharedPreferences prefs;
 
-    public FavouriteAdapter(ArrayList<String> list, Context context) {
+    public FavouriteItemAdapter(ArrayList<String> list, Context context) {
         this.list = list;
         this.context = context;
         prefs = context.getSharedPreferences("SHARED_PREFERENCES",Context.MODE_PRIVATE);

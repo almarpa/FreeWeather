@@ -28,7 +28,7 @@ public class FavouritesInteractor implements I_FavouritesInteractor {
     }
     @Override
     public Map<String, ?> getAllFavourites() {
-        return prefHelper.getAllPreferences();
+        return prefHelper.getAllFavourites();
     }
 
     @Override

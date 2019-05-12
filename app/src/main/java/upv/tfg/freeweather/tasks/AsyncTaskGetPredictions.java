@@ -23,7 +23,7 @@ import upv.tfg.freeweather.serializations.Init;
 ////////  HOURLY and DAILY  /////
 ////////  PREDICTION        /////
 /////////////////////////////////
-public class TaskGetPredictions extends AsyncTask<String, Void, Void> {
+public class AsyncTaskGetPredictions extends AsyncTask<String, Void, Void> {
 
     HomePresenter caller;
 
@@ -37,7 +37,7 @@ public class TaskGetPredictions extends AsyncTask<String, Void, Void> {
     private GsonBuilder builder;
     private Gson gson;
 
-    public TaskGetPredictions(HomePresenter mainActivity) {
+    public AsyncTaskGetPredictions(HomePresenter mainActivity) {
         this.caller = mainActivity;
     }
 

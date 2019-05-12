@@ -1,10 +1,5 @@
 package upv.tfg.freeweather.view;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.AssetManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -15,26 +10,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.model.NavigationDrawerInteractor;
-import upv.tfg.freeweather.model.db.DBInitialization;
-import upv.tfg.freeweather.model.interfaces.I_NavigationDrawerInteractor;
 import upv.tfg.freeweather.presenter.NavigationDrawerPresenter;
-import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
 import upv.tfg.freeweather.presenter.interfaces.I_NavigationDrawerPresenter;
-import upv.tfg.freeweather.view.HomeFragment;
-import upv.tfg.freeweather.view.MapsFragment;
-import upv.tfg.freeweather.view.WarningsFragment;
-import upv.tfg.freeweather.view.GeolocationFragment;
-import upv.tfg.freeweather.view.FavouritesFragment;
 import upv.tfg.freeweather.view.interfaces.I_NavigationDrawerView;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Shows a navigation drawer activity with some menu options.

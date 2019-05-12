@@ -36,7 +36,7 @@ public class PreferencesHelper {
         prefs.edit().putBoolean(location,false).apply();
     }
 
-    public Map<String,?> getAllPreferences(){
+    public Map<String,?> getAllFavourites(){
             Map<String,?> keys = prefs.getAll();
         return keys;
     }

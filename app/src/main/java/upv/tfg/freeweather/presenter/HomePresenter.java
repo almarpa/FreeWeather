@@ -1,7 +1,6 @@
 package upv.tfg.freeweather.presenter;
 
 import android.app.SearchManager;
-import android.content.Context;
 import android.database.MatrixCursor;
 import android.provider.BaseColumns;
 
@@ -13,7 +12,7 @@ import upv.tfg.freeweather.model.entities.DailyPrediction;
 import upv.tfg.freeweather.model.entities.HourlyPrediction;
 import upv.tfg.freeweather.model.interfaces.I_HomeInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
-import upv.tfg.freeweather.tasks.TaskGetPredictions;
+import upv.tfg.freeweather.tasks.AsyncTaskGetPredictions;
 import upv.tfg.freeweather.view.interfaces.I_HomeView;
 
 public class HomePresenter implements I_HomePresenter {
@@ -74,7 +73,7 @@ public class HomePresenter implements I_HomePresenter {
         if (code != null) {
             homeView.setProgressBarVisible();
             //Obtain predictions from the API
-            TaskGetPredictions task = new TaskGetPredictions(this);
+            AsyncTaskGetPredictions task = new AsyncTaskGetPredictions(this);
             task.execute(code);
         } else {
             homeView.showMsgNoLocationFound(location);

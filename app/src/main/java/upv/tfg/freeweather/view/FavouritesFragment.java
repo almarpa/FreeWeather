@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.adapters.FavouriteAdapter;
+import upv.tfg.freeweather.adapters.FavouriteItemAdapter;
 import upv.tfg.freeweather.model.FavouritesInteractor;
 import upv.tfg.freeweather.presenter.FavouritesPresenter;
 import upv.tfg.freeweather.presenter.interfaces.I_FavouritesPresenter;
@@ -102,7 +102,7 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
     }
 
     @Override
-    public void setAdapter(FavouriteAdapter favAdapter) {
+    public void setAdapter(FavouriteItemAdapter favAdapter) {
         //Assign adapter
         lView.setAdapter(favAdapter);
     }

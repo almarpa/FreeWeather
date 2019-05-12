@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import upv.tfg.freeweather.HourlyInfoActivity;
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.RecyclerViewAdapter;
 import upv.tfg.freeweather.model.entities.HourlyPrediction;

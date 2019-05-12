@@ -1,4 +1,4 @@
-package upv.tfg.freeweather;
+package upv.tfg.freeweather.view;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,13 +11,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.model.entities.HourlyPrediction;
 import upv.tfg.freeweather.serializations.predictions.PH;
 
 public class HourlyInfoActivity extends AppCompatActivity {
 
-    //Hourly prediction
     private HourlyPrediction[] hp;
+    //Item position at the list
     private Integer pos;
 
     private Toolbar toolbar;

@@ -156,7 +156,9 @@ public class HomeFragment extends Fragment implements I_HomeView {
             }
             @Override
             public boolean onQueryTextChange(String text) {
-                homePresenter.notifySearchTextChanged(text);
+                if(!text.equals("")){
+                    homePresenter.notifySearchTextChanged(text);
+                }
                 return true;
             }
         }));

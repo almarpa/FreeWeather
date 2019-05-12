@@ -3,7 +3,6 @@ package upv.tfg.freeweather.adapters;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
@@ -30,16 +29,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
-        /*
-        int index = fragmentList.indexOf (object);
-
-        if (index == -1)
-            return POSITION_NONE;
-        else
-            return index;
-        */
         return POSITION_NONE;
-
     }
 
     @Nullable

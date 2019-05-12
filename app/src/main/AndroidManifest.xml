@@ -25,7 +25,7 @@
             android:label="@string/title_activity_notifications"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".HourlyInfoActivity"
+            android:name=".view.HourlyInfoActivity"
             android:label="@string/title_activity_detailed_hour_info"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

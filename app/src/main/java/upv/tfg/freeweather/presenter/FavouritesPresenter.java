@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Map;
 
-import upv.tfg.freeweather.adapters.FavouriteAdapter;
+import upv.tfg.freeweather.adapters.FavouriteItemAdapter;
 import upv.tfg.freeweather.model.FavouritesInteractor;
 import upv.tfg.freeweather.model.interfaces.I_FavouritesInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_FavouritesPresenter;
@@ -17,7 +17,7 @@ public class FavouritesPresenter implements I_FavouritesPresenter {
     private I_FavouritesView favView;
     // Model reference
     private I_FavouritesInteractor favInteractor;
-    private FavouriteAdapter favAdapter;
+    private FavouriteItemAdapter favAdapter;
 
     public FavouritesPresenter(I_FavouritesView view) {
         favView = view;
@@ -47,7 +47,7 @@ public class FavouritesPresenter implements I_FavouritesPresenter {
         }
 
         //Instantiate adapter
-        favAdapter = new FavouriteAdapter(list, favView.getContext());
+        favAdapter = new FavouriteItemAdapter(list, favView.getContext());
         favView.setAdapter(favAdapter);
     }
 }

@@ -4,4 +4,5 @@ import java.util.Map;
 
 public interface I_NotificationsInteractor {
     Map<String,?> getFavouriteLocation();
+    String getCodeByLocation(String location);
 }

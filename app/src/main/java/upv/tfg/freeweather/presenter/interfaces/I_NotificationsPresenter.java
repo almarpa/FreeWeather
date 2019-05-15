@@ -1,9 +1,13 @@
 package upv.tfg.freeweather.presenter.interfaces;
 
 
-import upv.tfg.freeweather.model.NotificationsInteractor;
+import android.widget.RadioGroup;
 
 public interface I_NotificationsPresenter {
-    void setModel(NotificationsInteractor model);
-    void notifyGetFavoriteLocations();
+
+    // Available methods for the view
+    void notifySwitchChecked();
+    void notifySwitchUnchecked();
+    void notifyRdBtnTimeChanged(RadioGroup rg, int checkedId);
+    void notifyRdBtnLocationChanged(RadioGroup rg, int checkedId);
 }

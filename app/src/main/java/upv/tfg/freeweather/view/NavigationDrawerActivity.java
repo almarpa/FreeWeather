@@ -10,9 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.model.NavigationDrawerInteractor;
 import upv.tfg.freeweather.presenter.NavigationDrawerPresenter;
 import upv.tfg.freeweather.presenter.interfaces.I_NavigationDrawerPresenter;
 import upv.tfg.freeweather.view.interfaces.I_NavigationDrawerView;
@@ -23,22 +21,11 @@ import upv.tfg.freeweather.view.interfaces.I_NavigationDrawerView;
 public class NavigationDrawerActivity extends AppCompatActivity implements I_NavigationDrawerView, NavigationView.OnNavigationItemSelectedListener {
 
     //Presenter reference
-    I_NavigationDrawerPresenter navDrawerPresenter;
+    private I_NavigationDrawerPresenter presenter;
 
     private Toolbar toolBar;
     private DrawerLayout drawerLayout;
-
-    private void setupMVP() {
-        // Create the Presenter
-        I_NavigationDrawerPresenter presenter = new NavigationDrawerPresenter(this);
-        // Create the Model
-        NavigationDrawerInteractor model = new NavigationDrawerInteractor(presenter,getApplicationContext());
-        // Set presenter model
-        presenter.setModel(model);
-        // Set the Presenter as a interface
-        navDrawerPresenter = presenter;
-
-    }
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +39,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        NavigationView navigationView = findViewById(R.id.navView);
+        navigationView = findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
 
@@ -63,10 +50,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
                     .commit();
         }
 
-        //Initialize MVP pattern
-        setupMVP();
-        //Notifies presenter to fill the database if it was necessary
-        navDrawerPresenter.notifyFillDatabase();
+        // Create the Presenter
+        presenter = new NavigationDrawerPresenter(this, getApplicationContext());
+
     }
 
     @Override

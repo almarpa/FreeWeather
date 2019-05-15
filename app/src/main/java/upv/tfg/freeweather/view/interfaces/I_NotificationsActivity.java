@@ -1,9 +1,10 @@
 package upv.tfg.freeweather.view.interfaces;
 
-import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
-import java.util.List;
 
 public interface I_NotificationsActivity {
-    void setDataRadioGroup(List<RadioButton> list);
+    void setIntervalTimesView(RadioGroup rg);
+    void setLocationsView(RadioGroup rg);
+    void showHTTPMsgError();
 }

@@ -80,13 +80,13 @@ public class DailyPrediction  implements Serializable {
         return res.toString().concat("%");
     }
 
-    //DAILY FRAGMENT
-
-
     //AUXILIAR METHODS
     private Integer getIconByCode(String code) {
         int res;
         switch (code){
+            case "":
+                res = R.drawable.icon_not_exists;
+                break;
             case "11":
                 res = R.drawable.sol;
                 break;

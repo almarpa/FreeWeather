@@ -14,8 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.adapters.FavouriteItemAdapter;
-import upv.tfg.freeweather.model.FavouritesInteractor;
+import upv.tfg.freeweather.adapters.FavouritesAdapter;
 import upv.tfg.freeweather.presenter.FavouritesPresenter;
 import upv.tfg.freeweather.presenter.interfaces.I_FavouritesPresenter;
 import upv.tfg.freeweather.view.interfaces.I_FavouritesView;
@@ -26,51 +25,37 @@ import upv.tfg.freeweather.view.interfaces.I_FavouritesView;
 public class FavouritesFragment extends Fragment implements I_FavouritesView {
 
     //Presenter reference
-    I_FavouritesPresenter favPresenter;
+    private I_FavouritesPresenter presenter;
     //Fragment home view
-    HomeFragment homeFragment;
+    private HomeFragment homeFragment;
 
-    View view;
-    ListView lView;
-
-    /**
-     * Setup Model View Presenter pattern
-     */
-    private void setupMVP() {
-        // Create the Presenter
-        I_FavouritesPresenter presenter = new FavouritesPresenter(this);
-        // Create the Model
-        FavouritesInteractor model = new FavouritesInteractor(presenter,getContext());
-        // Set presenter model
-        presenter.setModel(model);
-        // Set the Presenter as a interface
-        favPresenter = presenter;
-    }
+    private View view;
+    private ListView listView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        setupMVP();
+        presenter = new FavouritesPresenter(this, getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_menu_favorites, container, false);
-        lView = view.findViewById(R.id.favourites_listview);
+        listView = view.findViewById(R.id.favourites_listview);
 
         //Notifies the presenter to get all favourite locations saved
-        favPresenter.notifyGetAllFavorites();
+        presenter.notifyGetAllFavorites();
 
-        lView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                     long arg3)
             {
-                String location = lView.getAdapter().getItem(position).toString();
+                String location = listView.getAdapter().getItem(position).toString();
 
                 NavigationView navigationView = getActivity().findViewById(R.id.navView);
                 navigationView.getMenu().getItem(0).setChecked(true);
@@ -89,21 +74,17 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_favorites, menu);
+        //inflater.inflate(R.menu.menu_favorites, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.mFavorites) {
-            Toast.makeText(getContext(), R.string.menu_fragment_favoritos, Toast.LENGTH_SHORT).show();
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void setAdapter(FavouriteItemAdapter favAdapter) {
+    public void setAdapter(FavouritesAdapter favAdapter) {
         //Assign adapter
-        lView.setAdapter(favAdapter);
+        listView.setAdapter(favAdapter);
     }
 }

@@ -1,5 +1,7 @@
 package upv.tfg.freeweather.presenter;
 
+import android.content.Context;
+
 import upv.tfg.freeweather.model.NavigationDrawerInteractor;
 import upv.tfg.freeweather.model.interfaces.I_NavigationDrawerInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_NavigationDrawerPresenter;
@@ -12,20 +14,16 @@ public class NavigationDrawerPresenter implements I_NavigationDrawerPresenter {
     // Model reference
     private I_NavigationDrawerInteractor interactor;
 
-    public NavigationDrawerPresenter(I_NavigationDrawerView view) {
+    private Context context;
+
+    public NavigationDrawerPresenter(I_NavigationDrawerView view, Context context) {
         this.view = view;
-    }
+        this.context = context;
 
-    ////////////////////////////////////
-    // AVAILABLE METHODS FOR THE VIEW //
-    ////////////////////////////////////
-    @Override
-    public void setModel(NavigationDrawerInteractor model) {
-        interactor = model;
-    }
+        // Creating the interactor that will interact with the database
+        interactor = new NavigationDrawerInteractor(this, context);
 
-    @Override
-    public void notifyFillDatabase() {
+        // Fill the database with locations
         interactor.isFirstTimeRunning();
     }
 }

@@ -35,15 +35,11 @@ public class WarningsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_warnings, menu);
+        //inflater.inflate(R.menu.menu_warnings, menu);
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.mWarnings) {
-            Toast.makeText(getContext(), R.string.menu_fragment_avisos, Toast.LENGTH_SHORT).show();
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 

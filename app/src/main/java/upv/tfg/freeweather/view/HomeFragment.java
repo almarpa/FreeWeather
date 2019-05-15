@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +27,6 @@ import java.util.Date;
 
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.ViewPagerAdapter;
-import upv.tfg.freeweather.model.HomeInteractor;
 import upv.tfg.freeweather.model.entities.DailyPrediction;
 import upv.tfg.freeweather.presenter.HomePresenter;
 import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
@@ -40,11 +38,11 @@ import upv.tfg.freeweather.view.interfaces.I_HomeView;
  */
 public class HomeFragment extends Fragment implements I_HomeView {
 
+    //Presenter reference
+    private I_HomePresenter presenter;
+
     private View view;
     private Context context;
-
-    //Presenter reference
-    I_HomePresenter homePresenter;
 
     private ViewPagerAdapter adapter;
     private CursorAdapter suggestionAdapter;
@@ -74,32 +72,19 @@ public class HomeFragment extends Fragment implements I_HomeView {
         return hFragment;
     }
 
-    /**
-     * Setup Model View Presenter pattern
-     */
-    private void setupMVP() {
-        // Create the Presenter
-        I_HomePresenter presenter = new HomePresenter(this);
-        // Create the Model
-        HomeInteractor model = new HomeInteractor(presenter, getContext());
-        // Set presenter model
-        presenter.setModel(model);
-        // Set the Presenter as a interface
-        homePresenter = presenter;
-
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        setupMVP();
+
+        //Create the presenter
+        presenter = new HomePresenter(this, getContext());
 
         //Check if it has Bundle args and in that case, search the fav. location
         Bundle args = getArguments();
         if (args != null) {
             String code = args.getString("FAVOURITE_ITEM");
-            homePresenter.notifySearchPrediction(code);
+            presenter.notifySearchPrediction(code);
         }
     }
 
@@ -111,22 +96,23 @@ public class HomeFragment extends Fragment implements I_HomeView {
         //Initialize view elements
         tvLocation = view.findViewById(R.id.tvLocalidad);
         tvDate = view.findViewById(R.id.tvFechayHora);
-        tvDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
         ivFavourite = view.findViewById(R.id.imageButton);
+        progressBar = view.findViewById(R.id.progressBar);
+        tabLayout = view.findViewById(R.id.tlPredicciones);
+        viewPager = view.findViewById(R.id.viewpager_id);
+
+        tvDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
+        adapter = new ViewPagerAdapter(getChildFragmentManager());
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
         ivFavourite.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String location = tvLocation.getText().toString();
                 //Notifies the presenter that button fav has been pressed
-                homePresenter.notifyFavButtonClicked(location);
+                presenter.notifyFavButtonClicked(location);
             }
         }));
-        progressBar = view.findViewById(R.id.progressBar);
-        tabLayout = view.findViewById(R.id.tlPredicciones);
-        viewPager = view.findViewById(R.id.viewpager_id);
-        adapter = new ViewPagerAdapter(getChildFragmentManager());
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
 
         return view;
     }
@@ -138,7 +124,7 @@ public class HomeFragment extends Fragment implements I_HomeView {
         inflater.inflate(R.menu.menu_configuration, menu);
 
         //Search View initialization
-        MenuItem searchItem = menu.findItem(R.id.mSearch);
+        final MenuItem searchItem = menu.findItem(R.id.mSearch);
         searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint("Find a location...");
 
@@ -151,13 +137,13 @@ public class HomeFragment extends Fragment implements I_HomeView {
         searchView.setOnQueryTextListener((new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String location) {
-                homePresenter.notifySearchPrediction(location);
+                presenter.notifySearchPrediction(location);
                 return true;
             }
             @Override
             public boolean onQueryTextChange(String text) {
                 if(!text.equals("")){
-                    homePresenter.notifySearchTextChanged(text);
+                    presenter.notifySearchTextChanged(text);
                 }
                 return true;
             }
@@ -173,7 +159,7 @@ public class HomeFragment extends Fragment implements I_HomeView {
                 Cursor cursor = adapter.getCursor();
                 if (cursor != null) {
                     String location = cursor.getString(1);
-                    homePresenter.notifySearchPrediction(location);
+                    presenter.notifySearchPrediction(location);
                 }
                 return true;
             }
@@ -196,12 +182,12 @@ public class HomeFragment extends Fragment implements I_HomeView {
         return super.onOptionsItemSelected(item);
     }
 
-    ///////////////////////////////////////////////////////
-    ////////  AVAILABLE METHODS FOR THE PRESENTER  ////////
-    ///////////////////////////////////////////////////////
+
     @Override
     public void displayPredictions(HourlyPrediction[] hp, DailyPrediction[] dp) {
-        searchView.clearFocus(); // close the keyboard on load
+        searchView.onActionViewCollapsed();
+        // close the keyboard on load
+        searchView.clearFocus();
         adapter.clearFragments();
 
         Bundle bundle1 = new Bundle();
@@ -233,7 +219,7 @@ public class HomeFragment extends Fragment implements I_HomeView {
         location.setText(dp[0].getNombre());
 
         //Ask the presenter if this location is favourite or not
-        homePresenter.notifyIsItFavourite(location.getText().toString());
+        presenter.notifyIsItFavourite(location.getText().toString());
     }
     @Override
     public void displaySearchSuggestions(Cursor c) {
@@ -241,11 +227,11 @@ public class HomeFragment extends Fragment implements I_HomeView {
     }
     @Override
     public void makeFavourite() {
-        ivFavourite.setBackgroundResource(R.drawable.favourite_item_pressed);
+        ivFavourite.setBackgroundResource(R.drawable.favourite_icon);
     }
     @Override
     public void removeFavourite() {
-        ivFavourite.setBackgroundResource(R.drawable.favourite_item_default);
+        ivFavourite.setBackgroundResource(R.drawable.not_favourite_icon);
     }
     @Override
     public void setProgressBarVisible() {
@@ -265,6 +251,10 @@ public class HomeFragment extends Fragment implements I_HomeView {
     }
     @Override
     public void showMsgHTTPError() {
-        Toast.makeText(context, "No se pudo obtener la predicción debido a un error",Toast.LENGTH_SHORT);
+        Toast.makeText(context, "No se pudo obtener la predicción debido a un error",Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void showMsgLocationEmpty() {
+        Toast.makeText(context,"Please, search a location before",Toast.LENGTH_SHORT).show();
     }
 }

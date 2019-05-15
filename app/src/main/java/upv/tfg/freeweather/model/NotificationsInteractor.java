@@ -32,4 +32,9 @@ public class NotificationsInteractor implements I_NotificationsInteractor {
     public Map<String,?> getFavouriteLocation() {
         return prefHelper.getAllFavourites();
     }
+
+    @Override
+    public String getCodeByLocation(String location) {
+        return dbhelper.getCodeByLocation(location);
+    }
 }

@@ -15,8 +15,8 @@ public class NavigationDrawerInteractor implements upv.tfg.freeweather.model.int
     //Preferences helper reference
     private PreferencesHelper prefHelper;
 
-    public NavigationDrawerInteractor(I_NavigationDrawerPresenter homePresenter, Context context) {
-        this.presenter = homePresenter;
+    public NavigationDrawerInteractor(I_NavigationDrawerPresenter presenter, Context context) {
+        this.presenter = presenter;
         dbhelper = new DatabaseHelper(context);
         prefHelper = new PreferencesHelper(context);
     }

@@ -14,13 +14,16 @@ import java.util.ArrayList;
 import upv.tfg.freeweather.R;
 
 
-public class FavouriteItemAdapter extends BaseAdapter implements ListAdapter {
+public class FavouritesAdapter extends BaseAdapter implements ListAdapter {
 
     private ArrayList<String> list = new ArrayList<String>();
     private Context context;
     private SharedPreferences prefs;
 
-    public FavouriteItemAdapter(ArrayList<String> list, Context context) {
+    private TextView listItemText;
+    private ImageButton deleteBtn;
+
+    public FavouritesAdapter(ArrayList<String> list, Context context) {
         this.list = list;
         this.context = context;
         prefs = context.getSharedPreferences("SHARED_PREFERENCES",Context.MODE_PRIVATE);
@@ -49,11 +52,10 @@ public class FavouriteItemAdapter extends BaseAdapter implements ListAdapter {
             view = inflater.inflate(R.layout.layout_favourite_item, null);
         }
 
-        final TextView listItemText = view.findViewById(R.id.tvFavouriteItem);
+        listItemText = view.findViewById(R.id.tvFavouriteItem);
         listItemText.setText(list.get(position));
 
-        final ImageButton deleteBtn = view.findViewById(R.id.ibDeleteItem);
-
+        deleteBtn = view.findViewById(R.id.ibDeleteItem);
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

@@ -32,14 +32,18 @@ public class HomeInteractor implements I_HomeInteractor {
     //        PREFERENCES       //
     //////////////////////////////
     @Override
-    public void notifyFavButtonClicked(String location) {
-        if (prefHelper.isItFavourite(location)) {
-            prefHelper.deleteFavourite(location);
-            homePresenter.removeFavourite();
-        } else {
-            prefHelper.addFavourite(location);
-            homePresenter.makeFavourite();
-        }
+    public boolean notifyFavButtonClicked(String location) {
+        return prefHelper.isItFavourite(location);
+    }
+
+    @Override
+    public void addFavouriteinPreferences(String location){
+        prefHelper.addFavourite(location);
+    }
+
+    @Override
+    public void removeFavouritefromPreferences(String location){
+        prefHelper.deleteFavourite(location);
     }
 
     @Override
@@ -47,18 +51,12 @@ public class HomeInteractor implements I_HomeInteractor {
         return prefHelper.isItFavourite(location);
     }
 
-
     //////////////////////////////
     //           MODEL          //
     //////////////////////////////
     @Override
     public String getCodeByLocation(String location) {
         return dbhelper.getCodeByLocation(location);
-    }
-
-    @Override
-    public String getLocationByName(String fav_item_to_search) {
-        return prefHelper.getLocationByName(fav_item_to_search);
     }
 
     @Override

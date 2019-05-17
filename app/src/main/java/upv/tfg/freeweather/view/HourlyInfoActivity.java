@@ -2,19 +2,15 @@ package upv.tfg.freeweather.view;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.model.entities.HourlyPrediction;
-import upv.tfg.freeweather.serializations.predictions.PH;
+import upv.tfg.freeweather.data.model.HourlyPrediction;
 
 public class HourlyInfoActivity extends AppCompatActivity {
 

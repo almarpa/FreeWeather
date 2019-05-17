@@ -26,12 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import upv.tfg.freeweather.model.NotificationsInteractor;
-import upv.tfg.freeweather.model.entities.DailyPrediction;
-import upv.tfg.freeweather.model.entities.HourlyPrediction;
-import upv.tfg.freeweather.model.interfaces.I_NotificationsInteractor;
+import upv.tfg.freeweather.data.NotificationsInteractor;
+import upv.tfg.freeweather.data.model.DailyPrediction;
+import upv.tfg.freeweather.data.model.HourlyPrediction;
+import upv.tfg.freeweather.data.interfaces.I_NotificationsInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_NotificationsPresenter;
-import upv.tfg.freeweather.serializations.Init;
+import upv.tfg.freeweather.data.model.serializations.Init;
 import upv.tfg.freeweather.view.interfaces.I_NotificationsActivity;
 
 

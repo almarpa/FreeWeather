@@ -1,7 +1,6 @@
 package upv.tfg.freeweather.view;
 
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -27,10 +26,10 @@ import java.util.Date;
 
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.ViewPagerAdapter;
-import upv.tfg.freeweather.model.entities.DailyPrediction;
+import upv.tfg.freeweather.data.model.DailyPrediction;
 import upv.tfg.freeweather.presenter.HomePresenter;
 import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
-import upv.tfg.freeweather.model.entities.HourlyPrediction;
+import upv.tfg.freeweather.data.model.HourlyPrediction;
 import upv.tfg.freeweather.view.interfaces.I_HomeView;
 
 /**

@@ -19,12 +19,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import upv.tfg.freeweather.model.HomeInteractor;
-import upv.tfg.freeweather.model.entities.DailyPrediction;
-import upv.tfg.freeweather.model.entities.HourlyPrediction;
-import upv.tfg.freeweather.model.interfaces.I_HomeInteractor;
+import upv.tfg.freeweather.data.HomeInteractor;
+import upv.tfg.freeweather.data.model.DailyPrediction;
+import upv.tfg.freeweather.data.model.HourlyPrediction;
+import upv.tfg.freeweather.data.interfaces.I_HomeInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
-import upv.tfg.freeweather.serializations.Init;
+import upv.tfg.freeweather.data.model.serializations.Init;
 import upv.tfg.freeweather.view.interfaces.I_HomeView;
 
 public class HomePresenter implements I_HomePresenter {

@@ -3,8 +3,8 @@ package upv.tfg.freeweather.view.interfaces;
 import android.content.Context;
 import android.database.Cursor;
 
-import upv.tfg.freeweather.model.entities.DailyPrediction;
-import upv.tfg.freeweather.model.entities.HourlyPrediction;
+import upv.tfg.freeweather.data.model.DailyPrediction;
+import upv.tfg.freeweather.data.model.HourlyPrediction;
 
 public interface I_HomeView {
     Context getContext();

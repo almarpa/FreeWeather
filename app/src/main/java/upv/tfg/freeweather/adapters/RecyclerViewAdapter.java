@@ -22,7 +22,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<String> mDays;
     private ArrayList<String> mHours;
-    private ArrayList<String> mTemperatures ;
+    private ArrayList<String> mTemperatures;
     private ArrayList<Integer> mImageUrls;
     private ArrayList<Integer> mTempImages;
 

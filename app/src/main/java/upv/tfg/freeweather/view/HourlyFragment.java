@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.RecyclerViewAdapter;
-import upv.tfg.freeweather.model.entities.HourlyPrediction;
+import upv.tfg.freeweather.data.model.HourlyPrediction;
 
 public class HourlyFragment extends Fragment implements RecyclerViewAdapter.OnRecyclerItemListener{
 

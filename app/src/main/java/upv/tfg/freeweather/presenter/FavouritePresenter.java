@@ -5,26 +5,26 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Map;
 
-import upv.tfg.freeweather.adapters.FavouritesAdapter;
-import upv.tfg.freeweather.model.FavouritesInteractor;
-import upv.tfg.freeweather.model.interfaces.I_FavouritesInteractor;
-import upv.tfg.freeweather.presenter.interfaces.I_FavouritesPresenter;
+import upv.tfg.freeweather.adapters.FavouriteAdapter;
+import upv.tfg.freeweather.model.FavouriteInteractor;
+import upv.tfg.freeweather.model.interfaces.I_FavouriteInteractor;
+import upv.tfg.freeweather.presenter.interfaces.I_FavouritePresenter;
 import upv.tfg.freeweather.view.interfaces.I_FavouritesView;
 
-public class FavouritesPresenter implements I_FavouritesPresenter {
+public class FavouritePresenter implements I_FavouritePresenter {
 
     // View reference
     private I_FavouritesView view;
     // Model reference
-    private I_FavouritesInteractor interactor;
+    private I_FavouriteInteractor interactor;
 
     private Context context;
-    private FavouritesAdapter adapter;
+    private FavouriteAdapter adapter;
 
-    public FavouritesPresenter(I_FavouritesView view, Context context) {
+    public FavouritePresenter(I_FavouritesView view, Context context) {
         this.view = view;
         this.context = context;
-        interactor = new FavouritesInteractor(this, context);
+        interactor = new FavouriteInteractor(this, context);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class FavouritesPresenter implements I_FavouritesPresenter {
         }
 
         //Instantiate adapter
-        adapter = new FavouritesAdapter(list, view.getContext());
+        adapter = new FavouriteAdapter(list, view.getContext());
         view.setAdapter(adapter);
     }
 }

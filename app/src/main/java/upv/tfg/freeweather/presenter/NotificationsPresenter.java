@@ -6,12 +6,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,11 +32,10 @@ import upv.tfg.freeweather.model.entities.HourlyPrediction;
 import upv.tfg.freeweather.model.interfaces.I_NotificationsInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_NotificationsPresenter;
 import upv.tfg.freeweather.serializations.Init;
-import upv.tfg.freeweather.view.NotificationsActivity;
 import upv.tfg.freeweather.view.interfaces.I_NotificationsActivity;
 
 
-public class NotificationsPresenter implements I_NotificationsPresenter {
+public class NotificationsPresenter extends AppCompatActivity implements I_NotificationsPresenter   {
 
     private static final String CHANNEL_1_ID = "channel1";
 
@@ -59,9 +58,14 @@ public class NotificationsPresenter implements I_NotificationsPresenter {
         // Initialize the notification manager
         manager = NotificationManagerCompat.from(context);
 
-        createNotificationChannel();
+        if(interactor.getLastSwitch()){
+            view.doSwitch();
+        }
+        // Poblate the radiogroup items in the view
         getIntervalTimes();
         getFavouriteLocations();
+        // Create the notification channel in order to be able to send notifications
+        createNotificationChannel();
     }
 
     private void createNotificationChannel() {
@@ -78,20 +82,29 @@ public class NotificationsPresenter implements I_NotificationsPresenter {
         RadioGroup rg = new RadioGroup(context);
         rg.setOrientation(LinearLayout.VERTICAL);
         List<String> list = new ArrayList<>();
-        list.add("1 h");
-        list.add("3 h");
-        list.add("6 h");
-        list.add("12 h (Better for battery duration)");
+        list.add("Morning (12:00 am)");
+        list.add("Afternoon (06:00 pm)");
         for (int i = 0; i < list.size(); i++) {
             RadioButton rdbtn = new RadioButton(context);
             rdbtn.setId(View.generateViewId());
             rdbtn.setText(list.get(i));
+            if(list.get(i).equals(interactor.getTimeChoosed())) {
+                rdbtn.setChecked(true);
+            }
             rg.addView(rdbtn);
         }
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup rg, int checkedId) {
+                RadioButton rb = rg.getRootView().findViewById(checkedId);
+                interactor.saveTimeOptionChoosed(rb.getText().toString());            }
+        });
         view.setIntervalTimesView(rg);
     }
     private void getFavouriteLocations() {
-        Map<String, ?> mFavourites = interactor.getFavouriteLocation();
+        // Obtain the favourite locations saved by the user
+        Map<String, ?> mFavourites = interactor.getFavouriteLocations();
+
         RadioGroup rg = new RadioGroup(context);
         rg.setOrientation(LinearLayout.VERTICAL);
         for (Map.Entry<String, ?> entry : mFavourites.entrySet()) {
@@ -100,9 +113,18 @@ public class NotificationsPresenter implements I_NotificationsPresenter {
                 RadioButton rdbtn = new RadioButton(context);
                 rdbtn.setId(View.generateViewId());
                 rdbtn.setText(entry.getKey());
+                if(entry.getKey().equals(interactor.getLocationChoosed())){
+                    rdbtn.setChecked(true);
+                }
                 rg.addView(rdbtn);
             }
         }
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup rg, int checkedId) {
+                RadioButton rb = rg.getRootView().findViewById(checkedId);
+                interactor.saveLocationChoosed(rb.getText().toString());            }
+        });
         view.setLocationsView(rg);
     }
 
@@ -111,31 +133,34 @@ public class NotificationsPresenter implements I_NotificationsPresenter {
      */
     @Override
     public void notifySwitchChecked() {
-        String code = interactor.getCodeByLocation("Utiel");
-        AsyncTaskGetNotificationInfo asyncTask = new AsyncTaskGetNotificationInfo();
-        asyncTask.execute(code);
+        // Obtain the radio button text (interval time) selected
+        String timeChoosed = interactor.getTimeChoosed();
+        // Obtain the radio button text (location) selected
+        String locationChoosed = interactor.getLocationChoosed();
+        if(timeChoosed != null && locationChoosed != null){
+            String code = interactor.getCodeByLocation(locationChoosed);
+            AsyncTaskGetNotificationInfo asyncTask = new AsyncTaskGetNotificationInfo();
+            asyncTask.execute(code);
+        }else{
+            view.clearSwitch();
+            if(timeChoosed != null){
+                if(interactor.getFavouriteLocations().containsValue(true)){
+                    view.showNoLocationChecked();
+                }else{
+                    view.showNoFavouriteExists();
+                }
+            }else{
+                view.showNoTimeChecked();
+            }
+        }
     }
+
     /**
      * Method called by the view to notify that the switch item has been unchecked
      */
     @Override
     public void notifySwitchUnchecked() {
         manager.cancelAll();
-    }
-
-    /**
-     * Method called by the view to notify that one radio button (time) has been selected
-     */
-    @Override
-    public void notifyRdBtnTimeChanged(RadioGroup rg, int checkedId) {
-    }
-
-    /**
-     * Method called by the view to notify that one radio button (location) has been selected
-     */
-    @Override
-    public void notifyRdBtnLocationChanged(RadioGroup rg, int checkedId) {
-
     }
 
     /**
@@ -149,6 +174,7 @@ public class NotificationsPresenter implements I_NotificationsPresenter {
         private InputStreamReader reader;
         private GsonBuilder builder;
         private Gson gson;
+        private String location;
 
         @Override
         protected void onPreExecute() {
@@ -156,6 +182,7 @@ public class NotificationsPresenter implements I_NotificationsPresenter {
 
         @Override
         protected Void doInBackground(String... params) {
+            location = params[0];
             try {
                 //  HOURLY PREDICTION   //
                 url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/" + params[0] + "?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
@@ -244,15 +271,17 @@ public class NotificationsPresenter implements I_NotificationsPresenter {
         protected void onPostExecute(Void params) {
             if(dp!=null && hp!=null){
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_1_ID)
-                        .setSmallIcon(dp[0].getStateImage(),1)
+                        .setSmallIcon(dp[0].getStateImage())
                         .setContentTitle(dp[0].getNombre()+", España")
                         .setContentText(dp[0].getEstadoCielo()+ ", " + dp[0].getTemperatura())
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(dp[0].getEstadoCielo()+ ", " + dp[0].getTemperatura()))
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                        .setPriority(NotificationCompat.PRIORITY_HIGH);
 
                 manager.notify(0, builder.build());
-            }else {
+            }else if(location == null){
+                view.showNoFavouriteExists();
+            }else{
                 view.showHTTPMsgError();
             }
         }

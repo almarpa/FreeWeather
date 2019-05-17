@@ -12,9 +12,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import upv.tfg.freeweather.R;
+import upv.tfg.freeweather.adapters.interfaces.I_FavouriteAdapter;
+import upv.tfg.freeweather.presenter.FavouriteAdapterPresenter;
+import upv.tfg.freeweather.presenter.interfaces.I_FavouriteAdapterPresenter;
 
 
-public class FavouritesAdapter extends BaseAdapter implements ListAdapter {
+public class FavouriteAdapter extends BaseAdapter implements ListAdapter, I_FavouriteAdapter {
+
+    private I_FavouriteAdapterPresenter presenter;
 
     private ArrayList<String> list = new ArrayList<String>();
     private Context context;
@@ -23,9 +28,12 @@ public class FavouritesAdapter extends BaseAdapter implements ListAdapter {
     private TextView listItemText;
     private ImageButton deleteBtn;
 
-    public FavouritesAdapter(ArrayList<String> list, Context context) {
+    public FavouriteAdapter(ArrayList<String> list, Context context) {
         this.list = list;
         this.context = context;
+
+        presenter = new FavouriteAdapterPresenter(this, context);
+
         prefs = context.getSharedPreferences("SHARED_PREFERENCES",Context.MODE_PRIVATE);
     }
 
@@ -60,8 +68,9 @@ public class FavouritesAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 //Delete the location from the model and also from the view
-                prefs.edit().putBoolean(listItemText.getText().toString(),false).apply();
-                list.remove(position); //or some other task
+                String location = list.get(position);
+                prefs.edit().putBoolean(location,false).apply();
+                list.remove(location);
                 notifyDataSetChanged();
             }
         });

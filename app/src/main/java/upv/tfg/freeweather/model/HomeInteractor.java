@@ -33,7 +33,7 @@ public class HomeInteractor implements I_HomeInteractor {
     //////////////////////////////
     @Override
     public boolean notifyFavButtonClicked(String location) {
-        return prefHelper.isItFavourite(location);
+        return prefHelper.getIsItFavourite(location);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class HomeInteractor implements I_HomeInteractor {
 
     @Override
     public boolean isItFavourite(String location) {
-        return prefHelper.isItFavourite(location);
+        return prefHelper.getIsItFavourite(location);
     }
 
     //////////////////////////////

@@ -42,7 +42,6 @@ public class HomeFragment extends Fragment implements I_HomeView {
     private I_HomePresenter presenter;
 
     private View view;
-    private Context context;
 
     private ViewPagerAdapter adapter;
     private CursorAdapter suggestionAdapter;
@@ -91,7 +90,6 @@ public class HomeFragment extends Fragment implements I_HomeView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        context = view.getContext();
 
         //Initialize view elements
         tvLocation = view.findViewById(R.id.tvLocalidad);
@@ -247,14 +245,14 @@ public class HomeFragment extends Fragment implements I_HomeView {
     }
     @Override
     public void showMsgNoLocationFound(String location) {
-        Toast.makeText(context, "No hay información acerca de la localidad: "+ location,Toast.LENGTH_SHORT);
+        Toast.makeText(getContext(), "No hay información acerca de la localidad: "+ location,Toast.LENGTH_SHORT);
     }
     @Override
     public void showMsgHTTPError() {
-        Toast.makeText(context, "No se pudo obtener la predicción debido a un error",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "No se pudo obtener la predicción debido a un error",Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showMsgLocationEmpty() {
-        Toast.makeText(context,"Please, search a location before",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),"Please, search a location before",Toast.LENGTH_SHORT).show();
     }
 }

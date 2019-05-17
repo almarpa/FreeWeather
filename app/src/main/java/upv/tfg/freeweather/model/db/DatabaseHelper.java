@@ -28,8 +28,10 @@ public class DatabaseHelper {
         manager = context.getAssets();
     }
 
+    /**
+     *  Fill the database with all the locations from the .csv file.
+     */
     public void putLocationsInDB() {
-        //Fill the database with all the locations from the .csv file.
         String mCSVfile = "codmunicip_v1.csv";
 
         InputStream inStream = null;
@@ -63,6 +65,11 @@ public class DatabaseHelper {
         db.endTransaction();
     }
 
+    /**
+     * Find possibles locations that matches with the text introduced
+     * @param newText text introduced by the application user
+     * @return list of possible locations
+     */
     public List<String> findPossibleLocation(String newText) {
         List<String> list = new ArrayList<>();
 
@@ -82,6 +89,11 @@ public class DatabaseHelper {
 
     }
 
+    /**
+     * Obtain the search code equivalent to a location
+     * @param location the location we want to obtain predictions
+     * @return the location's code
+     */
     public String getCodeByLocation(String location) {
         Integer codPro;
         Integer codMun;

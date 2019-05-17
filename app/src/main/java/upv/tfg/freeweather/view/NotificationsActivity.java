@@ -1,5 +1,6 @@
 package upv.tfg.freeweather.view;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,8 +19,7 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
     // Presenter reference
     private I_NotificationsPresenter presenter;
 
-    private Toolbar toolbar;
-    private Switch notifics;
+    private Switch swchNotification;
     private RadioGroup rgTime;
     private RadioGroup rgLocations;
 
@@ -27,17 +27,18 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         rgTime = findViewById(R.id.rgTime);
         rgLocations = findViewById(R.id.rgLocations);
-        notifics = findViewById(R.id.stchNotifications);
+        swchNotification = findViewById(R.id.stchNotifications);
 
         // Create the presenter
         presenter = new NotificationsPresenter(this, getApplicationContext());
 
-        notifics.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        swchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     presenter.notifySwitchChecked();
@@ -46,40 +47,56 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
                 }
             }
         });
-        rgTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                presenter.notifyRdBtnTimeChanged(group, checkedId);
-            }
-        });
-        rgLocations.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                presenter.notifyRdBtnLocationChanged(group, checkedId);
-            }
-        });
     }
     /**
      * Method called by the presenter to set rgTime (RadioButton) view
-     * @param rgTime
+     * @param rgTime radiogroup item
      */
     @Override
     public void setIntervalTimesView(RadioGroup rgTime) {
         this.rgTime.addView(rgTime);
     }
+
     /**
      * Method called by the presenter to set rgLocations (RadioButton) view
-     * @param rgLocations
+     * @param rgLocations radiogroup item
      */
+
     @Override
     public void setLocationsView(RadioGroup rgLocations) {
         this.rgLocations.addView(rgLocations);
     }
+
     /**
      * Method called by the presenter to show a message error
      */
     @Override
     public void showHTTPMsgError() {
-        Toast.makeText(this,"HTTP error getting predictions",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"HTTP error getting predictions, try again",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showNoTimeChecked() {
+        Toast.makeText(this,"Please, choose a notification interval time before",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showNoLocationChecked() {
+        Toast.makeText(this,"Please, choose a location before",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showNoFavouriteExists() {
+        Toast.makeText(this,"Please, save one location as favourite in order to be notified of it",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void doSwitch() {
+        swchNotification.setChecked(true);
+    }
+
+    @Override
+    public void clearSwitch() {
+        swchNotification.setChecked(false);
     }
 }

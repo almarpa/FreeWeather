@@ -29,7 +29,7 @@ public class NotificationsInteractor implements I_NotificationsInteractor {
     }
 
     @Override
-    public Map<String,?> getFavouriteLocation() {
+    public Map<String,?> getFavouriteLocations() {
         return prefHelper.getAllFavourites();
     }
 
@@ -37,4 +37,31 @@ public class NotificationsInteractor implements I_NotificationsInteractor {
     public String getCodeByLocation(String location) {
         return dbhelper.getCodeByLocation(location);
     }
+
+    @Override
+    public void saveTimeOptionChoosed(String time) {
+        prefHelper.saveTimeOptionChoosed(time);
+    }
+
+    @Override
+    public void saveLocationChoosed(String location) {
+        prefHelper.saveLocationChoosed(location);
+    }
+
+    @Override
+    public boolean getLastSwitch() {
+        return prefHelper.getLastSwitch();
+    }
+
+    @Override
+    public String getTimeChoosed() {
+        return prefHelper.getIntervalTimeChoosed();
+    }
+
+    @Override
+    public String getLocationChoosed() {
+        return prefHelper.getLocationChoosed();
+    }
+
+
 }

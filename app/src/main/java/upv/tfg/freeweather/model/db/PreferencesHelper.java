@@ -7,12 +7,10 @@ import java.util.Map;
 
 public class PreferencesHelper {
 
-    private Context context;
     private SharedPreferences prefs;
     final String preferencesFile = "SHARED_PREFERENCES";
 
     public PreferencesHelper(Context context){
-        this.context = context;
         prefs = context.getSharedPreferences(preferencesFile,Context.MODE_PRIVATE);
     }
 
@@ -24,7 +22,7 @@ public class PreferencesHelper {
         prefs.edit().putBoolean("firstStart", false).apply();
     }
 
-    public boolean isItFavourite(String location){
+    public boolean getIsItFavourite(String location){
         return prefs.getBoolean(location,false);
     }
 
@@ -34,6 +32,7 @@ public class PreferencesHelper {
 
     public void deleteFavourite(String location){
         prefs.edit().putBoolean(location,false).apply();
+        prefs.edit().putString("LOCATION_CHOOSED",null).apply();
     }
 
     public Map<String,?> getAllFavourites(){
@@ -41,7 +40,33 @@ public class PreferencesHelper {
         return keys;
     }
 
-    public void addFavItemToSearch(String location) {
-        prefs.edit().putString("FAV_ITEM_TO_SEARCH",location);
+    public void saveTimeOptionChoosed(String time) {
+        prefs.edit().putString("TIME_CHOOSED",time).apply();
+    }
+
+    public void saveLocationChoosed(String location) {
+        prefs.edit().putString("LOCATION_CHOOSED",location).apply();
+    }
+
+    public boolean getLastSwitch() {
+        return prefs.getBoolean("SWITCH_STATE",false);
+    }
+
+    public String getIntervalTimeChoosed() {
+        Map<String,?> keys = prefs.getAll();
+        if(keys.containsKey("TIME_CHOOSED")){
+            return prefs.getString("TIME_CHOOSED",null);
+        }else{
+            return null;
+        }
+    }
+
+    public String getLocationChoosed() {
+        Map<String, ?> keys = prefs.getAll();
+        if (keys.containsKey("LOCATION_CHOOSED")) {
+            return prefs.getString("LOCATION_CHOOSED", null);
+        }else{
+            return null;
+        }
     }
 }

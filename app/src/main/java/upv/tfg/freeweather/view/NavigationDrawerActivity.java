@@ -1,5 +1,6 @@
 package upv.tfg.freeweather.view;
 
+import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         toolBar = findViewById(R.id.toolBar);
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -97,7 +99,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
                 if (fragment == null) {
                     fragment = new GeolocationFragment();
                 }
-                toolBar.setTitle(R.string.title_localizame);
+                toolBar.setTitle(R.string.title_geolocation);
                 break;
 
             case R.id.mFavorites:
@@ -106,7 +108,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
                 if (fragment == null) {
                     fragment = new FavouritesFragment();
                 }
-                toolBar.setTitle(R.string.title_favoritos);
+                toolBar.setTitle(R.string.title_favourites);
                 break;
 
             case R.id.mWarnings:
@@ -115,7 +117,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
                 if (fragment == null) {
                     fragment = new WarningsFragment();
                 }
-                toolBar.setTitle(R.string.title_avisos);
+                toolBar.setTitle(R.string.title_warnings);
                 break;
 
             case R.id.mMaps:
@@ -124,7 +126,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
                 if (fragment == null) {
                     fragment = new MapsFragment();
                 }
-                toolBar.setTitle(R.string.title_mapa);
+                toolBar.setTitle(R.string.title_map);
                 break;
         }
 

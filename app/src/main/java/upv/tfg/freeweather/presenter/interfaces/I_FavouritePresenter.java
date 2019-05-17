@@ -4,7 +4,7 @@ package upv.tfg.freeweather.presenter.interfaces;
 import android.view.View;
 import android.widget.AdapterView;
 
-public interface I_FavouritesPresenter {
+public interface I_FavouritePresenter {
 
     void notifyGetAllFavorites();
 }

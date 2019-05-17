@@ -22,11 +22,11 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.NotificationsActivity"
-            android:label="@string/title_activity_notifications"
+            android:label="@string/title_notifications"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".view.HourlyInfoActivity"
-            android:label="@string/title_activity_detailed_hour_info"
+            android:label="@string/title_detailed_time_info"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".view.NavigationDrawerActivity"

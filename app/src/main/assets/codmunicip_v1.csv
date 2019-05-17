@@ -32,7 +32,7 @@
 16,1,36,0,Laudio/Llodio
 16,1,58,7,Legutio
 16,1,34,4,Leza
-16,1,39,5,Moreda de ¡Ålava/Moreda Araba
+16,1,39,5,Moreda de ¡lava/Moreda Araba
 16,1,41,6,Navaridas
 16,1,42,1,Okondo
 16,1,43,7,OyÛn-Oion
@@ -42,7 +42,7 @@
 16,1,53,4,San Mill·n/Donemiliaga
 16,1,54,9,Urkabustaiz
 16,1,55,2,ValdegovÌa/Gaubea
-16,1,57,1,Villabuena de ¡Ålava/Eskuernaga
+16,1,57,1,Villabuena de ¡lava/Eskuernaga
 16,1,59,0,Vitoria-Gasteiz
 16,1,60,4,YÈcora/Iekora
 16,1,61,1,Zalduondo
@@ -81,7 +81,7 @@
 08,2,30,6,Elche de la Sierra
 08,2,31,3,FÈrez
 08,2,32,8,Fuensanta
-08,2,33,4,Fuente-¡Ålamo
+08,2,33,4,Fuente-¡lamo
 08,2,34,9,Fuentealbilla
 08,2,35,2,La Gineta
 08,2,36,5,Golosalvo
@@ -393,8 +393,8 @@
 07,5,16,3,ArÈvalo
 07,5,17,9,Aveinte
 07,5,18,5,Avellaneda
-07,5,19,8,¡Åvila
-07,5,21,9,Barco de ¡Åvila_El
+07,5,19,8,¡vila
+07,5,21,9,Barco de ¡vila_El
 07,5,22,4,Barraco_El
 07,5,23,0,Barrom·n
 07,5,24,5,Becedas
@@ -441,7 +441,7 @@
 07,5,69,7,Donjimeno
 07,5,70,1,Donvidas
 07,5,72,3,Espinosa de los Caballeros
-07,5,73,9,Flores de ¡Åvila
+07,5,73,9,Flores de ¡vila
 07,5,74,4,Fontiveros
 07,5,75,7,Fresnedilla
 07,5,76,0,Fresno_El
@@ -508,7 +508,7 @@
 07,5,141,4,MuÒopepe
 07,5,142,9,MuÒosancho
 07,5,143,5,MuÒotello
-07,5,144,0,Narrillos del ¡Ålamo
+07,5,144,0,Narrillos del ¡lamo
 07,5,145,3,Narrillos del Rebollar
 07,5,149,1,Narros de SaldueÒa
 07,5,147,2,Narros del Castillo
@@ -547,7 +547,7 @@
 07,5,182,0,Pedro Bernardo
 07,5,183,6,Pedro-RodrÌguez
 07,5,184,1,Peguerinos
-07,5,185,4,PeÒalba de ¡Åvila
+07,5,185,4,PeÒalba de ¡vila
 07,5,186,7,PiedrahÌta
 07,5,187,3,Piedralaves
 07,5,188,9,Poveda
@@ -598,7 +598,7 @@
 07,5,233,6,Serranillos
 07,5,234,1,Sigeres
 07,5,235,4,Sinlabajos
-07,5,236,7,Solana de ¡Åvila
+07,5,236,7,Solana de ¡vila
 07,5,237,3,Solana de Rioalmar
 07,5,238,9,Solosancho
 07,5,239,2,Sotalbo
@@ -607,7 +607,7 @@
 07,5,242,8,TiÒosillos
 07,5,243,4,TolbaÒos
 07,5,244,9,Tormellas
-07,5,245,2,Tornadizos de ¡Åvila
+07,5,245,2,Tornadizos de ¡vila
 07,5,247,1,Torre_La
 07,5,246,5,TÛrtoles
 07,5,249,0,UmbrÌas
@@ -617,7 +617,7 @@
 07,5,254,6,Velayos
 07,5,256,2,Villaflor
 07,5,257,8,Villafranca de la Sierra
-07,5,905,3,Villanueva de ¡Åvila
+07,5,905,3,Villanueva de ¡vila
 07,5,258,4,Villanueva de GÛmez
 07,5,259,7,Villanueva del Aceral
 07,5,260,1,Villanueva del Campillo
@@ -670,7 +670,7 @@
 11,6,39,7,Coronada_La
 11,6,40,1,Corte de Peleas
 11,6,41,8,Cristina
-11,6,43,9,Don ¡Ålvaro
+11,6,43,9,Don ¡lvaro
 11,6,44,4,Don Benito
 11,6,45,7,EntrÌn Bajo
 11,6,46,0,Esparragalejo
@@ -1731,7 +1731,7 @@
 11,10,184,3,Torno_El
 11,10,187,5,Torre de Don Miguel
 11,10,188,1,Torre de Santa MarÌa
-11,10,185,6,Torrecilla de los ¡Ångeles
+11,10,185,6,Torrecilla de los ¡ngeles
 11,10,186,9,Torrecillas de la Tiesa
 11,10,190,8,TorrejÛn el Rubio
 11,10,189,4,Torrejoncillo
@@ -4041,7 +4041,7 @@
 09,25,252,1,Vila-sana
 09,25,253,7,Vilosell_El
 09,25,255,5,Vinaixa
-17,26,1,2,¡Åbalos
+17,26,1,2,¡balos
 17,26,2,7,Agoncillo
 17,26,3,3,Aguilar del RÌo Alhama
 17,26,4,8,Ajamil de Cameros
@@ -4285,7 +4285,7 @@
 13,28,1,4,Acebeda_La
 13,28,2,9,Ajalvir
 13,28,3,5,Alameda del Valle
-13,28,4,0,¡Ålamo_El
+13,28,4,0,¡lamo_El
 13,28,5,3,Alcal· de Henares
 13,28,6,6,Alcobendas
 13,28,7,2,AlcorcÛn
@@ -4472,11 +4472,11 @@
 01,29,9,4,Alm·char
 01,29,10,8,Almargen
 01,29,11,5,AlmogÌa
-01,29,12,0,¡Ålora
+01,29,12,0,¡lora
 01,29,13,6,Alozaina
 01,29,14,1,Alpandeire
 01,29,15,4,Antequera
-01,29,16,7,¡Årchez
+01,29,16,7,¡rchez
 01,29,17,3,Archidona
 01,29,18,9,Ardales
 01,29,19,2,Arenas
@@ -4566,7 +4566,7 @@
 01,29,100,9,Yunquera
 14,30,1,1,Abanilla
 14,30,2,6,Abar·n
-14,30,3,2,¡Åguilas
+14,30,3,2,¡guilas
 14,30,4,7,Albudeite
 14,30,5,0,Alcantarilla
 14,30,902,7,Alc·zares_Los
@@ -4585,7 +4585,7 @@
 14,30,18,3,CeutÌ
 14,30,19,6,Cieza
 14,30,20,0,Fortuna
-14,30,21,7,Fuente ¡Ålamo de Murcia
+14,30,21,7,Fuente ¡lamo de Murcia
 14,30,22,2,Jumilla
 14,30,23,8,Librilla
 14,30,24,3,Lorca
@@ -5477,7 +5477,7 @@
 07,37,151,4,Golpejas
 07,37,152,9,Gomecello
 07,37,154,0,Guadramiro
-07,37,155,3,Guijo de ¡Åvila
+07,37,155,3,Guijo de ¡vila
 07,37,156,6,Guijuelo
 07,37,157,2,Herguijuela de Ciudad Rodrigo
 07,37,158,8,Herguijuela de la Sierra
@@ -6171,7 +6171,7 @@
 01,41,102,0,Viso del Alcor_El
 07,42,1,1,Abejar
 07,42,3,2,Adradas
-07,42,4,7,¡Ågreda
+07,42,4,7,¡greda
 07,42,6,3,Alconaba
 07,42,7,9,Alcubilla de Avellaneda
 07,42,8,5,Alcubilla de las PeÒas
@@ -6234,7 +6234,7 @@
 07,42,69,5,Covaleda
 07,42,70,9,Cubilla
 07,42,71,6,Cubo de la Solana
-07,42,73,7,Cueva de ¡Ågreda
+07,42,73,7,Cueva de ¡greda
 07,42,75,5,DÈvanos
 07,42,76,8,Deza
 07,42,78,0,Duruelo de la Sierra

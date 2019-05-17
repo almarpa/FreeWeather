@@ -11,12 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.adapters.FavouritesAdapter;
-import upv.tfg.freeweather.presenter.FavouritesPresenter;
-import upv.tfg.freeweather.presenter.interfaces.I_FavouritesPresenter;
+import upv.tfg.freeweather.adapters.FavouriteAdapter;
+import upv.tfg.freeweather.presenter.FavouritePresenter;
+import upv.tfg.freeweather.presenter.interfaces.I_FavouritePresenter;
 import upv.tfg.freeweather.view.interfaces.I_FavouritesView;
 
 /**
@@ -25,7 +24,7 @@ import upv.tfg.freeweather.view.interfaces.I_FavouritesView;
 public class FavouritesFragment extends Fragment implements I_FavouritesView {
 
     //Presenter reference
-    private I_FavouritesPresenter presenter;
+    private I_FavouritePresenter presenter;
     //Fragment home view
     private HomeFragment homeFragment;
 
@@ -37,7 +36,7 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        presenter = new FavouritesPresenter(this, getContext());
+        presenter = new FavouritePresenter(this, getContext());
     }
 
     @Override
@@ -83,8 +82,7 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
     }
 
     @Override
-    public void setAdapter(FavouritesAdapter favAdapter) {
-        //Assign adapter
+    public void setAdapter(FavouriteAdapter favAdapter) {
         listView.setAdapter(favAdapter);
     }
 }

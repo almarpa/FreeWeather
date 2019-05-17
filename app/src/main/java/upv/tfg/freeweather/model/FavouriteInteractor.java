@@ -6,13 +6,13 @@ import java.util.Map;
 
 import upv.tfg.freeweather.model.db.DatabaseHelper;
 import upv.tfg.freeweather.model.db.PreferencesHelper;
-import upv.tfg.freeweather.model.interfaces.I_FavouritesInteractor;
-import upv.tfg.freeweather.presenter.interfaces.I_FavouritesPresenter;
+import upv.tfg.freeweather.model.interfaces.I_FavouriteInteractor;
+import upv.tfg.freeweather.presenter.interfaces.I_FavouritePresenter;
 
-public class FavouritesInteractor implements I_FavouritesInteractor {
+public class FavouriteInteractor implements I_FavouriteInteractor {
 
     //Presenter reference
-    private I_FavouritesPresenter favPresenter;
+    private I_FavouritePresenter presenter;
     //Database helper reference
     private DatabaseHelper dbhelper;
     //Preferences helper reference
@@ -20,8 +20,8 @@ public class FavouritesInteractor implements I_FavouritesInteractor {
 
     private Context context;
 
-    public FavouritesInteractor(I_FavouritesPresenter favPresenter, Context context) {
-        this.favPresenter = favPresenter;
+    public FavouriteInteractor(I_FavouritePresenter presenter, Context context) {
+        this.presenter = presenter;
         dbhelper = new DatabaseHelper(context);
         prefHelper = new PreferencesHelper(context);
         this.context = context;
@@ -29,10 +29,5 @@ public class FavouritesInteractor implements I_FavouritesInteractor {
     @Override
     public Map<String, ?> getAllFavourites() {
         return prefHelper.getAllFavourites();
-    }
-
-    @Override
-    public void goFromFavPrediction(String location) {
-        prefHelper.addFavItemToSearch(location);
     }
 }

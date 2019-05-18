@@ -15,12 +15,12 @@ import java.util.List;
 
 public class DatabaseHelper {
 
-    private DBInitialization myhelper;
+    private DBCreation myhelper;
     private SQLiteDatabase db;
     private AssetManager manager;
 
     public DatabaseHelper(Context context) {
-        myhelper = new DBInitialization(context);
+        myhelper = new DBCreation(context);
         db = myhelper.getWritableDatabase();
         manager = context.getAssets();
     }

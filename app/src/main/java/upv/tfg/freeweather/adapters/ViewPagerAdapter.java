@@ -9,14 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import upv.tfg.freeweather.adapters.interfaces.I_ViewPagerAdapter;
+import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
+import upv.tfg.freeweather.view.HomeFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter implements I_ViewPagerAdapter {
 
-    private final List<Fragment> fragmentList = new ArrayList<>();
-    private final List<String> fragmentListTitles = new ArrayList<>();
+    // Presenter reference
+    private I_HomePresenter presenter;
+    // View reference
+    private HomeFragment view;
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    private final List<Fragment> fragmentList;
+    private final List<String> fragmentListTitles;
+
+    public ViewPagerAdapter(FragmentManager fm, HomeFragment view) {
         super(fm);
+        this.view = view;
+        fragmentList  = new ArrayList<>();
+        fragmentListTitles = new ArrayList<>();
     }
 
     @Override
@@ -40,14 +50,42 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter implements I_Vie
         return fragmentListTitles.get(position);
     }
 
+    /**
+     * Associates the presenter to the adapter
+     * @param presenter presenter class
+     */
+    @Override
+    public void onAttach(I_HomePresenter presenter) {
+        this.presenter = presenter;
+    }
+
+    /**
+     * Dissociate the presenter
+     */
+    @Override
+    public void onDetach() {
+        presenter = null;
+    }
+
+    /**
+     * Add a new fragment to the list
+     * @param fragment
+     * @param title
+     */
     @Override
     public void addFragment(Fragment fragment, String title) {
         fragmentList.add(fragment);
         fragmentListTitles.add(title);
+        notifyDataSetChanged();
     }
+
+    /**
+     * Clear both lists
+     */
     @Override
     public void clearFragments(){
         fragmentList.clear();
         fragmentListTitles.clear();
+        notifyDataSetChanged();
     }
 }

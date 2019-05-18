@@ -7,11 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Create a the unique table of the database with all the localities.
  */
-public class DBInitialization extends SQLiteOpenHelper {
+public class DBCreation extends SQLiteOpenHelper {
 
     SQLiteDatabase db;
 
-    public DBInitialization(Context context) {
+    public DBCreation(Context context) {
         super(context,"myDataBase.db",null,1);
 
     }

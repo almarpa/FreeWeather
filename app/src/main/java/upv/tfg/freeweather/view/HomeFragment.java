@@ -9,13 +9,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.SearchView;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,10 +26,8 @@ import java.util.Date;
 
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.ViewPagerAdapter;
-import upv.tfg.freeweather.data.model.DailyPrediction;
 import upv.tfg.freeweather.presenter.HomePresenter;
 import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
-import upv.tfg.freeweather.data.model.HourlyPrediction;
 import upv.tfg.freeweather.view.interfaces.I_HomeView;
 
 /**
@@ -48,24 +46,23 @@ public class HomeFragment extends Fragment implements I_HomeView {
     private ImageButton ivFavourite;
     private TextView tvLocation;
     private TextView tvDate;
-    private TextView location;
     private ProgressBar progressBar;
 
     public HomeFragment() { }
 
     public HomeFragment newInstance(String location){
-        HomeFragment hFragment = new HomeFragment();
+        HomeFragment home = new HomeFragment();
 
         // Get arguments passed in, if any
-        Bundle args = hFragment.getArguments();
+        Bundle args = home.getArguments();
         if (args == null) {
             args = new Bundle();
         }
         // Add parameters to the argument bundle
         args.putString("FAVOURITE_ITEM", location);
-        hFragment.setArguments(args);
+        home.setArguments(args);
 
-        return hFragment;
+        return home;
     }
 
     @Override
@@ -97,15 +94,17 @@ public class HomeFragment extends Fragment implements I_HomeView {
         viewPager = view.findViewById(R.id.viewpager_id);
 
         tvDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
-        adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter = new ViewPagerAdapter(getChildFragmentManager(), this);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        // Associate the adapter to the presenter
+        presenter.attachAdapter(adapter);
+
         ivFavourite.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String location = tvLocation.getText().toString();
-                //Notifies the presenter that button fav has been pressed
-                presenter.notifyFavButtonClicked(location);
+                presenter.notifyFavButtonClicked(tvLocation.getText().toString());
             }
         }));
 
@@ -128,6 +127,7 @@ public class HomeFragment extends Fragment implements I_HomeView {
                 R.layout.layout_suggested_item, null,
                 new String[]{SearchManager.SUGGEST_COLUMN_TEXT_1},
                 new int[]{R.id.tvSuggestion}, 0);
+
         searchView.setSuggestionsAdapter(suggestionAdapter);
         searchView.setOnQueryTextListener((new SearchView.OnQueryTextListener() {
             @Override
@@ -137,9 +137,7 @@ public class HomeFragment extends Fragment implements I_HomeView {
             }
             @Override
             public boolean onQueryTextChange(String text) {
-                if(!text.equals("")){
-                    presenter.notifySearchTextChanged(text);
-                }
+                presenter.notifySearchTextChanged(text);
                 return true;
             }
         }));
@@ -151,11 +149,7 @@ public class HomeFragment extends Fragment implements I_HomeView {
             @Override
             public boolean onSuggestionClick(int position) {
                 CursorAdapter adapter = searchView.getSuggestionsAdapter();
-                Cursor cursor = adapter.getCursor();
-                if (cursor != null) {
-                    String location = cursor.getString(1);
-                    presenter.notifySearchPrediction(location);
-                }
+                presenter.notifySearchPrediction(adapter.getCursor().getString(1));
                 return true;
             }
         }));
@@ -177,49 +171,22 @@ public class HomeFragment extends Fragment implements I_HomeView {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void displaySearchSuggestions(Cursor locations) {
+        suggestionAdapter.swapCursor(locations);
+    }
 
     @Override
-    public void displayPredictions(HourlyPrediction[] hp, DailyPrediction[] dp) {
-        searchView.onActionViewCollapsed();
+    public void closeSearchView() {
         // close the keyboard on load
         searchView.clearFocus();
-        adapter.clearFragments();
-
-        Bundle bundle1 = new Bundle();
-        Bundle bundle2 = new Bundle();
-        Bundle bundle3 = new Bundle();
-
-        //Tab TodayFragment
-        TodayFragment tFragment = new TodayFragment();
-        bundle1.putSerializable("TODAY", dp);
-        tFragment.setArguments(bundle1);
-
-        //Tab HourlyFragment
-        HourlyFragment hFragment = new HourlyFragment();
-        bundle2.putSerializable("HOURLY", hp);
-        hFragment.setArguments(bundle2);
-
-        //Tab DialyFragment
-        DailyFragment dFragment = new DailyFragment();
-        bundle3.putSerializable("DAILY", dp);
-        dFragment.setArguments(bundle3);
-
-        adapter.addFragment(hFragment, "Hourly");
-        adapter.addFragment(tFragment, "Today");
-        adapter.addFragment(dFragment, "Daily");
-
-        adapter.notifyDataSetChanged();
-
-        location = getView().findViewById(R.id.tvLocalidad);
-        location.setText(dp[0].getNombre());
-
-        //Ask the presenter if this location is favourite or not
-        presenter.notifyIsItFavourite(location.getText().toString());
+        searchView.onActionViewCollapsed();
     }
     @Override
-    public void displaySearchSuggestions(Cursor c) {
-        suggestionAdapter.swapCursor(c);
+    public void setLocation(String newLocation){
+        tvLocation.setText(newLocation);
     }
+
     @Override
     public void makeFavourite() {
         ivFavourite.setBackgroundResource(R.drawable.favourite_icon);
@@ -242,7 +209,7 @@ public class HomeFragment extends Fragment implements I_HomeView {
     }
     @Override
     public void showMsgNoLocationFound(String location) {
-        Toast.makeText(getContext(), "No hay información acerca de la localidad: "+ location,Toast.LENGTH_SHORT);
+        Toast.makeText(getContext(), "No hay información acerca de la localidad: "+ location,Toast.LENGTH_SHORT).show();
     }
     @Override
     public void showMsgHTTPError() {

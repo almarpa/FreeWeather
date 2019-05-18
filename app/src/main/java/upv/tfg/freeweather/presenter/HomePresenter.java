@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.database.MatrixCursor;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.util.Log;
 
@@ -19,12 +20,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import upv.tfg.freeweather.adapters.ViewPagerAdapter;
+import upv.tfg.freeweather.adapters.interfaces.I_ViewPagerAdapter;
 import upv.tfg.freeweather.data.HomeInteractor;
+import upv.tfg.freeweather.data.interfaces.I_HomeInteractor;
 import upv.tfg.freeweather.data.model.DailyPrediction;
 import upv.tfg.freeweather.data.model.HourlyPrediction;
-import upv.tfg.freeweather.data.interfaces.I_HomeInteractor;
-import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
 import upv.tfg.freeweather.data.model.serializations.Init;
+import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
+import upv.tfg.freeweather.view.DailyFragment;
+import upv.tfg.freeweather.view.HourlyFragment;
+import upv.tfg.freeweather.view.TodayFragment;
 import upv.tfg.freeweather.view.interfaces.I_HomeView;
 
 public class HomePresenter implements I_HomePresenter {
@@ -33,6 +39,8 @@ public class HomePresenter implements I_HomePresenter {
     private I_HomeView view;
     // Model reference
     private I_HomeInteractor interactor;
+    // Adapter reference
+    private I_ViewPagerAdapter adapter;
 
     private Context context;
     private HourlyPrediction[] hp;
@@ -44,6 +52,16 @@ public class HomePresenter implements I_HomePresenter {
 
         // Creating the interactor that will interact with the database
         interactor = new HomeInteractor(this, context);
+    }
+
+    /**
+     * Assigns the adapter to the presenter
+     * @param adapter
+     */
+    @Override
+    public void attachAdapter(ViewPagerAdapter adapter) {
+        this.adapter = adapter;
+        this.adapter.onAttach(this );
     }
 
     /**
@@ -65,6 +83,7 @@ public class HomePresenter implements I_HomePresenter {
             view.showMsgLocationEmpty();
         }
     }
+
     /**
      * Method called by the view to ask the model if the location gave as parameter is favourite
      * @param location
@@ -78,6 +97,7 @@ public class HomePresenter implements I_HomePresenter {
             view.removeFavourite();
         }
     }
+
     /**
      * Method called by the view to notify that user has introduced some text
      * @param text
@@ -105,6 +125,7 @@ public class HomePresenter implements I_HomePresenter {
             }
         }
     }
+
     /**
      * Method called by the view to notify that user has send a search
      * @param location
@@ -122,20 +143,40 @@ public class HomePresenter implements I_HomePresenter {
             view.showMsgNoLocationFound(location);
         }
     }
-    /**
-     * Method called by the model to set the favourite icon
-     */
-    @Override
-    public void makeFavourite() {
-        view.makeFavourite();
-    }
 
     /**
-     * Method called by the model to set the favourite icon
+     * Create the viewpager fragments with their appropriate bundle(Serialized prediction Object)
      */
-    @Override
-    public void removeFavourite() {
-        view.removeFavourite();
+    private void createFragments() {
+        adapter.clearFragments();
+
+        Bundle bundle1 = new Bundle();
+        Bundle bundle2 = new Bundle();
+        Bundle bundle3 = new Bundle();
+
+        //Tab TodayFragment
+        TodayFragment tFragment = new TodayFragment();
+        bundle1.putSerializable("TODAY", dp);
+        tFragment.setArguments(bundle1);
+
+        //Tab HourlyFragment
+        HourlyFragment hFragment = new HourlyFragment();
+        bundle2.putSerializable("HOURLY", hp);
+        hFragment.setArguments(bundle2);
+
+        //Tab DialyFragment
+        DailyFragment dFragment = new DailyFragment();
+        bundle3.putSerializable("DAILY", dp);
+        dFragment.setArguments(bundle3);
+
+        adapter.addFragment(hFragment, "Hourly");
+        adapter.addFragment(tFragment, "Today");
+        adapter.addFragment(dFragment, "Daily");
+
+        view.setLocation(dp[0].getNombre());
+
+        //Ask if this location is favourite or not
+        notifyIsItFavourite(dp[0].getNombre());
     }
 
     /**
@@ -148,6 +189,7 @@ public class HomePresenter implements I_HomePresenter {
         private HttpURLConnection connection;
         private InputStreamReader reader;
         private GsonBuilder builder;
+
         private Gson gson;
 
         @Override
@@ -239,15 +281,17 @@ public class HomePresenter implements I_HomePresenter {
             }
             return null;
         }
-
         @Override
         protected void onPostExecute(Void params) {
             if (hp != null && dp != null){
-                view.displayPredictions(hp,dp);
-                view.setProgressBarInvisible();
+                createFragments();
             }else{
                 view.showMsgHTTPError();
             }
+            view.closeSearchView();
+            view.setProgressBarInvisible();
+
         }
+
     }
 }

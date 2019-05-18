@@ -1,15 +1,12 @@
 package upv.tfg.freeweather.presenter.interfaces;
 
 
-import android.view.View;
-import android.widget.AdapterView;
-
-import upv.tfg.freeweather.adapters.FavouritesAdapter;
+import upv.tfg.freeweather.adapters.FavouritesRecyclerViewAdapter;
 
 public interface I_FavouritePresenter {
 
-    void attachAdapter(FavouritesAdapter adapter);
+    void attachAdapter(FavouritesRecyclerViewAdapter adapter);
     void startPresenter();
-    void onLocationSelected(AdapterView<?> adapter, View v, int position);
-    void deleteLocationFromFavourites(String location);
+    void onLocationPressed(String location);
+    void onLocationDeleted(String location);
 }

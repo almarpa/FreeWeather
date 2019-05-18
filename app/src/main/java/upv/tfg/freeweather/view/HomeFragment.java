@@ -40,8 +40,6 @@ public class HomeFragment extends Fragment implements I_HomeView {
     //Presenter reference
     private I_HomePresenter presenter;
 
-    private View view;
-
     private ViewPagerAdapter adapter;
     private CursorAdapter suggestionAdapter;
     private TabLayout tabLayout;
@@ -88,7 +86,7 @@ public class HomeFragment extends Fragment implements I_HomeView {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         //Initialize view elements
         tvLocation = view.findViewById(R.id.tvLocalidad);

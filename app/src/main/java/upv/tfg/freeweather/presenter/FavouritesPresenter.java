@@ -1,15 +1,13 @@
 package upv.tfg.freeweather.presenter;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.AdapterView;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.adapters.FavouritesAdapter;
-import upv.tfg.freeweather.adapters.interfaces.I_FavouritesAdapter;
+import upv.tfg.freeweather.adapters.FavouritesRecyclerViewAdapter;
+import upv.tfg.freeweather.adapters.interfaces.I_FavouritesRecyclerViewAdapter;
 import upv.tfg.freeweather.data.FavouriteInteractor;
 import upv.tfg.freeweather.data.interfaces.I_FavouriteInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_FavouritePresenter;
@@ -23,10 +21,9 @@ public class FavouritesPresenter implements I_FavouritePresenter {
     // Model reference
     private I_FavouriteInteractor interactor;
     // Adapter reference
-    private I_FavouritesAdapter adapter;
+    private I_FavouritesRecyclerViewAdapter adapter;
 
     private Context context;
-    private HomeFragment homeFragment;
 
     public FavouritesPresenter(I_FavouritesView view, Context context) {
         this.view = view;
@@ -39,7 +36,7 @@ public class FavouritesPresenter implements I_FavouritePresenter {
      * @param adapter
      */
     @Override
-    public void attachAdapter(FavouritesAdapter adapter) {
+    public void attachAdapter(FavouritesRecyclerViewAdapter adapter) {
         this.adapter = adapter;
         this.adapter.onAttach(this );
     }
@@ -51,7 +48,7 @@ public class FavouritesPresenter implements I_FavouritePresenter {
     public void startPresenter() {
         Map<String, ?> map =  interactor.getAllFavourites();
 
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         for (Map.Entry<String, ?> entry : map.entrySet()) {
             //Check if the location is saved as favourite
             if(entry.getValue().toString() == "true"){
@@ -68,20 +65,16 @@ public class FavouritesPresenter implements I_FavouritePresenter {
 
     /**
      * Open a new HomeFragment with the appropriate predictions
-     * @param adapter actual adapter with all favorite locations
-     * @param v actual view
-     * @param position the position of the chosen location at the list
+     * @param location place
      */
     @Override
-    public void onLocationSelected(AdapterView<?> adapter, View v, int position) {
-        String place = adapter.getItemAtPosition(position).toString();
-
+    public void onLocationPressed(String location) {
         // Change the selected menu option to 'Home' option
         view.setMenuSelection();
 
-        //Create a new HomeFragment with the location to search as a parameter
-        homeFragment = new HomeFragment().newInstance(place);
-        view.replaceFragment(R.id.frameLayout, homeFragment, "home");
+        //Create a new HomeFragment with location to get predictions
+        HomeFragment fragment = new HomeFragment().newInstance(location);
+        view.replaceFragment(R.id.frameLayout, fragment, "home");
     }
 
     /**
@@ -89,7 +82,7 @@ public class FavouritesPresenter implements I_FavouritePresenter {
      * @param location place to delete
      */
     @Override
-    public void deleteLocationFromFavourites(String location){
+    public void onLocationDeleted(String location){
         interactor.removeLocationFromFavourites(location);
     }
 }

@@ -8,7 +8,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+import upv.tfg.freeweather.adapters.interfaces.I_ViewPagerAdapter;
+
+public class ViewPagerAdapter extends FragmentStatePagerAdapter implements I_ViewPagerAdapter {
 
     private final List<Fragment> fragmentList = new ArrayList<>();
     private final List<String> fragmentListTitles = new ArrayList<>();
@@ -38,10 +40,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         return fragmentListTitles.get(position);
     }
 
+    @Override
     public void addFragment(Fragment fragment, String title) {
         fragmentList.add(fragment);
         fragmentListTitles.add(title);
     }
+    @Override
     public void clearFragments(){
         fragmentList.clear();
         fragmentListTitles.clear();

@@ -4,15 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.adapters.FavouritesAdapter;
+import upv.tfg.freeweather.adapters.FavouritesRecyclerViewAdapter;
 import upv.tfg.freeweather.presenter.FavouritesPresenter;
 import upv.tfg.freeweather.presenter.interfaces.I_FavouritePresenter;
 import upv.tfg.freeweather.view.interfaces.I_FavouritesView;
@@ -25,11 +25,12 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
     //Presenter reference
     private I_FavouritePresenter presenter;
     // Adapter reference
-    private FavouritesAdapter adapter;
+    private FavouritesRecyclerViewAdapter adapter;
 
     private View view;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager manager;
     private NavigationView navigationView;
-    private ListView listView;
     private TextView tvMsg;
 
     @Override
@@ -47,42 +48,36 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
         view = inflater.inflate(R.layout.fragment_menu_favorites, container, false);
         navigationView = getActivity().findViewById(R.id.navView);
         tvMsg = view.findViewById(R.id.tvMsgNoFavourites);
-        listView = view.findViewById(R.id.favourites_listview);
+        recyclerView = view.findViewById(R.id.favourites_recycler);
+
+        setupRecyclerView();
 
         // Initialize adapter
-        adapter = new FavouritesAdapter(this);
-        setAdapter(adapter);
+        adapter = new FavouritesRecyclerViewAdapter(getContext(),this);
+        recyclerView.setAdapter(adapter);
 
         // Associate the adapter to the presenter
         presenter.attachAdapter(adapter);
 
         presenter.startPresenter();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
-                presenter.onLocationSelected(adapter, v, position);
-            }
-        });
         return view;
     }
 
     /**
-     * Set the old adapter
-     *
-     * @param favAdapter new adapter
+     * Initialize and position the adapter
      */
-    @Override
-    public void setAdapter(FavouritesAdapter favAdapter) {
-        listView.setAdapter(favAdapter);
+    private void setupRecyclerView() {
+        manager = new LinearLayoutManager(getContext());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
     }
 
     /**
      * Replace the actual fragment
-     *
      * @param frameLayout  new layout
      * @param homeFragment main fragment that shows the prediction
-     * @param tag          fragment tag
+     * @param tag fragment tag
      */
     @Override
     public void replaceFragment(int frameLayout, HomeFragment homeFragment, String tag) {

@@ -112,6 +112,7 @@ public class HomePresenter implements I_HomePresenter {
     @Override
     public void notifySearchPrediction(String location) {
         String code = interactor.getCodeByLocation(location);
+        //Check if location exists in the database
         if (code != null) {
             view.setProgressBarVisible();
             //Obtain predictions from the API
@@ -128,6 +129,7 @@ public class HomePresenter implements I_HomePresenter {
     public void makeFavourite() {
         view.makeFavourite();
     }
+
     /**
      * Method called by the model to set the favourite icon
      */
@@ -224,7 +226,7 @@ public class HomePresenter implements I_HomePresenter {
                     try {
                         dp = gson.fromJson(reader, DailyPrediction[].class);
                     }catch (RuntimeException e){
-                        Log.d("error", "HA SALTADO EXCEPCIÓN");
+                        Log.d("error", "Exception");
                     }
                     reader.close();
                 }

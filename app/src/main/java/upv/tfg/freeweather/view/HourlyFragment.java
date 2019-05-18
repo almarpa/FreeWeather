@@ -11,13 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.adapters.RecyclerViewAdapter;
+import upv.tfg.freeweather.adapters.HourlyRecyclerViewAdapter;
 import upv.tfg.freeweather.data.model.HourlyPrediction;
+import upv.tfg.freeweather.presenter.HourlyPresenter;
+import upv.tfg.freeweather.presenter.interfaces.I_HourlyPresenter;
+import upv.tfg.freeweather.view.interfaces.I_HourlyView;
 
-public class HourlyFragment extends Fragment implements RecyclerViewAdapter.OnRecyclerItemListener{
+public class HourlyFragment extends Fragment implements I_HourlyView {
+
+    //Presenter reference
+    private I_HourlyPresenter presenter;
+    // Adapter reference
+    private HourlyRecyclerViewAdapter adapter;
 
     private View view;
     private Context context;
@@ -25,13 +31,7 @@ public class HourlyFragment extends Fragment implements RecyclerViewAdapter.OnRe
     private HourlyPrediction[] hp;
 
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter adapter;
-    private LinearLayoutManager llm;
-    private ArrayList<String> mDays = new ArrayList<>();
-    private ArrayList<String> mHours = new ArrayList<>();
-    private ArrayList<String> mTemperatures = new ArrayList<>();
-    private ArrayList<Integer> mStateImages = new ArrayList<>();
-    private ArrayList<Integer> mTempImages = new ArrayList<>();
+    private LinearLayoutManager manager;
 
     public HourlyFragment() {
 
@@ -40,6 +40,9 @@ public class HourlyFragment extends Fragment implements RecyclerViewAdapter.OnRe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Initialize presenter
+        presenter = new HourlyPresenter(this, getContext());
     }
 
     @Override
@@ -49,39 +52,36 @@ public class HourlyFragment extends Fragment implements RecyclerViewAdapter.OnRe
         context = view.getContext();
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        llm = new LinearLayoutManager(context);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
 
+        setupRecyclerAdapter();
+
+        // Initialize adapter
+        adapter = new HourlyRecyclerViewAdapter(context,this);
+        recyclerView.setAdapter(adapter);
+
+        // Associate the adapter to the presenter
+        presenter.attachAdapter(adapter);
+
+        // Bundle args (Getting hourly prediction)
         hp = (HourlyPrediction[]) getArguments().getSerializable("HOURLY");
 
-        mDays = hp[0].getDays();
-        mHours = hp[0].getHours();
-        mTemperatures = hp[0].getTemperatures();
-        mStateImages = hp[0].getImages();
-        mTempImages = hp[0].getTempImages();
-
-        adapter = new RecyclerViewAdapter(context, this, mDays, mHours, mTemperatures, mStateImages, mTempImages);
-        recyclerView.setAdapter(adapter);
+        presenter.startPresenter(hp);
 
         return view;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    /**
+     * Initialize and position the adapter
+     */
+    private void setupRecyclerAdapter() {
+        manager = new LinearLayoutManager(context);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
 
     @Override
-    public void onAdapterItemClick(int position) {
-        Intent intent = new Intent(context, HourlyInfoActivity.class);
-        intent.putExtra("HourlyPrediction",hp);
-        intent.putExtra("Item_Position",position);
+    public void initiateActivity(Intent intent){
         startActivity(intent);
     }
 }

@@ -1,10 +1,12 @@
 package upv.tfg.freeweather.presenter;
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,15 +25,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 import upv.tfg.freeweather.data.NotificationsInteractor;
+import upv.tfg.freeweather.data.interfaces.I_NotificationsInteractor;
 import upv.tfg.freeweather.data.model.DailyPrediction;
 import upv.tfg.freeweather.data.model.HourlyPrediction;
-import upv.tfg.freeweather.data.interfaces.I_NotificationsInteractor;
-import upv.tfg.freeweather.presenter.interfaces.I_NotificationsPresenter;
 import upv.tfg.freeweather.data.model.serializations.Init;
+import upv.tfg.freeweather.presenter.interfaces.I_NotificationsPresenter;
+import upv.tfg.freeweather.utils.AlarmReceiver;
 import upv.tfg.freeweather.view.interfaces.I_NotificationsActivity;
 
 
@@ -48,6 +52,7 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
     private HourlyPrediction[] hp;
     private DailyPrediction[] dp;
     private NotificationManagerCompat manager;
+    private int hour;
 
     public NotificationsPresenter(I_NotificationsActivity view, Context context) {
         this.view = view;
@@ -58,8 +63,9 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
         // Initialize the notification manager
         manager = NotificationManagerCompat.from(context);
 
-        if(interactor.getLastSwitch()){
+        if(interactor.getLastSwitch() == 1){
             view.doSwitch();
+            view.setCurrentNotification(interactor.getCurrenteNotification());
         }
         // Poblate the radiogroup items in the view
         getIntervalTimes();
@@ -82,13 +88,15 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
         RadioGroup rg = new RadioGroup(context);
         rg.setOrientation(LinearLayout.VERTICAL);
         List<String> list = new ArrayList<>();
-        list.add("Morning (12:00 am)");
-        list.add("Afternoon (06:00 pm)");
+        list.add("10:00");
+        list.add("14:00");
+        list.add("18:00");
+        list.add("22:00");
         for (int i = 0; i < list.size(); i++) {
             RadioButton rdbtn = new RadioButton(context);
             rdbtn.setId(View.generateViewId());
             rdbtn.setText(list.get(i));
-            if(list.get(i).equals(interactor.getTimeChoosed())) {
+            if(list.get(i).equals(interactor.getTimeSelected())) {
                 rdbtn.setChecked(true);
             }
             rg.addView(rdbtn);
@@ -113,7 +121,7 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
                 RadioButton rdbtn = new RadioButton(context);
                 rdbtn.setId(View.generateViewId());
                 rdbtn.setText(entry.getKey());
-                if(entry.getKey().equals(interactor.getLocationChoosed())){
+                if(entry.getKey().equals(interactor.getLocationSelected())){
                     rdbtn.setChecked(true);
                 }
                 rg.addView(rdbtn);
@@ -133,17 +141,44 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
      */
     @Override
     public void notifySwitchChecked() {
-        // Obtain the radio button text (interval time) selected
-        String timeChoosed = interactor.getTimeChoosed();
-        // Obtain the radio button text (location) selected
-        String locationChoosed = interactor.getLocationChoosed();
-        if(timeChoosed != null && locationChoosed != null){
-            String code = interactor.getCodeByLocation(locationChoosed);
-            AsyncTaskGetNotificationInfo asyncTask = new AsyncTaskGetNotificationInfo();
-            asyncTask.execute(code);
+        //Cancel previous configured alarms
+        manager.cancelAll();
+
+        // Obtain the chosen time and location
+        String timeSelected = interactor.getTimeSelected();
+        String locationSelected = interactor.getLocationSelected();
+
+        if(timeSelected != null && locationSelected != null){
+            switch (timeSelected) {
+                case "10:00":
+                    hour = 10;
+                    view.showAlarmConfigurated("Your alarm will sound at " + hour + ":00");
+                    break;
+                case "14:00":
+                    hour = 14;
+                    view.showAlarmConfigurated("Your alarm will sound at " + hour + ":00");
+                    break;
+                case "18:00":
+                    hour = 18;
+                    view.showAlarmConfigurated("Your alarm will sound at " + hour + ":00");
+                    break;
+                case "22:00":
+                    hour = 22;
+                    view.showAlarmConfigurated("Your alarm will sound at " + hour + ":00");
+                    break;
+            }
+            interactor.saveCurrentNotification("Active notification: " + locationSelected + " at " + timeSelected);
+            view.setCurrentNotification("Active notification: " + locationSelected + " at " + timeSelected);
+
+            // Save the Switch state in preferences
+            interactor.saveSwitchState(1);
+
+            // Run async task to get the prediction at location selected
+            AsyncTaskGetPredictions task = new AsyncTaskGetPredictions();
+            task.execute(interactor.getCodeByLocation(locationSelected));
         }else{
             view.clearSwitch();
-            if(timeChoosed != null){
+            if(timeSelected != null){
                 if(interactor.getFavouriteLocations().containsValue(true)){
                     view.showNoLocationChecked();
                 }else{
@@ -161,12 +196,31 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
     @Override
     public void notifySwitchUnchecked() {
         manager.cancelAll();
+        interactor.saveSwitchState(0);
+        view.clearCurrentNotification();
+    }
+
+    private void setNotificationData(DailyPrediction[] dp) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.putExtra("IMAGE", dp[0].getStateImage());
+        intent.putExtra("NOMBRE", dp[0].getNombre());
+        intent.putExtra("ESTADO_CIELO", dp[0].getEstadoCielo());
+        intent.putExtra("TEMPERATURA", dp[0].getTemperatura());
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     /**
-     * Asynchronous task that obtain a DailyPrediction object and a HourlyPrediction object
+     * Obtain a DailyPrediction object and an HourlyPrediction object
      */
-    public class AsyncTaskGetNotificationInfo extends AsyncTask<String, Void, Void> {
+    public class AsyncTaskGetPredictions extends AsyncTask<String, Void, Void> {
 
         private Init init;
         private URL url;
@@ -270,20 +324,13 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
         @Override
         protected void onPostExecute(Void params) {
             if(dp!=null && hp!=null){
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_1_ID)
-                        .setSmallIcon(dp[0].getStateImage())
-                        .setContentTitle(dp[0].getNombre()+", España")
-                        .setContentText(dp[0].getEstadoCielo()+ ", " + dp[0].getTemperatura())
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(dp[0].getEstadoCielo()+ ", " + dp[0].getTemperatura()))
-                        .setPriority(NotificationCompat.PRIORITY_HIGH);
-
-                manager.notify(0, builder.build());
+                setNotificationData(dp);
             }else if(location == null){
                 view.showNoFavouriteExists();
             }else{
                 view.showHTTPMsgError();
             }
         }
+
     }
 }

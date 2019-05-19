@@ -39,6 +39,16 @@ public class NotificationsInteractor implements I_NotificationsInteractor {
     }
 
     @Override
+    public void saveCurrentNotification(String text) {
+        prefHelper.saveCurrentNotification(text);
+    }
+
+    @Override
+    public void saveSwitchState(int checked) {
+        prefHelper.saveSwicthState(checked);
+    }
+
+    @Override
     public void saveTimeOptionChoosed(String time) {
         prefHelper.saveTimeOptionChoosed(time);
     }
@@ -49,17 +59,22 @@ public class NotificationsInteractor implements I_NotificationsInteractor {
     }
 
     @Override
-    public boolean getLastSwitch() {
+    public String getCurrenteNotification() {
+        return prefHelper.getCurrentNotification();
+    }
+
+    @Override
+    public int getLastSwitch() {
         return prefHelper.getLastSwitch();
     }
 
     @Override
-    public String getTimeChoosed() {
+    public String getTimeSelected() {
         return prefHelper.getIntervalTimeChoosed();
     }
 
     @Override
-    public String getLocationChoosed() {
+    public String getLocationSelected() {
         return prefHelper.getLocationChoosed();
     }
 

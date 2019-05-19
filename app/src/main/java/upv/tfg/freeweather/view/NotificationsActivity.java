@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import upv.tfg.freeweather.R;
@@ -22,6 +23,7 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
     private Switch swchNotification;
     private RadioGroup rgTime;
     private RadioGroup rgLocations;
+    private TextView tvCurrentNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
         rgTime = findViewById(R.id.rgTime);
         rgLocations = findViewById(R.id.rgLocations);
         swchNotification = findViewById(R.id.stchNotifications);
+        tvCurrentNotification = findViewById(R.id.tvNotification);
 
         // Create the presenter
         presenter = new NotificationsPresenter(this, getApplicationContext());
@@ -68,6 +71,32 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
     }
 
     /**
+     * Check the switch item
+     */
+    @Override
+    public void doSwitch() {
+        swchNotification.setChecked(true);
+    }
+
+    /**
+     * Uncheck the switch item
+     */
+    @Override
+    public void clearSwitch() {
+        swchNotification.setChecked(false);
+    }
+
+    @Override
+    public void setCurrentNotification(String text) {
+        tvCurrentNotification.setText(text);
+    }
+
+    @Override
+    public void clearCurrentNotification() {
+        tvCurrentNotification.setText("");
+    }
+
+    /**
      * Method called by the presenter to show a message error
      */
     @Override
@@ -91,12 +120,7 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
     }
 
     @Override
-    public void doSwitch() {
-        swchNotification.setChecked(true);
-    }
-
-    @Override
-    public void clearSwitch() {
-        swchNotification.setChecked(false);
+    public void showAlarmConfigurated(String alarmConfigurated) {
+        Toast.makeText(this,alarmConfigurated,Toast.LENGTH_LONG).show();
     }
 }

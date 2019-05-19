@@ -46,10 +46,10 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
         navigationView.getMenu().getItem(0).setChecked(true);
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.frameLayout, new HomeFragment())
-                    .commit();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, new HomeFragment())
+                        .commit();
         }
 
         // Create the Presenter

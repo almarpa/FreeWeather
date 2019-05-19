@@ -76,8 +76,8 @@ public class HomeFragment extends Fragment implements I_HomeView {
         //Check if it has Bundle args and in that case, search the fav. location
         Bundle args = getArguments();
         if (args != null) {
-            String code = args.getString("FAVOURITE_ITEM");
-            presenter.notifySearchPrediction(code);
+            String favLocation = args.getString("FAVOURITE_ITEM");
+            presenter.notifySearchPrediction(favLocation);
         }
     }
 

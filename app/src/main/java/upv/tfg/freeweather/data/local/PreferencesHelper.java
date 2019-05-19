@@ -40,6 +40,14 @@ public class PreferencesHelper {
         return keys;
     }
 
+    public void saveCurrentNotification(String text) {
+        prefs.edit().putString("CURRENT_NOTIFICATION",text).apply();
+    }
+
+    public void saveSwicthState(int checked) {
+        prefs.edit().putInt("SWITCH_STATE",checked).apply();
+    }
+
     public void saveTimeOptionChoosed(String time) {
         prefs.edit().putString("TIME_CHOOSED",time).apply();
     }
@@ -48,8 +56,12 @@ public class PreferencesHelper {
         prefs.edit().putString("LOCATION_CHOOSED",location).apply();
     }
 
-    public boolean getLastSwitch() {
-        return prefs.getBoolean("SWITCH_STATE",false);
+    public String getCurrentNotification() {
+        return prefs.getString("CURRENT_NOTIFICATION",null);
+    }
+
+    public int getLastSwitch() {
+        return prefs.getInt("SWITCH_STATE",0);
     }
 
     public String getIntervalTimeChoosed() {

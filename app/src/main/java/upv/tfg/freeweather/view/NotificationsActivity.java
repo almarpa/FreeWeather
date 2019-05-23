@@ -20,7 +20,7 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
     // Presenter reference
     private I_NotificationsPresenter presenter;
 
-    private Switch swchNotification;
+    private Switch swthActivate;
     private RadioGroup rgTime;
     private RadioGroup rgLocations;
     private TextView tvCurrentNotification;
@@ -35,13 +35,13 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
         setSupportActionBar(toolbar);
         rgTime = findViewById(R.id.rgTime);
         rgLocations = findViewById(R.id.rgLocations);
-        swchNotification = findViewById(R.id.stchNotifications);
+        swthActivate = findViewById(R.id.stchNotifications);
         tvCurrentNotification = findViewById(R.id.tvNotification);
 
         // Create the presenter
         presenter = new NotificationsPresenter(this, getApplicationContext());
 
-        swchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        swthActivate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     presenter.notifySwitchChecked();
@@ -56,7 +56,7 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
      * @param rgTime radiogroup item
      */
     @Override
-    public void setIntervalTimesView(RadioGroup rgTime) {
+    public void setTimeView(RadioGroup rgTime) {
         this.rgTime.addView(rgTime);
     }
 
@@ -75,7 +75,7 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
      */
     @Override
     public void doSwitch() {
-        swchNotification.setChecked(true);
+        swthActivate.setChecked(true);
     }
 
     /**
@@ -83,7 +83,7 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
      */
     @Override
     public void clearSwitch() {
-        swchNotification.setChecked(false);
+        swthActivate.setChecked(false);
     }
 
     @Override

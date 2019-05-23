@@ -51,8 +51,8 @@ public class TodayFragment extends Fragment {
         tvRain =  view.findViewById(R.id.tvRain);
         tvWind =  view.findViewById(R.id.tvWind);
         tvGusts =  view.findViewById(R.id.tvGusts);
-        tvSnow = view.findViewById(R.id.tvSnow);
-        tvDegree = view.findViewById(R.id.tvDegree);
+        tvSnow = view.findViewById(R.id.tvSnowProb);
+        tvDegree = view.findViewById(R.id.tvDegrees);
         tvDegreeMax =  view.findViewById(R.id.tvMaxDegree);
         tvDegreeMin =  view.findViewById(R.id.tvMinDegree);
         ivState = view.findViewById(R.id.ivState);
@@ -88,8 +88,8 @@ public class TodayFragment extends Fragment {
             tvHumidityMax.setText(dp[0].getHumRelativaMaxima());
             tvHumidityMin.setText(dp[0].getHumRelativaMinima());
             tvWind.setText(dp[0].getViento());
-            //tvGusts.setText(dp[0].getRachaMax());
-            //tvSnow.setText(dp[0].getProbNieve());
+            tvGusts.setText(dp[0].getRachaMax());
+            tvSnow.setText(dp[0].getProbNieve());
         }
     }
 }

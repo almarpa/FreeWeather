@@ -3,6 +3,9 @@ package upv.tfg.freeweather.data.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.data.model.serializations.Origin;
@@ -25,68 +28,338 @@ public class DailyPrediction  implements Serializable {
     public String getProvincia() {return provincia; }
     public PD getPrediccion() { return prediccion; }
 
-    public void setOrigin(Origin origin) { this.origin = origin; }
-    public void setElaborado(String elaborado) {this.elaborado = elaborado;}
-    public void setNombre(String nombre) {this.nombre = nombre;}
-    public void setProvincia(String provincia) {this.provincia = provincia;}
-    public void setPredicion(PD prediccion) { this.prediccion = prediccion; }
+    ///////////////////////////////////////////////////////////////////////////////
+    ///      METHODS TO OBTAIN PREDICTION INFO FOR GRAPHICS, CARDS, ETC         ///
+    ///////////////////////////////////////////////////////////////////////////////
 
-
-    //TODAY FRAGMENT
+    //TODAY_FRAGMENT
     public Integer getStateImage(){
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
         String value;
-        value = getPrediccion().getDiaria().get(0).getEstadoCielo().get(2).getValue();
+        value = getPrediccion().getDiaria().get(pos).getEstadoCielo().get(0).getValue();
+        //If AEMET has deleted some info
+        if(value.equals("")){
+            value = getPrediccion().getDiaria().get(pos).getEstadoCielo().get(2).getValue();
+        }
         return getIconByCode(value);
     }
     public String getEstadoCielo(){
-        return prediccion.getDiaria().get(0).getEstadoCielo().get(2).getDescripcion();
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
+        String value;
+        value = getPrediccion().getDiaria().get(pos).getEstadoCielo().get(0).getDescripcion();
+        //If AEMET has deleted some info
+        if(value.equals("")){
+            value = getPrediccion().getDiaria().get(pos).getEstadoCielo().get(2).getDescripcion();
+        }
+        return value;
     }
     public String getTemperatura(){
-        return prediccion.getDiaria().get(0).getTemperatura().getDato().get(1).getValue().concat("º");
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
+        //Select the temperature of the correct interval of time (0-6,6-12,12-18,18-24)
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        int actHour = 0;
+        for (int i = 0; i < 4; i++) {
+            if(0 < hour && hour <= 6) {actHour = 0;}
+            if(7 < hour && hour <= 12) {actHour = 1;}
+            if(13 < hour && hour <= 18) {actHour = 2;}
+            if(19 < hour && hour <= 24) {actHour = 3;}
+        }
+        return prediccion.getDiaria().get(pos).getTemperatura().getDato().get(actHour).getValue().concat("º");
     }
     public String getTemperaturaMaxima(){
-        return prediccion.getDiaria().get(0).getTemperatura().getMaxima().concat("º");
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
+        return prediccion.getDiaria().get(pos).getTemperatura().getMaxima().concat("º");
     }
     public String getTemperaturaMinima(){
-        return prediccion.getDiaria().get(0).getTemperatura().getMinima().concat("º");
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
+        return prediccion.getDiaria().get(pos).getTemperatura().getMinima().concat("º");
     }
     public String getSensTermicaMaxima(){
-        return prediccion.getDiaria().get(0).getSensTermica().getMaxima().concat("º");
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
+        return prediccion.getDiaria().get(pos).getSensTermica().getMaxima().concat("º");
     }
     public String getSensTermicaMinima(){
-        return prediccion.getDiaria().get(0).getSensTermica().getMinima().concat("º");
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
+        return prediccion.getDiaria().get(pos).getSensTermica().getMinima().concat("º");
     }
     public String getRachaMax(){
-        return prediccion.getDiaria().get(0).getRachaMax().get(2).getValue().concat("km/h");
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
+        String res = prediccion.getDiaria().get(pos).getRachaMax().get(0).getValue();
+        if(res.equals("")) {
+            return "--";
+        }
+        return res.concat(" km/h");
     }
     public String getViento(){
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
         String res;
-        res = prediccion.getDiaria().get(0).getViento().get(2).getVelocidad().toString();
-        return res.concat("km/h ("+prediccion.getDiaria().get(0).getViento().get(2).getDireccion()+")");
+        res = prediccion.getDiaria().get(pos).getViento().get(0).getVelocidad().toString();
+        return res.concat("km/h ("+prediccion.getDiaria().get(pos).getViento().get(0).getDireccion()+")");
     }
     public String getHumRelativaMaxima(){
-        return prediccion.getDiaria().get(0).getHumedadRelativa().getMaxima().concat("º");
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
+        return prediccion.getDiaria().get(pos).getHumedadRelativa().getMaxima().concat("º");
     }
     public String getHumRelativaMinima(){
-        return prediccion.getDiaria().get(0).getHumedadRelativa().getMinima().concat("º");
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
+        return prediccion.getDiaria().get(pos).getHumedadRelativa().getMinima().concat("º");
     }
     public String getProbPrecipitacion(){
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
         Integer res;
-        res = getProbabilityByHour(prediccion.getDiaria().get(0).getProbPrecipitacion().get(0).getValue().toString());
+        res = getProbabilityByHour(prediccion.getDiaria().get(pos).getProbPrecipitacion().get(0).getValue().toString());
         return res.toString().concat("%");    }
     public String getProbNieve(){
+        int pos = 0;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd");
+        String actDay = df.format(c.getTime());
+        for (int i = 0; i < 2; i++){
+            if(actDay.equals(getPrediccion().getDiaria().get(i).getFecha().substring(8,10))){
+                pos = i;
+            }
+        }
         Integer res;
-        res = getProbabilityByHour(prediccion.getDiaria().get(0).getProbNieve().get(0).getValue());
-        return res.toString().concat("%");
+        res = getProbabilityByHour(prediccion.getDiaria().get(pos).getProbNieve().get(0).getValue());
+        return res.toString().concat(" m");
+    }
+
+    //DAILY_FRAGMENT (Adapter item elements)
+    public ArrayList<String> getDays() {
+        ArrayList<String> res = new ArrayList<>();
+        for (int i= 0; i < getPrediccion().getDiaria().get(0).getEstadoCielo().size(); i++) {
+            String date =getPrediccion().getDiaria().get(i).getFecha();
+            String x = getDayOfTheWeek(date);
+            res.add(x);
+        }
+        return res;
+    }
+    public ArrayList<Integer> getStateImages() {
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int i= 0; i < getPrediccion().getDiaria().size(); i++) {
+            String code = getPrediccion().getDiaria().get(i).getEstadoCielo().get(0).getValue();
+            if(code.equals("")) code = getPrediccion().getDiaria().get(i).getEstadoCielo().get(2).getValue();
+            Integer icon = getIconByCode(code);
+            res.add(icon);
+        }
+        return res;
+    }
+    public ArrayList<String> getMaxTemperatures() {
+        ArrayList<String> res = new ArrayList<>();
+        for (int i= 0; i < getPrediccion().getDiaria().size(); i++) {
+            String code = getPrediccion().getDiaria().get(i).getTemperatura().getMaxima();
+            res.add(code.concat("º"));
+        }
+        return res;
+    }
+    public ArrayList<String> getMinTemperatures() {
+        ArrayList<String> res = new ArrayList<>();
+        for (int i= 0; i < getPrediccion().getDiaria().size(); i++) {
+            String code = getPrediccion().getDiaria().get(i).getTemperatura().getMinima();
+            res.add(code.concat("º"));
+        }
+        return res;
+    }
+
+    //DETAILED_HOUR_INFO_ACTIVITY
+    public Integer getStateImage(int pos){
+        String code;
+        code = getPrediccion().getDiaria().get(pos).getEstadoCielo().get(0).getValue();
+        if(code.equals("") && pos == 0){
+            code = getPrediccion().getDiaria().get(pos).getEstadoCielo().get(2).getValue();
+        }
+        return getIconByCode(code);
+    }
+    public String getStateDescription(int pos){
+        String res;
+        res = getPrediccion().getDiaria().get(pos).getEstadoCielo().get(0).getDescripcion();
+        if(res.equals("") && pos == 0){
+            res = getPrediccion().getDiaria().get(pos).getEstadoCielo().get(2).getDescripcion();
+        }
+        return res;
+    }
+    public String getRainProb(int pos){
+        Integer res;
+        res = getPrediccion().getDiaria().get(pos).getProbPrecipitacion().get(0).getValue();
+        if(res.equals(null) && pos == 0){
+            res = getPrediccion().getDiaria().get(pos).getProbPrecipitacion().get(2).getValue();
+        }
+        return res.toString().concat(" %");
+    }
+    public String getSnow(int pos){
+        String res;
+        res = getPrediccion().getDiaria().get(pos).getProbNieve().get(0).getValue();
+        if(res.equals("") && pos == 0){
+            res = getPrediccion().getDiaria().get(pos).getProbNieve().get(2).getValue();
+        }
+        if(res.equals("")) return "--";
+        return res.concat(" m");
+    }
+    public String getWind(int pos){
+        String res;
+        res = getPrediccion().getDiaria().get(pos).getViento().get(0).getDireccion();
+        if(res.equals("") && pos == 0){
+            res = getPrediccion().getDiaria().get(pos).getViento().get(2).getVelocidad().toString().concat(" km/h");
+            res.concat(" (" + getPrediccion().getDiaria().get(pos).getViento().get(2).getDireccion().concat(")"));
+        }else{
+            res = getPrediccion().getDiaria().get(pos).getViento().get(0).getVelocidad().toString().concat(" km/h");
+            res.concat(" (" + getPrediccion().getDiaria().get(pos).getViento().get(0).getDireccion().concat(")"));
+        }
+        return res;
+    }
+    public String getGusts(int pos){
+        String res;
+        res = getPrediccion().getDiaria().get(pos).getRachaMax().get(0).getValue();
+        if(res.equals("")){
+            return "--";
+        }
+        return res.concat(" km/h");
+    }
+    public String getDayOfTheWeek(int pos) {
+        String date = getPrediccion().getDiaria().get(pos).getFecha();
+        return getDayOfTheWeek(date);
+    }
+    public String getMaxDegrees(int pos){
+        String res;
+        res = getPrediccion().getDiaria().get(pos).getTemperatura().getMaxima();
+        return res.concat("º");
+    }
+    public String getMinDegrees(int pos){
+        String res;
+        res = getPrediccion().getDiaria().get(pos).getTemperatura().getMinima();
+        return res.concat("º");
+    }
+    public String getMaxThermSense(int pos){
+        String res;
+        res = getPrediccion().getDiaria().get(pos).getSensTermica().getMaxima();
+        return res.concat("º");
+    }
+    public String getMinThermSense(int pos){
+        String res;
+        res = getPrediccion().getDiaria().get(pos).getSensTermica().getMinima();
+        return res.concat("º");
+    }
+    public String getMaxHumidity(int pos){
+        String res;
+        res = getPrediccion().getDiaria().get(pos).getHumedadRelativa().getMaxima();
+        return res.concat(" %");
+    }
+    public String getMinHumidity(int pos){
+        String res;
+        res = getPrediccion().getDiaria().get(pos).getHumedadRelativa().getMinima();
+        return res.concat(" %");
+    }
+    public String getUV(int pos) {
+        String uv;
+        if (pos < 5) {
+            uv = getPrediccion().getDiaria().get(pos).getUV();
+        } else {
+            uv = "--";
+        }
+        return uv;
     }
 
     //AUXILIAR METHODS
     private Integer getIconByCode(String code) {
         int res;
         switch (code){
-            case "":
-                res = R.drawable.icon_not_exists;
-                break;
             case "11":
                 res = R.drawable.sol;
                 break;
@@ -129,6 +402,18 @@ public class DailyPrediction  implements Serializable {
             case "17n":
                 res = R.drawable.nube_noche;
                 break;
+            case "23":
+                res = R.drawable.intervalos_nubosos_con_lluvia_escasa_dia;
+                break;
+            case "23n":
+                res = R.drawable.intervalos_nubosos_con_lluvia_escasa_noche;
+                break;
+            case "24":
+                res = R.drawable.nube_lluvia;
+                break;
+            case "24n":
+                res = R.drawable.nube_lluvia;
+                break;
             case "25":
                 res = R.drawable.nube_lluvia;
                 break;
@@ -142,7 +427,10 @@ public class DailyPrediction  implements Serializable {
                 res = R.drawable.nube_lluvia;
                 break;
             case "43":
-                res = R.drawable.intervalos_nubosos_con_lluvia_escasa;
+                res = R.drawable.intervalos_nubosos_con_lluvia_escasa_dia;
+                break;
+            case "43n":
+                res = R.drawable.intervalos_nubosos_con_lluvia_escasa_noche;
                 break;
             case "44":
                 res = R.drawable.muy_nuboso_con_lluvia_escasa;
@@ -174,6 +462,24 @@ public class DailyPrediction  implements Serializable {
             case "52n":
                 res = R.drawable.nube_lluvia_trueno;
                 break;
+            case "53":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "53n":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "54":
+                res = R.drawable.nube_trueno;
+                break;
+            case "54n":
+                res = R.drawable.nube_trueno;
+                break;
+            case "63":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "63n":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
             case "64":
                 res = R.drawable.nube_lluvia_trueno;
                 break;
@@ -200,5 +506,39 @@ public class DailyPrediction  implements Serializable {
             }
         }
         return res;
+    }
+    private String getDayOfTheWeek(String date) {
+        String res = null;
+        int month = Integer.parseInt(date.substring(5,7));
+        int days = Integer.parseInt(date.substring(8,10));
+        int year = Integer.parseInt(date.substring(0,4));
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, days);
+        int day = c.get(Calendar.DAY_OF_WEEK);
+
+        switch (day) {
+            case Calendar.SUNDAY:
+                res = "thu.";
+                break;
+            case Calendar.MONDAY:
+                res = "fri.";
+                break;
+            case Calendar.TUESDAY:
+                res = "sat.";
+                break;
+            case Calendar.WEDNESDAY:
+                res = "sun.";
+                break;
+            case Calendar.THURSDAY:
+                res = "mon.";
+                break;
+            case Calendar.FRIDAY:
+                res = "tue.";
+                break;
+            case Calendar.SATURDAY:
+                res = "wed.";
+                break;
+        }
+        return res.concat(" " + days);
     }
 }

@@ -25,17 +25,11 @@ public class HourlyPrediction implements Serializable {
     public String getProvincia() {return provincia; }
     public PH getPrediccion() { return prediccion; }
 
-    public void setOrigin(Origin origin) { this.origin = origin; }
-    public void setElaborado(String elaborado) {this.elaborado = elaborado;}
-    public void setNombre(String nombre) {this.nombre = nombre;}
-    public void setProvincia(String provincia) {this.provincia = provincia;}
-    public void setPrediccion(PH prediccion) { this.prediccion = prediccion; }
-
     ///////////////////////////////////////////////////////////////////////////////
     ///      METHODS TO OBTAIN PREDICTION INFO FOR GRAPHICS, CARDS, ETC         ///
     ///////////////////////////////////////////////////////////////////////////////
 
-    //HOURLY FRAGMENT (Adapter item elements)
+    //HOURLY_FRAGMENT (Adapter item elements)
     public ArrayList<Integer> getImages() {
         ArrayList<Integer> res = new ArrayList<>();
         for (int i= 0; i < getPrediccion().getHoraria().size(); i++) {
@@ -79,7 +73,7 @@ public class HourlyPrediction implements Serializable {
     }
     public ArrayList<Integer> getTempImages() {
         ArrayList<Integer> res = new ArrayList<>();
-        for (int i= 0; i < 2; i++) {
+        for (int i= 0; i < getPrediccion().getHoraria().size(); i++) {
             for (int j = 0; j < getPrediccion().getHoraria().get(i).getTemperatura().size(); j++) {
                 if(Integer.parseInt(getPrediccion().getHoraria().get(i).getTemperatura().get(j).getValue()) < 10){
                     res.add(R.drawable.term_frio);
@@ -91,7 +85,7 @@ public class HourlyPrediction implements Serializable {
         return res;
     }
 
-    //DETAILED HOUR INFO
+    //DETAILED_HOUR_INFO
     public String getTime(int pos){
         String  res;
         int count = getPrediccion().getHoraria().get(0).getTemperatura().size();
@@ -150,7 +144,7 @@ public class HourlyPrediction implements Serializable {
         }else{
             res = getPrediccion().getHoraria().get(1).getPrecipitacion().get(pos-count).getValue();
         }
-        return res.concat("MM");
+        return res.concat(" mm");
     }
     public String getSnow(int pos){
         String res;
@@ -160,7 +154,7 @@ public class HourlyPrediction implements Serializable {
         }else{
             res = getPrediccion().getHoraria().get(1).getNieve().get(pos-count).getValue();
         }
-        return res.concat("cm");
+        return res.concat(" cm");
     }
     public String getHumidity(int pos){
         String res;
@@ -170,7 +164,7 @@ public class HourlyPrediction implements Serializable {
         }else{
             res = getPrediccion().getHoraria().get(1).getHumedadRelativa().get(pos-count).getValue();
         }
-        return res.concat("%");
+        return res.concat(" %");
     }
     public String getProbPrecipitation(int pos){
         String res;
@@ -184,7 +178,7 @@ public class HourlyPrediction implements Serializable {
             res = getPrediccion().getHoraria().get(1).getProbPrecipitacion().get(getProbabilityByHour(hour)).getValue();
         }
         if(res == ""){ res = "0";}
-        return res.concat(".0%");
+        return res.concat(".0 %");
     }
     public String getProbSnow(int pos){
         String res;
@@ -198,7 +192,7 @@ public class HourlyPrediction implements Serializable {
             res = getPrediccion().getHoraria().get(1).getProbNieve().get(getProbabilityByHour(hour)).getValue();
         }
         if(res == ""){ res = "0";}
-        return res.concat(".0%");
+        return res.concat(".0 %");
     }
     public String getProbStorm(int pos){
         String res;
@@ -212,24 +206,15 @@ public class HourlyPrediction implements Serializable {
             res = getPrediccion().getHoraria().get(1).getProbTormenta().get(getProbabilityByHour(hour)).getValue();
         }
         if(res == ""){ res = "0";}
-        return res.concat(".0%");
+        return res.concat(".0 %");
     }
     /*
     public String getWind(Integer pos) {
         String  res;
         if(pos < 16){
-            res = getPrediccion().getHoraria().get(0).getViento().get(pos).getValue();
+            res = getPrediccion().getHoraria().get(0).getWind().get(pos).getDireccion();
         }else{
-            res = getPrediccion().getHoraria().get(1).getViento().get(pos-16).getValue();
-        }
-        return res;    }
-
-    public String getGusts(Integer pos) {
-        String  res;
-        if(pos < 16){
-            res = getPrediccion().getHoraria().get(0).getViento().get(pos).getValue();
-        }else{
-            res = getPrediccion().getHoraria().get(1).getViento().get(pos-16).getValue();
+            res = getPrediccion().getHoraria().get(1).getWind().get(pos-16).getDireccion();
         }
         return res;
     }
@@ -281,6 +266,18 @@ public class HourlyPrediction implements Serializable {
             case "17n":
                 res = R.drawable.nube_noche;
                 break;
+            case "23":
+                res = R.drawable.intervalos_nubosos_con_lluvia_escasa_dia;
+                break;
+            case "23n":
+                res = R.drawable.intervalos_nubosos_con_lluvia_escasa_noche;
+                break;
+            case "24":
+                res = R.drawable.nube_lluvia;
+                break;
+            case "24n":
+                res = R.drawable.nube_lluvia;
+                break;
             case "25":
                 res = R.drawable.nube_lluvia;
                 break;
@@ -294,7 +291,10 @@ public class HourlyPrediction implements Serializable {
                 res = R.drawable.nube_lluvia;
                 break;
             case "43":
-                res = R.drawable.intervalos_nubosos_con_lluvia_escasa;
+                res = R.drawable.intervalos_nubosos_con_lluvia_escasa_dia;
+                break;
+            case "43n":
+                res = R.drawable.intervalos_nubosos_con_lluvia_escasa_noche;
                 break;
             case "44":
                 res = R.drawable.muy_nuboso_con_lluvia_escasa;
@@ -324,6 +324,24 @@ public class HourlyPrediction implements Serializable {
                 res = R.drawable.nube_lluvia_trueno;
                 break;
             case "52n":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "53":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "53n":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "54":
+                res = R.drawable.nube_trueno;
+                break;
+            case "54n":
+                res = R.drawable.nube_trueno;
+                break;
+            case "63":
+                res = R.drawable.nube_lluvia_trueno;
+                break;
+            case "63n":
                 res = R.drawable.nube_lluvia_trueno;
                 break;
             case "64":

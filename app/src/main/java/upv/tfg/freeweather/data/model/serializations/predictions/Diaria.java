@@ -25,6 +25,7 @@ public class Diaria implements Serializable {
     private SensTermicaDiaria sensTermica;
     private HumedadRelativaDiaria humedadRelativa;
     private String fecha;
+    private String uvMax;
 
     public Diaria(){
 
@@ -86,5 +87,11 @@ public class Diaria implements Serializable {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getUV() { return uvMax; }
+
+    public void setUV(String uvMax) {
+        this.uvMax = uvMax;
     }
 }

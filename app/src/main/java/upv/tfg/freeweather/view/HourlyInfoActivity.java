@@ -14,24 +14,24 @@ import upv.tfg.freeweather.data.model.HourlyPrediction;
 
 public class HourlyInfoActivity extends AppCompatActivity {
 
+    // Hourly prediction object to get info
     private HourlyPrediction[] hp;
-    //Item position at the list
+    // Item position at the list
     private Integer pos;
 
     private Toolbar toolbar;
     private ImageView ivState;
     private TextView tvTime;
     private TextView tvDegrees;
-    private TextView tvDescrip;
+    private TextView tvDescription;
     private TextView tvThermSense;
-    private TextView tvRain;
-    private TextView tvChancePrecip;
-    private TextView tvWind;
+    private TextView tvPrecipProb;
+    private TextView tvPrecipitation;
     private TextView tvHumidity;
     private TextView tvSnow;
-    private TextView tvGusts;
     private TextView tvStormProb;
     private TextView tvSnowProb;
+    private TextView tvWind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,26 +42,24 @@ public class HourlyInfoActivity extends AppCompatActivity {
         hp = (HourlyPrediction[]) getIntent().getSerializableExtra("HourlyPrediction");
         pos = getIntent().getIntExtra("Item_Position",0);
 
-        initializeElements();
+        initializeViews();
         displayInfo(hp);
     }
 
-    private void initializeElements() {
+    private void initializeViews() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        tvTime = findViewById(R.id.tvTime);
+        tvTime = findViewById(R.id.tvHour);
         ivState = findViewById(R.id.ivState);
         tvDegrees = findViewById(R.id.tvDegrees);
-        tvDescrip = findViewById(R.id.tvDescrip);
-        tvThermSense = findViewById(R.id.tvThermSense);
-        tvRain = findViewById(R.id.tvRain);
-        tvChancePrecip = findViewById(R.id.tvChancePrecip);
-        tvWind = findViewById(R.id.tvWind);
+        tvDescription = findViewById(R.id.tvDescription);
+        tvThermSense = findViewById(R.id.tvThermSens);
+        tvPrecipitation = findViewById(R.id.tvPrecipitation);
+        tvPrecipProb = findViewById(R.id.tvPrecipProb);
+        //tvWind = findViewById(R.id.tvWind);
         tvHumidity = findViewById(R.id.tvHumidity);
         tvSnow = findViewById(R.id.tvSnow);
-        tvGusts = findViewById(R.id.tvGusts);
         tvStormProb = findViewById(R.id.tvStormProb);
         tvSnowProb = findViewById(R.id.tvSnowProb);
     }
@@ -69,19 +67,17 @@ public class HourlyInfoActivity extends AppCompatActivity {
     private void displayInfo(HourlyPrediction[] hp) {
         Glide.with(getApplicationContext())
                 .load(hp[0].getStateImage(pos))
-                //.override(350, 350)
                 .into(ivState);
         tvTime.setText(hp[0].getTime(pos));
         tvDegrees.setText(hp[0].getDegrees(pos));
-        tvDescrip.setText(hp[0].getStateDescription(pos));
+        tvDescription.setText(hp[0].getStateDescription(pos));
         tvThermSense.setText(hp[0].getThermSense(pos));
-        tvRain.setText(hp[0].getRain(pos));
         tvHumidity.setText(hp[0].getHumidity(pos));
         tvSnow.setText(hp[0].getSnow(pos));
-        tvChancePrecip.setText(hp[0].getProbPrecipitation(pos));
+        tvPrecipitation.setText(hp[0].getRain(pos));
+        tvPrecipProb.setText(hp[0].getProbPrecipitation(pos));
         tvSnowProb.setText(hp[0].getProbSnow(pos));
         tvStormProb.setText(hp[0].getProbStorm(pos));
         //tvWind.setText(hp[0].getWind(pos));
-        //tvGusts.setText(hp[0].getGusts(pos));
     }
 }

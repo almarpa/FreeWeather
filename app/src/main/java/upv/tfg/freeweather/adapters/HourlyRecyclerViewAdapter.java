@@ -47,7 +47,7 @@ public class HourlyRecyclerViewAdapter extends RecyclerView.Adapter<HourlyRecycl
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_recycler_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_hourly_recycler_item, parent, false);
         return new ViewHolder(view, this);
     }
 
@@ -113,7 +113,7 @@ public class HourlyRecyclerViewAdapter extends RecyclerView.Adapter<HourlyRecycl
      */
     @Override
     public void onAdapterItemClick(View view, int position) {
-        presenter.onLocationSelected(position);
+        presenter.onItemSelected(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

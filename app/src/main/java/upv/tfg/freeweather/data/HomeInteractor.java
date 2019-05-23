@@ -13,7 +13,7 @@ import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
 public class HomeInteractor implements I_HomeInteractor {
 
     //Presenter reference
-    private I_HomePresenter homePresenter;
+    private I_HomePresenter presenter;
     //Database helper reference
     private DatabaseHelper dbhelper;
     //Preferences helper reference
@@ -21,8 +21,8 @@ public class HomeInteractor implements I_HomeInteractor {
 
     private Context context;
 
-    public HomeInteractor(I_HomePresenter homePresenter, Context context) {
-        this.homePresenter = homePresenter;
+    public HomeInteractor(I_HomePresenter presenter, Context context) {
+        this.presenter = presenter;
         dbhelper = new DatabaseHelper(context);
         prefHelper = new PreferencesHelper(context);
         this.context = context;

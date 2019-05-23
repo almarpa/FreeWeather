@@ -12,6 +12,7 @@ import upv.tfg.freeweather.data.model.serializations.predictions.data_prediction
 import upv.tfg.freeweather.data.model.serializations.predictions.data_prediction.ProbTormenta;
 import upv.tfg.freeweather.data.model.serializations.predictions.data_prediction.SensTermica;
 import upv.tfg.freeweather.data.model.serializations.predictions.data_prediction.Temperatura;
+import upv.tfg.freeweather.data.model.serializations.predictions.data_prediction.vientoAndRachaMax;
 
 /*Prediccion horaria*/
 public class Horaria implements Serializable {
@@ -25,10 +26,10 @@ public class Horaria implements Serializable {
     private List<Temperatura> temperatura;
     private List<SensTermica> sensTermica;
     private List<HumedadRelativa> humedadRelativa;
+    private List<vientoAndRachaMax> wind;
     private String fecha;
 
     public Horaria() {
-
     }
 
     public List<EstadoCielo> getEstadoCielo() {
@@ -43,25 +44,19 @@ public class Horaria implements Serializable {
         return precipitacion;
     }
 
-    public void setPrecipitacion(List<Precipitacion> precipitacion) {
-        this.precipitacion = precipitacion;
-    }
+    public void setPrecipitacion(List<Precipitacion> precipitacion) { this.precipitacion = precipitacion; }
 
     public List<ProbPrecipitacion> getProbPrecipitacion() {
         return probPrecipitacion;
     }
 
-    public void setProbPrecipitacion(List<ProbPrecipitacion> probPrecipitacion) {
-        this.probPrecipitacion = probPrecipitacion;
-    }
+    public void setProbPrecipitacion(List<ProbPrecipitacion> probPrecipitacion) { this.probPrecipitacion = probPrecipitacion; }
 
     public List<ProbTormenta> getProbTormenta() {
         return probTormenta;
     }
 
-    public void setProbTormenta(List<ProbTormenta> probTormenta) {
-        this.probTormenta = probTormenta;
-    }
+    public void setProbTormenta(List<ProbTormenta> probTormenta) { this.probTormenta = probTormenta; }
 
     public List<Nieve> getNieve() {
         return nieve;
@@ -99,8 +94,12 @@ public class Horaria implements Serializable {
         return humedadRelativa;
     }
 
-    public void setHumedadRelativa(List<HumedadRelativa> humedadRelativa) {
-        this.humedadRelativa = humedadRelativa;
+    public void setHumedadRelativa(List<HumedadRelativa> humedadRelativa) { this.humedadRelativa = humedadRelativa; }
+
+    public List<vientoAndRachaMax> getWind(){ return wind; }
+
+    public void setWind(List<vientoAndRachaMax> wind) {
+        this.wind = wind;
     }
 
     public String getFecha() {

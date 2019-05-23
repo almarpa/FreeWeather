@@ -51,7 +51,7 @@ public class HourlyFragment extends Fragment implements I_HourlyView {
         view =  inflater.inflate(R.layout.fragment_tab_hourly, container, false);
         context = view.getContext();
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.rvHourly);
 
         setupRecyclerAdapter();
 
@@ -79,7 +79,10 @@ public class HourlyFragment extends Fragment implements I_HourlyView {
         recyclerView.setLayoutManager(manager);
     }
 
-
+    /**
+     * Starts a new activity
+     * @param intent new intent
+     */
     @Override
     public void initiateActivity(Intent intent){
         startActivity(intent);

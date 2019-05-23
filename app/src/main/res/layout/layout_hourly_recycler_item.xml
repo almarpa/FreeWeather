@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:scaleType="http://schemas.android.com/tools"
     android:background="@android:color/transparent"
     android:descendantFocusability="blocksDescendants">
 
@@ -15,19 +14,21 @@
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:background="@android:color/transparent"
+        app:cardBackgroundColor="@color/hourly_recycler_item"
         app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
             android:background="@android:color/transparent"
             android:gravity="center|left"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -48,7 +49,7 @@
                     android:id="@+id/tvHour"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:height="2dp"
                     android:gravity="center"
                     android:text="10:00"
@@ -56,51 +57,44 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
             <ImageButton
                 android:id="@+id/ivImage"
-                android:layout_width="@android:dimen/app_icon_size"
+                android:layout_width="match_parent"
                 android:layout_height="@android:dimen/app_icon_size"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@drawable/luna"
                 android:adjustViewBounds="true"
-                android:scaleType="centerInside"/>
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:background="@drawable/luna"
+                android:scaleType="centerInside" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/ivTemp"
-                    android:layout_width="35dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/term_calor"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerInside"/>
 
                 <TextView
                     android:id="@+id/tvTemperature"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="10º"
+                    android:textAlignment="viewEnd"
                     android:textSize="25sp"
                     android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivTemp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:layout_weight="2"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/term_calor" />
+
             </LinearLayout>
 
         </LinearLayout>

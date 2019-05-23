@@ -42,13 +42,11 @@ public class HomePresenter implements I_HomePresenter {
     // Adapter reference
     private I_ViewPagerAdapter adapter;
 
-    private Context context;
     private HourlyPrediction[] hp;
     private DailyPrediction[] dp;
 
     public HomePresenter(I_HomeView view, Context context) {
         this.view = view;
-        this.context = context;
 
         // Creating the interactor that will interact with the database
         interactor = new HomeInteractor(this, context);
@@ -169,8 +167,8 @@ public class HomePresenter implements I_HomePresenter {
         bundle3.putSerializable("DAILY", dp);
         dFragment.setArguments(bundle3);
 
-        adapter.addFragment(hFragment, "Hourly");
         adapter.addFragment(tFragment, "Today");
+        adapter.addFragment(hFragment, "Hourly");
         adapter.addFragment(dFragment, "Daily");
 
         view.setLocation(dp[0].getNombre());

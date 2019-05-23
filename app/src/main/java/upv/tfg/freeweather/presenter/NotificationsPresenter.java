@@ -68,7 +68,7 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
             view.setCurrentNotification(interactor.getCurrenteNotification());
         }
         // Poblate the radiogroup items in the view
-        getIntervalTimes();
+        getNotificationTimes();
         getFavouriteLocations();
         // Create the notification channel in order to be able to send notifications
         createNotificationChannel();
@@ -84,7 +84,7 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }
-    private void getIntervalTimes(){
+    private void getNotificationTimes(){
         RadioGroup rg = new RadioGroup(context);
         rg.setOrientation(LinearLayout.VERTICAL);
         List<String> list = new ArrayList<>();
@@ -107,7 +107,7 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
                 RadioButton rb = rg.getRootView().findViewById(checkedId);
                 interactor.saveTimeOptionChoosed(rb.getText().toString());            }
         });
-        view.setIntervalTimesView(rg);
+        view.setTimeView(rg);
     }
     private void getFavouriteLocations() {
         // Obtain the favourite locations saved by the user
@@ -152,19 +152,19 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
             switch (timeSelected) {
                 case "10:00":
                     hour = 10;
-                    view.showAlarmConfigurated("Your alarm will sound at " + hour + ":00");
+                    view.showAlarmConfigurated("Your notification will arrive at " + hour + ":00");
                     break;
                 case "14:00":
                     hour = 14;
-                    view.showAlarmConfigurated("Your alarm will sound at " + hour + ":00");
+                    view.showAlarmConfigurated("Your notification will arrive at " + hour + ":00");
                     break;
                 case "18:00":
                     hour = 18;
-                    view.showAlarmConfigurated("Your alarm will sound at " + hour + ":00");
+                    view.showAlarmConfigurated("Your notification will arrive at " + hour + ":00");
                     break;
                 case "22:00":
                     hour = 22;
-                    view.showAlarmConfigurated("Your alarm will sound at " + hour + ":00");
+                    view.showAlarmConfigurated("Your notification will arrive  at " + hour + ":00");
                     break;
             }
             interactor.saveCurrentNotification("Active notification: " + locationSelected + " at " + timeSelected);

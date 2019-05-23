@@ -64,7 +64,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
-        return false;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -128,6 +128,17 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
                 }
                 toolBar.setTitle(R.string.title_map);
                 break;
+            case R.id.mHelp:
+                tag = "help";
+                fragment = getSupportFragmentManager().findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new HelpFragment();
+                }
+                toolBar.setTitle(R.string.title_help);
+                break;
+
+                default:
+                    super.onOptionsItemSelected(item);
         }
 
         getSupportFragmentManager()

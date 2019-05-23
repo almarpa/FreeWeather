@@ -115,7 +115,6 @@ public class HomeFragment extends Fragment implements I_HomeView {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search, menu);
         inflater.inflate(R.menu.menu_notifications, menu);
-        inflater.inflate(R.menu.menu_configuration, menu);
 
         //Search View initialization
         final MenuItem searchItem = menu.findItem(R.id.mSearch);
@@ -163,10 +162,6 @@ public class HomeFragment extends Fragment implements I_HomeView {
                 i = new Intent(getContext(), NotificationsActivity.class);
                 startActivity(i);
                 return true;
-            case R.id.mConfiguration:
-                //i = new Intent(getContext(), ConfigurationActivity.class);
-                //startActivity(i);
-                //return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -175,7 +170,6 @@ public class HomeFragment extends Fragment implements I_HomeView {
     public void displaySearchSuggestions(Cursor locations) {
         suggestionAdapter.swapCursor(locations);
     }
-
     @Override
     public void closeSearchView() {
         // close the keyboard on load
@@ -186,7 +180,6 @@ public class HomeFragment extends Fragment implements I_HomeView {
     public void setLocation(String newLocation){
         tvLocation.setText(newLocation);
     }
-
     @Override
     public void makeFavourite() {
         ivFavourite.setBackgroundResource(R.drawable.favourite_icon);

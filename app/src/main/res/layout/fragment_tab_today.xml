@@ -8,35 +8,37 @@
     tools:context=".view.TodayFragment"
     android:id="@+id/frameTabToday">
 
-    <android.support.v7.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="5dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="10dp">
+        android:layout_gravity="center">
 
-        <ScrollView
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_margin="5dp">
 
-            <TableLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp">
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp">
 
-                <TableRow
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <LinearLayout
@@ -47,12 +49,11 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/tvDegree"
+                                    android:id="@+id/tvDegrees"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_marginStart="5dp"
                                     android:layout_marginTop="8dp"
-                                    android:layout_marginEnd="5dp"
                                     android:layout_marginBottom="8dp"
                                     android:layout_weight="1"
                                     android:autoSizeMaxTextSize="100sp"
@@ -60,47 +61,79 @@
                                     android:autoSizeStepGranularity="2sp"
                                     android:gravity="center"
                                     android:text="-"
+                                    android:textAlignment="viewEnd"
                                     android:textSize="36sp"
                                     android:textStyle="bold" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="2"
+                                    android:layout_weight="1"
                                     android:gravity="center"
                                     android:orientation="vertical">
 
-                                    <TextView
-                                        android:id="@+id/tvMaxDegree"
+                                    <LinearLayout
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="5dp"
-                                        android:autoSizeMaxTextSize="100sp"
-                                        android:autoSizeMinTextSize="12sp"
-                                        android:autoSizeStepGranularity="2sp"
-                                        android:text="-"
-                                        android:textAlignment="center"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold" />
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
 
-                                    <TextView
-                                        android:id="@+id/tvMinDegree"
+                                        <TextView
+                                            android:id="@+id/tvMaxDegree"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1"
+                                            android:autoSizeMaxTextSize="100sp"
+                                            android:autoSizeMinTextSize="12sp"
+                                            android:autoSizeStepGranularity="2sp"
+                                            android:gravity="center"
+                                            android:text="21º"
+                                            android:textAlignment="viewEnd"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="3"
+                                            android:src="@drawable/up_arrow" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:autoSizeMaxTextSize="100sp"
-                                        android:autoSizeMinTextSize="12sp"
-                                        android:autoSizeStepGranularity="2sp"
-                                        android:text="-"
-                                        android:textAlignment="center"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold" />
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:id="@+id/tvMinDegree"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="1"
+                                            android:autoSizeMaxTextSize="100sp"
+                                            android:autoSizeMinTextSize="12sp"
+                                            android:autoSizeStepGranularity="2sp"
+                                            android:gravity="center"
+                                            android:text="10º"
+                                            android:textAlignment="viewEnd"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="3"
+                                            android:src="@drawable/down_arrow" />
+                                    </LinearLayout>
+
                                 </LinearLayout>
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
@@ -118,7 +151,8 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
                             android:orientation="horizontal">
 
                             <TextView
@@ -126,7 +160,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginEnd="16dp"
-                                android:layout_marginBottom="8dp"
                                 android:gravity="center|right"
                                 android:text="-"
                                 android:textSize="20sp"
@@ -134,12 +167,20 @@
                         </LinearLayout>
 
                     </LinearLayout>
+                </android.support.v7.widget.CardView>
 
-                </TableRow>
+            </TableRow>
 
-                <TableRow
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp">
+
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -154,61 +195,80 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Thermal sens.(max):"
-                                android:textAlignment="center"
-                                android:textColor="@color/colorBackground"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/tvThermalSenseMax"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center|top"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="Thermal sensation:"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorBackground"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                                <TextView
+                                    android:id="@+id/tvThermalSenseMax"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.5"
+                                    android:gravity="center"
+                                    android:text="21º"
+                                    android:textAlignment="viewEnd"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Thermal sens.(min):"
-                                android:textAlignment="center"
-                                android:textColor="@color/colorBackground"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.6"
+                                    android:src="@drawable/up_arrow" />
 
-                            <TextView
-                                android:id="@+id/tvThermalSenseMin"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center|top"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
+                                <TextView
+                                    android:id="@+id/tvThermalSenseMin"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.5"
+                                    android:gravity="center"
+                                    android:text="15º"
+                                    android:textAlignment="viewEnd"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.6"
+                                    android:src="@drawable/down_arrow" />
+
+                                <Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.5" />
+
+                            </LinearLayout>
                         </LinearLayout>
 
                     </LinearLayout>
-                </TableRow>
+                </android.support.v7.widget.CardView>
 
-                <TableRow
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp">
+
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -272,15 +332,23 @@
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
+                </android.support.v7.widget.CardView>
 
-                </TableRow>
+            </TableRow>
 
-                <TableRow
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp">
+
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="horizontal">
@@ -291,60 +359,81 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Humidity(max):"
-                                android:textAlignment="center"
-                                android:textColor="@color/colorBackground"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/tvHumidityMax"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center|top"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="Humidity:"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorBackground"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvHumidityMax"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.5"
+                                    android:gravity="center"
+                                    android:text="21º"
+                                    android:textAlignment="viewEnd"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+                                    android:id="@+id/imageView3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.6"
+                                    android:src="@drawable/up_arrow" />
+
+                                <TextView
+                                    android:id="@+id/tvHumidityMin"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.5"
+                                    android:gravity="center"
+                                    android:text="11º"
+                                    android:textAlignment="viewEnd"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.6"
+                                    android:src="@drawable/down_arrow" />
+
+                                <Space
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.5" />
+                            </LinearLayout>
+
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Humidity(min):"
-                                android:textAlignment="center"
-                                android:textColor="@color/colorBackground"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/tvHumidityMin"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center|top"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
                     </LinearLayout>
+                </android.support.v7.widget.CardView>
 
-                </TableRow>
+            </TableRow>
 
-                <TableRow
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp">
+
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -364,7 +453,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="Rain:"
+                                android:text="Chance of precipitation:"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorBackground"
                                 android:textSize="14sp"
@@ -393,7 +482,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                android:text="Snow probability:"
+                                android:text="Snow levels:"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorBackground"
                                 android:textSize="14sp"
@@ -411,10 +500,11 @@
                         </LinearLayout>
 
                     </LinearLayout>
-                </TableRow>
+                </android.support.v7.widget.CardView>
 
-            </TableLayout>
-        </ScrollView>
-    </android.support.v7.widget.CardView>
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
 
 </FrameLayout>

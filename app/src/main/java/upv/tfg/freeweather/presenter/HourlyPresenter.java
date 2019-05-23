@@ -5,7 +5,6 @@ import android.content.Intent;
 
 import upv.tfg.freeweather.adapters.HourlyRecyclerViewAdapter;
 import upv.tfg.freeweather.adapters.interfaces.I_HourlyRecyclerViewAdapter;
-import upv.tfg.freeweather.data.interfaces.I_HourlyInteractor;
 import upv.tfg.freeweather.data.model.HourlyPrediction;
 import upv.tfg.freeweather.presenter.interfaces.I_HourlyPresenter;
 import upv.tfg.freeweather.view.HourlyInfoActivity;
@@ -15,8 +14,6 @@ public class HourlyPresenter implements I_HourlyPresenter {
 
     // View reference
     private I_HourlyView view;
-    // Model reference
-    private I_HourlyInteractor interactor;
     // Adapter reference
     private I_HourlyRecyclerViewAdapter adapter;
 
@@ -45,7 +42,7 @@ public class HourlyPresenter implements I_HourlyPresenter {
     }
 
     @Override
-    public void onLocationSelected(int position) {
+    public void onItemSelected(int position) {
         Intent intent = new Intent(context, HourlyInfoActivity.class);
         intent.putExtra("HourlyPrediction",hp);
         intent.putExtra("Item_Position",position);

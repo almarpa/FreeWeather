@@ -22,12 +22,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".view.DailyInfoActivity"
+            android:label="@string/title_detailed_time_info"
+            android:parentActivityName=".view.NavigationDrawerActivity"></activity>
+        <activity
             android:name=".view.NotificationsActivity"
             android:label="@string/title_notifications"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.HourlyInfoActivity"
             android:label="@string/title_detailed_time_info"
+            android:parentActivityName=".view.NavigationDrawerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.NavigationDrawerActivity"
@@ -38,7 +43,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".utils.AlarmReceiver" ></receiver>
+
+        <receiver android:name=".utils.AlarmReceiver" />
     </application>
 
 </manifest>

@@ -21,5 +21,9 @@
             android:id="@+id/mMaps"
             android:icon="@drawable/menu_icon_geolocation"
             android:title="@string/title_map" />
+        <item
+            android:id="@+id/mHelp"
+            android:icon="@drawable/menu_help"
+            android:title="@string/title_help" />
     </group>
 </menu>

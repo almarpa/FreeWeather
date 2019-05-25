@@ -52,7 +52,6 @@
                                     android:id="@+id/tvDegrees"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_marginStart="5dp"
                                     android:layout_marginTop="8dp"
                                     android:layout_marginBottom="8dp"
                                     android:layout_weight="1"
@@ -83,7 +82,7 @@
                                             android:id="@+id/tvMaxDegree"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
-                                            android:layout_weight="1"
+                                            android:layout_weight="1.4"
                                             android:autoSizeMaxTextSize="100sp"
                                             android:autoSizeMinTextSize="12sp"
                                             android:autoSizeStepGranularity="2sp"
@@ -111,7 +110,7 @@
                                             android:id="@+id/tvMinDegree"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
-                                            android:layout_weight="1"
+                                            android:layout_weight="1.4"
                                             android:autoSizeMaxTextSize="100sp"
                                             android:autoSizeMinTextSize="12sp"
                                             android:autoSizeStepGranularity="2sp"
@@ -152,7 +151,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
+                            android:layout_weight="1.7"
                             android:orientation="horizontal">
 
                             <TextView
@@ -226,7 +225,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1.6"
+                                    android:layout_weight="1.65"
                                     android:src="@drawable/up_arrow" />
 
                                 <TextView
@@ -243,7 +242,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="1.6"
+                                    android:layout_weight="1.65"
                                     android:src="@drawable/down_arrow" />
 
                                 <Space
@@ -391,7 +390,7 @@
                                     android:id="@+id/imageView3"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1.6"
+                                    android:layout_weight="1.65"
                                     android:src="@drawable/up_arrow" />
 
                                 <TextView
@@ -408,7 +407,7 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="1.6"
+                                    android:layout_weight="1.65"
                                     android:src="@drawable/down_arrow" />
 
                                 <Space

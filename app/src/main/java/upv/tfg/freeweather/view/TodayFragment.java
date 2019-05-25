@@ -89,7 +89,7 @@ public class TodayFragment extends Fragment {
             tvHumidityMin.setText(dp[0].getHumRelativaMinima());
             tvWind.setText(dp[0].getViento());
             tvGusts.setText(dp[0].getRachaMax());
-            tvSnow.setText(dp[0].getProbNieve());
+            tvSnow.setText(dp[0].getSnowLevels());
         }
     }
 }

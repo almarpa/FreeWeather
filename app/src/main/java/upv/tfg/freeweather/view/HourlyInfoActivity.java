@@ -47,8 +47,9 @@ public class HourlyInfoActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.tbHourly);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tvTime = findViewById(R.id.tvHour);
         ivState = findViewById(R.id.ivState);

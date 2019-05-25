@@ -146,7 +146,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="1.2"
                                 app:srcCompat="@drawable/up_arrow" />
 
                             <TextView
@@ -162,7 +162,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="1.2"
                                 app:srcCompat="@drawable/down_arrow" />
 
                             <Space
@@ -227,7 +227,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="1.2"
                                 app:srcCompat="@drawable/up_arrow" />
 
                             <TextView
@@ -243,7 +243,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="1.2"
                                 app:srcCompat="@drawable/down_arrow" />
 
                             <Space
@@ -308,7 +308,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="1.2"
                                 app:srcCompat="@drawable/up_arrow" />
 
                             <TextView
@@ -324,7 +324,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="1.2"
                                 app:srcCompat="@drawable/down_arrow" />
 
                             <Space

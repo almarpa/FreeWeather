@@ -11,6 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.DailyRecyclerViewAdapter;
 import upv.tfg.freeweather.data.model.DailyPrediction;
@@ -33,6 +39,8 @@ public class DailyFragment extends Fragment implements I_DailyView {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
+    private BarChart barChart;
+    private LineChart lineChart;
 
     public DailyFragment() {
     }
@@ -51,6 +59,16 @@ public class DailyFragment extends Fragment implements I_DailyView {
         context = view.getContext();
 
         recyclerView = view.findViewById(R.id.rvDaily);
+        barChart = view.findViewById(R.id.barchart);
+        lineChart = view.findViewById(R.id.linechart);
+
+        barChart.getDescription().setEnabled(false);
+        barChart.setFitBars(true);
+        barChart.setScaleEnabled(false);
+        barChart.setTouchEnabled(false);
+
+        lineChart.getDescription().setEnabled(false);
+        lineChart.setScaleEnabled(false);
 
         setupRecyclerAdapter();
 
@@ -75,20 +93,32 @@ public class DailyFragment extends Fragment implements I_DailyView {
         recyclerView.setLayoutManager(manager);
     }
 
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
     @Override
     public void initiateActivity(Intent intent) {
         startActivity(intent);
+    }
+
+    @Override
+    public void setBarchartData(BarData data){
+        barChart.setData(data);
+        barChart.invalidate();
+    }
+
+    @Override
+    public void setBarchartXAxis(IndexAxisValueFormatter formatter) {
+        barChart.getXAxis().setValueFormatter(formatter);
+        barChart.invalidate();
+    }
+
+    @Override
+    public void setLinechartData(LineData data) {
+        lineChart.setData(data);
+        lineChart.invalidate();
+    }
+
+    @Override
+    public void setLinechartXAxis(IndexAxisValueFormatter formatter) {
+        lineChart.getXAxis().setValueFormatter(formatter);
+        lineChart.invalidate();
     }
 }

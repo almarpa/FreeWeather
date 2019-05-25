@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/tbDaily"
+            android:id="@+id/tbHourly"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorBackground"
@@ -387,7 +387,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="2"
                             android:gravity="center"
-                            android:text="0 km/h  (O)"
+                            android:text="--"
                             android:textAlignment="center"
                             android:textSize="18sp"
                             android:textStyle="bold" />

@@ -25,9 +25,6 @@ public class DBCreation extends SQLiteOpenHelper {
                 + " cMun integer not null, "
                 + " DC integer not null, "
                 + " nombre text not null); ");
-        db.execSQL("CREATE TABLE IF NOT EXISTS tblFavourites ("
-                + " nombre text PRIMARY KEY, "
-                + " codigo integer not null); ");
     }
 
     @Override

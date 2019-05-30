@@ -141,8 +141,11 @@
                                     android:id="@+id/ivState"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
                                     android:layout_marginEnd="12dp"
+                                    android:layout_weight="1"
                                     android:adjustViewBounds="true"
+                                    android:foregroundGravity="center"
                                     android:scaleType="centerInside" />
                             </LinearLayout>
 

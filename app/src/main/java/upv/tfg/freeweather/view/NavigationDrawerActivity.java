@@ -110,16 +110,6 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
                 }
                 toolBar.setTitle(R.string.title_favourites);
                 break;
-
-            case R.id.mWarnings:
-                tag = "warnings";
-                fragment = getSupportFragmentManager().findFragmentByTag(tag);
-                if (fragment == null) {
-                    fragment = new WarningsFragment();
-                }
-                toolBar.setTitle(R.string.title_warnings);
-                break;
-
             case R.id.mMaps:
                 tag = "maps";
                 fragment = getSupportFragmentManager().findFragmentByTag(tag);

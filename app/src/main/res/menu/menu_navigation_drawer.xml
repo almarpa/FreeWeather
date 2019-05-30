@@ -14,10 +14,6 @@
             android:icon="@drawable/menu_icon_favourites"
             android:title="@string/title_favourites" />
         <item
-            android:id="@+id/mWarnings"
-            android:icon="@drawable/menu_icon_warnings"
-            android:title="@string/title_warnings" />
-        <item
             android:id="@+id/mMaps"
             android:icon="@drawable/menu_icon_geolocation"
             android:title="@string/title_map" />

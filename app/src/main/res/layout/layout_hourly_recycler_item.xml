@@ -64,7 +64,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:background="@drawable/luna"
+                android:background="@android:color/transparent"
                 android:scaleType="centerInside" />
 
             <LinearLayout

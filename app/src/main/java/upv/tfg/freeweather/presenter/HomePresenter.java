@@ -288,8 +288,6 @@ public class HomePresenter implements I_HomePresenter {
             }
             view.closeSearchView();
             view.setProgressBarInvisible();
-
         }
-
     }
 }

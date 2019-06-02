@@ -6,10 +6,6 @@
             android:icon="@drawable/menu_icon_home"
             android:title="@string/title_home" />
         <item
-            android:id="@+id/mGeolocation"
-            android:icon="@drawable/menu_icon_radar"
-            android:title="@string/title_geolocation" />
-        <item
             android:id="@+id/mFavorites"
             android:icon="@drawable/menu_icon_favourites"
             android:title="@string/title_favourites" />
@@ -17,6 +13,10 @@
             android:id="@+id/mMaps"
             android:icon="@drawable/menu_icon_geolocation"
             android:title="@string/title_map" />
+        <item
+            android:id="@+id/mNotifications"
+            android:icon="@drawable/menu_notifications"
+            android:title="@string/title_notifications" />
         <item
             android:id="@+id/mHelp"
             android:icon="@drawable/menu_help"

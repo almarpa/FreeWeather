@@ -3,7 +3,7 @@ package upv.tfg.freeweather.view.interfaces;
 import android.widget.RadioGroup;
 
 
-public interface I_NotificationsActivity {
+public interface I_NotificationsView {
     void setTimeView(RadioGroup rg);
     void setLocationsView(RadioGroup rg);
     void doSwitch();

@@ -12,4 +12,5 @@ public interface I_HomePresenter {
     void notifyIsItFavourite(String location);
     void notifySearchTextChanged(String text);
     void notifySearchPrediction(String location);
+    void notifyGeolocate();
 }

@@ -1,9 +1,13 @@
 package upv.tfg.freeweather.view;
 
-import android.content.pm.ActivityInfo;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -13,10 +17,9 @@ import android.widget.Toast;
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.presenter.NotificationsPresenter;
 import upv.tfg.freeweather.presenter.interfaces.I_NotificationsPresenter;
-import upv.tfg.freeweather.view.interfaces.I_NotificationsActivity;
+import upv.tfg.freeweather.view.interfaces.I_NotificationsView;
 
-public class NotificationsActivity extends AppCompatActivity implements I_NotificationsActivity {
-
+public class NotificationsFragment extends Fragment implements I_NotificationsView {
     // Presenter reference
     private I_NotificationsPresenter presenter;
 
@@ -25,21 +28,31 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
     private RadioGroup rgLocations;
     private TextView tvCurrentNotification;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notifications);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    private View view;
+    private Context context;
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        rgTime = findViewById(R.id.rgTime);
-        rgLocations = findViewById(R.id.rgLocations);
-        swthActivate = findViewById(R.id.stchNotifications);
-        tvCurrentNotification = findViewById(R.id.tvNotification);
+    public NotificationsFragment(){
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view =  inflater.inflate(R.layout.fragment_menu_notifications, container, false);
+        context = view.getContext();
+
+        rgTime = view.findViewById(R.id.rgTime);
+        rgLocations = view.findViewById(R.id.rgLocations);
+        swthActivate = view.findViewById(R.id.stchNotifications);
+        tvCurrentNotification = view.findViewById(R.id.tvNotification);
 
         // Create the presenter
-        presenter = new NotificationsPresenter(this, getApplicationContext());
+        presenter = new NotificationsPresenter(this, context);
 
         swthActivate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -50,7 +63,10 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
                 }
             }
         });
+
+        return view;
     }
+
     /**
      * Method called by the presenter to set rgTime (RadioButton) view
      * @param rgTime radiogroup item
@@ -101,26 +117,26 @@ public class NotificationsActivity extends AppCompatActivity implements I_Notifi
      */
     @Override
     public void showHTTPMsgError() {
-        Toast.makeText(this,"HTTP error getting predictions, try again",Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"HTTP error getting predictions, try again",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showNoTimeChecked() {
-        Toast.makeText(this,"Please, choose a notification interval time before",Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Please, choose a notification interval time before",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showNoLocationChecked() {
-        Toast.makeText(this,"Please, choose a location before",Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Please, choose a location before",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showNoFavouriteExists() {
-        Toast.makeText(this,"Please, save one location as favourite in order to be notified of it",Toast.LENGTH_LONG).show();
+        Toast.makeText(context,"Please, save one location as favourite in order to be notified of it",Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showAlarmConfigurated(String alarmConfigurated) {
-        Toast.makeText(this,alarmConfigurated,Toast.LENGTH_LONG).show();
+        Toast.makeText(context,alarmConfigurated,Toast.LENGTH_LONG).show();
     }
 }

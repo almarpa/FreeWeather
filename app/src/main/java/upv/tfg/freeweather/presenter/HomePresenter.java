@@ -1,11 +1,18 @@
 package upv.tfg.freeweather.presenter;
 
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.MatrixCursor;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -19,6 +26,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import upv.tfg.freeweather.adapters.ViewPagerAdapter;
 import upv.tfg.freeweather.adapters.interfaces.I_ViewPagerAdapter;
@@ -42,11 +50,14 @@ public class HomePresenter implements I_HomePresenter {
     // Adapter reference
     private I_ViewPagerAdapter adapter;
 
+    private Context context;
     private HourlyPrediction[] hp;
     private DailyPrediction[] dp;
+    private LocationManager mLocationManager;
 
     public HomePresenter(I_HomeView view, Context context) {
         this.view = view;
+        this.context = context;
 
         // Creating the interactor that will interact with the database
         interactor = new HomeInteractor(this, context);
@@ -63,7 +74,7 @@ public class HomePresenter implements I_HomePresenter {
     }
 
     /**
-     * Method called by the view to notify that favourite button has clicked
+     * Method called by the view to make or remove a favourite from the favourite list
      * @param location
      */
     @Override
@@ -83,7 +94,7 @@ public class HomePresenter implements I_HomePresenter {
     }
 
     /**
-     * Method called by the view to ask the model if the location gave as parameter is favourite
+     * Method called by the view to ask the model if the location gave as parameter is favourite or not
      * @param location
      */
     @Override
@@ -97,7 +108,7 @@ public class HomePresenter implements I_HomePresenter {
     }
 
     /**
-     * Method called by the view to notify that user has introduced some text
+     * Method called by the view to show a list of suggested locations
      * @param text
      */
     @Override
@@ -125,7 +136,7 @@ public class HomePresenter implements I_HomePresenter {
     }
 
     /**
-     * Method called by the view to notify that user has send a search
+     * Method called by the view to search a prediction
      * @param location
      */
     @Override
@@ -139,6 +150,41 @@ public class HomePresenter implements I_HomePresenter {
             task.execute(code);
         } else {
             view.showMsgNoLocationFound(location);
+        }
+    }
+
+    /**
+     * Method called by the view to search the prediction for current coordinates
+     */
+    @Override
+    public void notifyGeolocate() {
+        mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                    (context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                view.showMsgPermissionsRequired();
+            } else {
+                Location location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+                List<Address> adress = new ArrayList<>();
+                try{
+                    adress = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                } catch (Exception e){}
+                if (adress.size() > 0) {
+                    String code = interactor.getCodeByLocation(adress.get(0).getLocality());
+                    if (code != null) {
+                        view.setProgressBarVisible();
+                        //Obtain predictions from the API
+                        AsyncTaskGetPredictions task = new AsyncTaskGetPredictions();
+                        task.execute(code);
+                    } else {
+                        view.showMsgNoLocationFound(adress.toString());
+                    }
+                }
+            }
+        }else{
+
         }
     }
 

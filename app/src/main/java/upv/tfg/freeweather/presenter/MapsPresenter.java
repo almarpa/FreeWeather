@@ -27,9 +27,6 @@ public class MapsPresenter implements I_MapsPresenter {
 
     public MapsPresenter(I_MapsView view, Context context) {
         this.view = view;
-
-        // Creating the interactor that will interact with the database
-        //interactor = new MapsPresenter(this, context);
     }
 
     @Override
@@ -62,6 +59,12 @@ public class MapsPresenter implements I_MapsPresenter {
                 view.initProgressBar();
                 ObtainFireImage ofi = new ObtainFireImage();
                 ofi.execute();
+                break;
+            case 5:
+                view.setMapImage2Invisible();
+                view.initProgressBar();
+                ObtainVegetationImage ovi = new ObtainVegetationImage();
+                ovi.execute();
                 break;
         }
     }
@@ -211,7 +214,7 @@ Reflectividad: la escala de color señala intervalos de reflectividad en decibel
         protected void onPostExecute(Void params) {
             view.setMapImage(img);
             view.setMapImage2(img2);
-            view.setTextDescription("Significant national maps for the next day, in the time period of 00:12 and 12-24.");
+            view.setTextDescription("Significant national maps for the next day, in the time period of 00-12 and 12-24.");
             view.closeProgressBar();
         }
     }
@@ -330,4 +333,64 @@ Reflectividad: la escala de color señala intervalos de reflectividad en decibel
         }
 
     }
+
+    /**
+     * Asynchronous task that obtain a fire prediction image from JSON
+     */
+    public class ObtainVegetationImage extends AsyncTask<Void, Void, Void> {
+
+
+        private Init init;
+        private URL url;
+        private HttpURLConnection connection;
+        private InputStreamReader reader;
+        private GsonBuilder builder;
+        private Bitmap img;
+
+        private Gson gson;
+        @Override
+        protected void onPreExecute() {
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                url = new URL("https://opendata.aemet.es/opendata/api/satelites/producto/nvdi?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
+                connection.setDoInput(true);
+                connection.connect();
+
+                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
+                builder = new GsonBuilder();
+                gson = builder.create();
+                init = gson.fromJson(reader, Init.class);
+                reader.close();
+
+                connection.disconnect();
+
+                url = new URL(init.datos);
+
+                connection = (HttpURLConnection) url.openConnection();
+                InputStream is = connection.getInputStream();
+                img = BitmapFactory.decodeStream(is, null,null);
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void params) {
+            view.setMapImage(img);
+            view.closeProgressBar();
+            view.setTextDescription("\n" +
+                    "This image is made with a combination of visible and near infrared data from the NOAA-19 satellite, which gives us an idea of the vegetation " +
+                    "development. This is because the vegetation strongly absorbs the radiation of the visible channel, but strongly reflects that of the near infrared.");
+        }
+
+    }
+
 }

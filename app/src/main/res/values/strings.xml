@@ -7,10 +7,10 @@
 
     <!--Menus-->
     <string name="menu_fragment_main_window">Notifications</string>
+    <string name="menu_fragment_home">Home</string>
     <string name="menu_fragment_configuracion">Configuration</string>
     <string name="menu_fragment_about_us">About us</string>
     <string name="menu_fragment_search">Search</string>
-    <string name="menu_fragment_home">Home</string>
 
     <!--ToolBar-->
     <string name="title_home">Home</string>

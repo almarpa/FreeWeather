@@ -19,4 +19,5 @@ public interface I_HomeView {
     void showMsgNoLocationFound(String location);
     void showMsgHTTPError();
     void showMsgLocationEmpty();
+    void showMsgPermissionsRequired();
 }

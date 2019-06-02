@@ -26,10 +26,6 @@
             android:label="@string/title_detailed_time_info"
             android:parentActivityName=".view.NavigationDrawerActivity"></activity>
         <activity
-            android:name=".view.NotificationsActivity"
-            android:label="@string/title_notifications"
-            android:parentActivityName=".view.NavigationDrawerActivity" />
-        <activity
             android:name=".view.HourlyInfoActivity"
             android:label="@string/title_detailed_time_info"
             android:parentActivityName=".view.NavigationDrawerActivity" />

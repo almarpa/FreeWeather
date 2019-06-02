@@ -36,7 +36,7 @@ import upv.tfg.freeweather.data.model.HourlyPrediction;
 import upv.tfg.freeweather.data.model.serializations.Init;
 import upv.tfg.freeweather.presenter.interfaces.I_NotificationsPresenter;
 import upv.tfg.freeweather.utils.AlarmReceiver;
-import upv.tfg.freeweather.view.interfaces.I_NotificationsActivity;
+import upv.tfg.freeweather.view.interfaces.I_NotificationsView;
 
 
 public class NotificationsPresenter extends AppCompatActivity implements I_NotificationsPresenter   {
@@ -44,7 +44,7 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
     private static final String CHANNEL_1_ID = "channel1";
 
     // View reference
-    private I_NotificationsActivity view;
+    private I_NotificationsView view;
     // Model reference
     private I_NotificationsInteractor interactor;
 
@@ -54,7 +54,7 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
     private NotificationManagerCompat manager;
     private int hour;
 
-    public NotificationsPresenter(I_NotificationsActivity view, Context context) {
+    public NotificationsPresenter(I_NotificationsView view, Context context) {
         this.view = view;
         this.context = context;
 

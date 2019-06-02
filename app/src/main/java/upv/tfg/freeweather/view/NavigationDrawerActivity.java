@@ -92,16 +92,6 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
                 }
                 toolBar.setTitle(R.string.title_home);
                 break;
-
-            case R.id.mGeolocation:
-                tag = "geolocation";
-                fragment = getSupportFragmentManager().findFragmentByTag(tag);
-                if (fragment == null) {
-                    fragment = new GeolocationFragment();
-                }
-                toolBar.setTitle(R.string.title_geolocation);
-                break;
-
             case R.id.mFavorites:
                 tag = "favorites";
                 fragment = getSupportFragmentManager().findFragmentByTag(tag);
@@ -117,6 +107,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements I_Nav
                     fragment = new MapsFragment();
                 }
                 toolBar.setTitle(R.string.title_map);
+                break;
+            case R.id.mNotifications:
+                tag = "notifications";
+                fragment = getSupportFragmentManager().findFragmentByTag(tag);
+                if (fragment == null) {
+                    fragment = new NotificationsFragment();
+                }
+                toolBar.setTitle(R.string.title_notifications);
                 break;
             case R.id.mHelp:
                 tag = "help";

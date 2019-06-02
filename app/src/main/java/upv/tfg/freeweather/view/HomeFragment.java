@@ -1,7 +1,6 @@
 package upv.tfg.freeweather.view;
 
 import android.app.SearchManager;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -114,7 +113,7 @@ public class HomeFragment extends Fragment implements I_HomeView {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search, menu);
-        inflater.inflate(R.menu.menu_notifications, menu);
+        inflater.inflate(R.menu.menu_geolocation, menu);
 
         //Search View initialization
         final MenuItem searchItem = menu.findItem(R.id.mSearch);
@@ -156,11 +155,9 @@ public class HomeFragment extends Fragment implements I_HomeView {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent i;
         switch (item.getItemId()) {
-            case R.id.mNotifications:
-                i = new Intent(getContext(), NotificationsActivity.class);
-                startActivity(i);
+            case R.id.mGeolocation:
+                presenter.notifyGeolocate();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -211,5 +208,9 @@ public class HomeFragment extends Fragment implements I_HomeView {
     @Override
     public void showMsgLocationEmpty() {
         Toast.makeText(getContext(),"Please, search a location before",Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void showMsgPermissionsRequired() {
+        Toast.makeText(getContext(),"Permissions are required",Toast.LENGTH_SHORT).show();
     }
 }

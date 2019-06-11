@@ -10,7 +10,7 @@ import java.util.List;
 
 import upv.tfg.freeweather.adapters.interfaces.I_ViewPagerAdapter;
 import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
-import upv.tfg.freeweather.view.HomeFragment;
+import upv.tfg.freeweather.view.fragments.HomeFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter implements I_ViewPagerAdapter {
 

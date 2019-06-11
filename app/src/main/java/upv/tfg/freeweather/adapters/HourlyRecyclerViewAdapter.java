@@ -16,7 +16,7 @@ import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.interfaces.I_HourlyRecyclerViewAdapter;
 import upv.tfg.freeweather.adapters.interfaces.I_OnRecyclerItemListener;
 import upv.tfg.freeweather.presenter.interfaces.I_HourlyPresenter;
-import upv.tfg.freeweather.view.HourlyFragment;
+import upv.tfg.freeweather.view.fragments.HourlyFragment;
 
 
 public class HourlyRecyclerViewAdapter extends RecyclerView.Adapter<HourlyRecyclerViewAdapter.ViewHolder> implements I_OnRecyclerItemListener, I_HourlyRecyclerViewAdapter {

@@ -28,17 +28,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.ViewPagerAdapter;
 import upv.tfg.freeweather.adapters.interfaces.I_ViewPagerAdapter;
-import upv.tfg.freeweather.data.HomeInteractor;
-import upv.tfg.freeweather.data.interfaces.I_HomeInteractor;
+import upv.tfg.freeweather.data.interactors.HomeInteractor;
+import upv.tfg.freeweather.data.interactors.interfaces.I_HomeInteractor;
 import upv.tfg.freeweather.data.model.DailyPrediction;
 import upv.tfg.freeweather.data.model.HourlyPrediction;
 import upv.tfg.freeweather.data.model.serializations.Init;
 import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
-import upv.tfg.freeweather.view.DailyFragment;
-import upv.tfg.freeweather.view.HourlyFragment;
-import upv.tfg.freeweather.view.TodayFragment;
+import upv.tfg.freeweather.view.fragments.DailyFragment;
+import upv.tfg.freeweather.view.fragments.HourlyFragment;
+import upv.tfg.freeweather.view.fragments.TodayFragment;
 import upv.tfg.freeweather.view.interfaces.I_HomeView;
 
 public class HomePresenter implements I_HomePresenter {
@@ -213,9 +214,9 @@ public class HomePresenter implements I_HomePresenter {
         bundle3.putSerializable("DAILY", dp);
         dFragment.setArguments(bundle3);
 
-        adapter.addFragment(tFragment, "Today");
-        adapter.addFragment(hFragment, "Hourly");
-        adapter.addFragment(dFragment, "Daily");
+        adapter.addFragment(tFragment, context.getString(R.string.tab_text_1));
+        adapter.addFragment(hFragment, context.getString(R.string.tab_text_2));
+        adapter.addFragment(dFragment, context.getString(R.string.tab_text_3));
 
         view.setLocation(dp[0].getNombre());
 

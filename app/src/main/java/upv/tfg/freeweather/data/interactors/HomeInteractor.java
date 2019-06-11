@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.data;
+package upv.tfg.freeweather.data.interactors;
 
 
 import android.content.Context;
@@ -7,7 +7,7 @@ import java.util.List;
 
 import upv.tfg.freeweather.data.local.DatabaseHelper;
 import upv.tfg.freeweather.data.local.PreferencesHelper;
-import upv.tfg.freeweather.data.interfaces.I_HomeInteractor;
+import upv.tfg.freeweather.data.interactors.interfaces.I_HomeInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
 
 public class HomeInteractor implements I_HomeInteractor {

@@ -17,7 +17,7 @@ import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.interfaces.I_DailyRecyclerViewAdapter;
 import upv.tfg.freeweather.adapters.interfaces.I_OnRecyclerItemListener;
 import upv.tfg.freeweather.presenter.interfaces.I_DailyPresenter;
-import upv.tfg.freeweather.view.DailyFragment;
+import upv.tfg.freeweather.view.fragments.DailyFragment;
 
 public class DailyRecyclerViewAdapter extends RecyclerView.Adapter<DailyRecyclerViewAdapter.ViewHolder> implements I_OnRecyclerItemListener, I_DailyRecyclerViewAdapter {
 

@@ -19,8 +19,8 @@ import upv.tfg.freeweather.adapters.DailyRecyclerViewAdapter;
 import upv.tfg.freeweather.adapters.interfaces.I_DailyRecyclerViewAdapter;
 import upv.tfg.freeweather.data.model.DailyPrediction;
 import upv.tfg.freeweather.presenter.interfaces.I_DailyPresenter;
-import upv.tfg.freeweather.view.DailyFragment;
-import upv.tfg.freeweather.view.DailyInfoActivity;
+import upv.tfg.freeweather.view.fragments.DailyFragment;
+import upv.tfg.freeweather.view.activities.DailyInfoActivity;
 import upv.tfg.freeweather.view.interfaces.I_DailyView;
 
 public class DailyPresenter implements I_DailyPresenter {

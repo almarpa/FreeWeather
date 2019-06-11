@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.data.model.serializations.Init;
 import upv.tfg.freeweather.presenter.interfaces.I_MapsPresenter;
 import upv.tfg.freeweather.view.interfaces.I_MapsView;
@@ -23,10 +24,12 @@ import upv.tfg.freeweather.view.interfaces.I_MapsView;
 public class MapsPresenter implements I_MapsPresenter {
 
     // View reference
-    I_MapsView view;
+    private I_MapsView view;
+    private Context context;
 
     public MapsPresenter(I_MapsView view, Context context) {
         this.view = view;
+        this.context = context;
     }
 
     @Override
@@ -121,15 +124,10 @@ public class MapsPresenter implements I_MapsPresenter {
         protected void onPostExecute(Void params) {
             view.setMapImage(img);
             view.closeProgressBar();
-            view.setTextDescription("-Reflectivity: the color scale indicates reflectivity intervals in decibels Z.\n \n" +
-                    "-Height of the echo stop: the color scale indicates altitude intervals in km." + "\n \n" +
-                    "-Accumulation of precipitation: the color scale indicates intervals of amount of precipitation, in millimeters");
+            view.setTextDescription(context.getString(R.string.radarDescription1) + "\n" +
+                    context.getString(R.string.radarDescription2) + "\n" +
+                    context.getString(R.string.radarDescription3));
         }
-/*
-Reflectividad: la escala de color señala intervalos de reflectividad en decibelios Z." +'\n' +
-                                    "Altura del tope de ecos: la escala de color señala intervalos de altitud en km."  + '\n' +
-                                    "Acumulación de precipitación: la escala de color indica intervalos de cantidad de precipitación, en milímetros.
-*/
     }
 
     /**
@@ -214,7 +212,7 @@ Reflectividad: la escala de color señala intervalos de reflectividad en decibel
         protected void onPostExecute(Void params) {
             view.setMapImage(img);
             view.setMapImage2(img2);
-            view.setTextDescription("Significant national maps for the next day, in the time period of 00-12 and 12-24.");
+            view.setTextDescription(context.getString(R.string.predictionDescription));
             view.closeProgressBar();
         }
     }
@@ -271,7 +269,7 @@ Reflectividad: la escala de color señala intervalos de reflectividad en decibel
         protected void onPostExecute(Void params) {
             view.setMapImage(img);
             view.closeProgressBar();
-            view.setTextDescription("Image of the electric shocks that fell in the national territory during a period of 12 hours.");
+            view.setTextDescription(context.getString(R.string.thunderDescription));
         }
 
     }
@@ -328,14 +326,13 @@ Reflectividad: la escala de color señala intervalos de reflectividad en decibel
         protected void onPostExecute(Void params) {
             view.setMapImage(img);
             view.closeProgressBar();
-            view.setTextDescription("\n" +
-                    "Last map prepared of estimated meteorological risk levels of forest fires in Spain");
+            view.setTextDescription(context.getString(R.string.fireDescription));
         }
 
     }
 
     /**
-     * Asynchronous task that obtain a fire prediction image from JSON
+     * Asynchronous task that obtain a vegetation prediction image from JSON
      */
     public class ObtainVegetationImage extends AsyncTask<Void, Void, Void> {
 
@@ -386,9 +383,7 @@ Reflectividad: la escala de color señala intervalos de reflectividad en decibel
         protected void onPostExecute(Void params) {
             view.setMapImage(img);
             view.closeProgressBar();
-            view.setTextDescription("\n" +
-                    "This image is made with a combination of visible and near infrared data from the NOAA-19 satellite, which gives us an idea of the vegetation " +
-                    "development. This is because the vegetation strongly absorbs the radiation of the visible channel, but strongly reflects that of the near infrared.");
+            view.setTextDescription(context.getString(R.string.vegetationDescription));
         }
 
     }

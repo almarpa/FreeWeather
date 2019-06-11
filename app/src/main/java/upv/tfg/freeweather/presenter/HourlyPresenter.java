@@ -7,7 +7,7 @@ import upv.tfg.freeweather.adapters.HourlyRecyclerViewAdapter;
 import upv.tfg.freeweather.adapters.interfaces.I_HourlyRecyclerViewAdapter;
 import upv.tfg.freeweather.data.model.HourlyPrediction;
 import upv.tfg.freeweather.presenter.interfaces.I_HourlyPresenter;
-import upv.tfg.freeweather.view.HourlyInfoActivity;
+import upv.tfg.freeweather.view.activities.HourlyInfoActivity;
 import upv.tfg.freeweather.view.interfaces.I_HourlyView;
 
 public class HourlyPresenter implements I_HourlyPresenter {

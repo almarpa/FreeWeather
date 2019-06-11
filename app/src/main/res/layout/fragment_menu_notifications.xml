@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/descarga"
+    android:background="@color/transparent"
     android:orientation="vertical"
-    tools:context=".view.NotificationsFragment">
+    tools:context=".view.fragments.NotificationsFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,7 +14,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -26,7 +25,7 @@
                     android:id="@+id/stchNotifications"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Activate"
+                    android:text="@string/notifActivate"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -52,7 +51,7 @@
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Notification time"
+                    android:text="@string/notifTime"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -76,7 +75,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Locality to receive notifications"
+                    android:text="@string/notifLocation"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />

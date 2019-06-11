@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.view;
+package upv.tfg.freeweather.view.activities;
 
 import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
@@ -14,6 +14,11 @@ import android.view.MenuItem;
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.presenter.NavigationDrawerPresenter;
 import upv.tfg.freeweather.presenter.interfaces.I_NavigationDrawerPresenter;
+import upv.tfg.freeweather.view.fragments.FavouritesFragment;
+import upv.tfg.freeweather.view.fragments.HelpFragment;
+import upv.tfg.freeweather.view.fragments.HomeFragment;
+import upv.tfg.freeweather.view.fragments.MapsFragment;
+import upv.tfg.freeweather.view.fragments.NotificationsFragment;
 import upv.tfg.freeweather.view.interfaces.I_NavigationDrawerView;
 
 /**

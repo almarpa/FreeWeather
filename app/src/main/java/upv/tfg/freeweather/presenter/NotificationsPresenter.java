@@ -29,8 +29,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import upv.tfg.freeweather.data.NotificationsInteractor;
-import upv.tfg.freeweather.data.interfaces.I_NotificationsInteractor;
+import upv.tfg.freeweather.R;
+import upv.tfg.freeweather.data.interactors.NotificationsInteractor;
+import upv.tfg.freeweather.data.interactors.interfaces.I_NotificationsInteractor;
 import upv.tfg.freeweather.data.model.DailyPrediction;
 import upv.tfg.freeweather.data.model.HourlyPrediction;
 import upv.tfg.freeweather.data.model.serializations.Init;
@@ -152,23 +153,23 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
             switch (timeSelected) {
                 case "10:00":
                     hour = 10;
-                    view.showAlarmConfigurated("Your notification will arrive at " + hour + ":00");
+                    view.showAlarmConfigurated(context.getString(R.string.notifMsg) + hour + ":00");
                     break;
                 case "14:00":
                     hour = 14;
-                    view.showAlarmConfigurated("Your notification will arrive at " + hour + ":00");
+                    view.showAlarmConfigurated(context.getString(R.string.notifMsg) + hour + ":00");
                     break;
                 case "18:00":
                     hour = 18;
-                    view.showAlarmConfigurated("Your notification will arrive at " + hour + ":00");
+                    view.showAlarmConfigurated(context.getString(R.string.notifMsg) + hour + ":00");
                     break;
                 case "22:00":
                     hour = 22;
-                    view.showAlarmConfigurated("Your notification will arrive  at " + hour + ":00");
+                    view.showAlarmConfigurated(context.getString(R.string.notifMsg) + hour + ":00");
                     break;
             }
-            interactor.saveCurrentNotification("Active notification: " + locationSelected + " at " + timeSelected);
-            view.setCurrentNotification("Active notification: " + locationSelected + " at " + timeSelected);
+            interactor.saveCurrentNotification(context.getString(R.string.activeMsg)  + " " + locationSelected + " at " + timeSelected);
+            view.setCurrentNotification(context.getString(R.string.activeMsg) + locationSelected + ", " + timeSelected);
 
             // Save the Switch state in preferences
             interactor.saveSwitchState(1);

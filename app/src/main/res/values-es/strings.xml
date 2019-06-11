@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FreeWeather</string>
+
+    <!--NavigationDrawerActivity-->
+
+
+    <!--Activities-->
+    <string name="detailedTemp">Temperatura:</string>
+    <string name="detailedTherm">Sens. Térmica:</string>
+    <string name="detailedHum">Humedad:</string>
+    <string name="detailedChancePrec">Prob. Precipitación:</string>
+    <string name="detailedWind">Viento:</string>
+    <string name="detailedWindGusts">Rachas de viento(max):</string>
+    <string name="detailedSnow">Cota de nieve:</string>
+    <string name="detailedUVRadiation">Índice UV:</string>
+    <string name="detailedQuantityPrecip">Precipitación (cantidad):</string>
+    <string name="detailedStorm">Prob. Tormenta:</string>
+    <string name="detailedQuantitySnow">Nieve (cantidad):</string>
+    <string name="detailedProbSnow">Prob. Nieve:</string>
+
+    <!--Fragments-->
+    <string name="favMsg">No hay ninguna localidad favorita guardada</string>
+    <string name="mapsChoose">Seleccione un tipo de mapa:</string>
+    <string name="notifActivate">Activar:</string>
+    <string name="notifTime">Hora de notificación:</string>
+    <string name="notifLocation">Localidad para recibir notificaciones:</string>
+    <string name="notifActualAlarm">:</string>
+    <string name="location">Localidad:</string>
+    <string name="notifMsg">Tu alarma sonará:</string>
+    <string name="activeMsg">Notificación activa:</string>
+    <string name="vegetationDescription">Esta imagen se realiza con una combinación de datos visibles e infrarrojos cercanos del satélite NOAA-19, que nos da una idea del desarrollo de la vegetación. Esto se debe a que la vegetación absorbe fuertemente la radiación del canal visible, pero refleja fuertemente la del infrarrojo cercano.</string>
+    <string name="thunderDescription">Imagen de las descargas eléctricas que cayeron en el territorio nacional durante un período de 12 horas.</string>
+    <string name="predictionDescription">Mapas significativos nacionales para el día anterior o actual, en el período de tiempo de 00-12 y 12-24.</string>
+    <string name="fireDescription">Último mapa preparado de niveles estimados de riesgo meteorológico de incendios forestales en España.</string>
+    <string name="radarDescription1">-Reflectividad: la escala de color señala intervalos de reflectividad en decibelios Z.</string>
+    <string name="radarDescription2">-Altura del tope de ecos: la escala de color señala intervalos de altitud en km.</string>
+    <string name="radarDescription3">-Acumulación de precipitación: la escala de color indica intervalos de cantidad de precipitación, en milímetros.</string>
+
+    <!--Menus-->
+    <string name="menu_fragment_main_window">Notificaciones</string>
+    <string name="menu_fragment_home">Inicio</string>
+    <string name="menu_fragment_configuracion">Configuracion</string>
+    <string name="menu_fragment_about_us">Sobre nosotros</string>
+    <string name="menu_fragment_search">Buscar</string>
+
+    <!--ToolBar-->
+    <string name="title_home">Inicio</string>
+    <string name="title_geolocation">Geolocalización (GPS)</string>
+    <string name="title_favourites">Favoritos</string>
+    <string name="title_map">Mapas</string>
+    <string name="title_help">Ayuda</string>
+    <string name="title_notifications">Notificaciones</string>
+    <string name="title_detailed_time_info">Information detallada</string>
+
+    <string name="tab_text_1">Hoy</string>
+    <string name="tab_text_2">Horaria</string>
+    <string name="tab_text_3">Diaria</string>
+</resources>

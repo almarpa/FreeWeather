@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.view;
+package upv.tfg.freeweather.view.fragments;
 
 import android.content.Context;
 import android.content.Intent;

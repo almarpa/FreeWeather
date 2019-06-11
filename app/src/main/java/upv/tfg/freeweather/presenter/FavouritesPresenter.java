@@ -8,10 +8,10 @@ import java.util.Map;
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.FavouritesRecyclerViewAdapter;
 import upv.tfg.freeweather.adapters.interfaces.I_FavouritesRecyclerViewAdapter;
-import upv.tfg.freeweather.data.FavouriteInteractor;
-import upv.tfg.freeweather.data.interfaces.I_FavouriteInteractor;
+import upv.tfg.freeweather.data.interactors.FavouriteInteractor;
+import upv.tfg.freeweather.data.interactors.interfaces.I_FavouriteInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_FavouritePresenter;
-import upv.tfg.freeweather.view.HomeFragment;
+import upv.tfg.freeweather.view.fragments.HomeFragment;
 import upv.tfg.freeweather.view.interfaces.I_FavouritesView;
 
 public class FavouritesPresenter implements I_FavouritePresenter {

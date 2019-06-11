@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 import upv.tfg.freeweather.R;
-import upv.tfg.freeweather.view.NavigationDrawerActivity;
+import upv.tfg.freeweather.view.activities.NavigationDrawerActivity;
 
 /**
  * Create the notification

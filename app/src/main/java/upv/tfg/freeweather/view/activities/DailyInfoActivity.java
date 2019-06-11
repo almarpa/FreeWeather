@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.view;
+package upv.tfg.freeweather.view.activities;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.data.interfaces;
+package upv.tfg.freeweather.data.interactors.interfaces;
 
 
 import java.util.List;

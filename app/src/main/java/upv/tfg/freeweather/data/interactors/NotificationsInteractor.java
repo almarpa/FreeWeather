@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.data;
+package upv.tfg.freeweather.data.interactors;
 
 import android.content.Context;
 
@@ -6,26 +6,23 @@ import java.util.Map;
 
 import upv.tfg.freeweather.data.local.DatabaseHelper;
 import upv.tfg.freeweather.data.local.PreferencesHelper;
-import upv.tfg.freeweather.data.interfaces.I_NotificationsInteractor;
+import upv.tfg.freeweather.data.interactors.interfaces.I_NotificationsInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_NotificationsPresenter;
 
 public class NotificationsInteractor implements I_NotificationsInteractor {
 
     //Presenter reference
-    private I_NotificationsPresenter notifPresenter;
+    private I_NotificationsPresenter presenter;
     //Database helper reference
     private DatabaseHelper dbhelper;
     //Preferences helper reference
     private PreferencesHelper prefHelper;
 
-    private Context context;
 
-
-    public NotificationsInteractor(I_NotificationsPresenter notifPresenter, Context context) {
-        this.notifPresenter = notifPresenter;
+    public NotificationsInteractor(I_NotificationsPresenter presenter, Context context) {
+        this.presenter = presenter;
         dbhelper = new DatabaseHelper(context);
         prefHelper = new PreferencesHelper(context);
-        this.context = context;
     }
 
     @Override

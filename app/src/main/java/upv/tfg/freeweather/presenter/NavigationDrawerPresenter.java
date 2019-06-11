@@ -2,8 +2,8 @@ package upv.tfg.freeweather.presenter;
 
 import android.content.Context;
 
-import upv.tfg.freeweather.data.NavigationDrawerInteractor;
-import upv.tfg.freeweather.data.interfaces.I_NavigationDrawerInteractor;
+import upv.tfg.freeweather.data.interactors.NavigationDrawerInteractor;
+import upv.tfg.freeweather.data.interactors.interfaces.I_NavigationDrawerInteractor;
 import upv.tfg.freeweather.presenter.interfaces.I_NavigationDrawerPresenter;
 import upv.tfg.freeweather.view.interfaces.I_NavigationDrawerView;
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/descarga"
     android:orientation="vertical"
-    tools:context=".view.HourlyInfoActivity"
+    tools:context=".view.activities.HourlyInfoActivity"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -133,7 +133,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:text="Therm. Sensation:"
+                            android:text="@string/detailedTherm"
                             android:textColor="@color/colorBackground"
                             android:textSize="18sp" />
 
@@ -187,7 +187,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:text="Humidity:"
+                            android:text="@string/detailedHum"
                             android:textColor="@color/colorBackground"
                             android:textSize="18sp" />
 
@@ -240,7 +240,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:text="Precipitation (quantity):"
+                            android:text="@string/detailedQuantityPrecip"
                             android:textColor="@color/colorBackground"
                             android:textSize="18sp" />
 
@@ -293,7 +293,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:text="Chance of precipitation:"
+                            android:text="@string/detailedChancePrec"
                             android:textColor="@color/colorBackground"
                             android:textSize="18sp" />
 
@@ -377,7 +377,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:text="Wind:"
+                            android:text="@string/detailedWind"
                             android:textColor="@color/colorBackground"
                             android:textSize="18sp" />
 
@@ -422,7 +422,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:text="Storm probability:"
+                            android:text="@string/detailedStorm"
                             android:textColor="@color/colorBackground"
                             android:textSize="18sp" />
 
@@ -469,7 +469,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:text="Snow (quantity):"
+                            android:text="@string/detailedQuantitySnow"
                             android:textColor="@color/colorBackground"
                             android:textSize="18sp" />
 
@@ -533,7 +533,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:text="Snow probability:"
+                            android:text="@string/detailedProbSnow"
                             android:textColor="@color/colorBackground"
                             android:textSize="18sp" />
 

@@ -14,6 +14,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:background="@android:color/transparent"
+        app:cardBackgroundColor="@color/hourly_recycler_item"
         app:cardCornerRadius="10dp">
 
         <LinearLayout
@@ -33,7 +34,7 @@
                 android:textStyle="bold"
                 app:autoSizeMaxTextSize="100sp"
                 app:autoSizeMinTextSize="20sp"
-                app:autoSizeStepGranularity="2sp"/>
+                app:autoSizeStepGranularity="2sp" />
 
             <Space
                 android:layout_width="wrap_content"

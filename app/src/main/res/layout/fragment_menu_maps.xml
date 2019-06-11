@@ -35,7 +35,7 @@
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Choose a type of map:"
+                        android:text="@string/mapsChoose"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -84,7 +84,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Description"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

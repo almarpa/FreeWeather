@@ -2,7 +2,7 @@ package upv.tfg.freeweather.view.interfaces;
 
 import android.content.Context;
 
-import upv.tfg.freeweather.view.HomeFragment;
+import upv.tfg.freeweather.view.fragments.HomeFragment;
 
 public interface I_FavouritesView {
 

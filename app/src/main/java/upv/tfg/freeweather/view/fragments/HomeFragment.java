@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.view;
+package upv.tfg.freeweather.view.fragments;
 
 import android.app.SearchManager;
 import android.database.Cursor;

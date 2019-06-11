@@ -15,7 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="There is no favourite location saved"
+        android:text="@string/favMsg"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"

@@ -22,15 +22,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.DailyInfoActivity"
+            android:name=".view.activities.DailyInfoActivity"
             android:label="@string/title_detailed_time_info"
-            android:parentActivityName=".view.NavigationDrawerActivity"></activity>
+            android:parentActivityName=".view.activities.NavigationDrawerActivity"></activity>
         <activity
-            android:name=".view.HourlyInfoActivity"
+            android:name=".view.activities.HourlyInfoActivity"
             android:label="@string/title_detailed_time_info"
-            android:parentActivityName=".view.NavigationDrawerActivity" />
+            android:parentActivityName=".view.activities.NavigationDrawerActivity" />
         <activity
-            android:name=".view.NavigationDrawerActivity"
+            android:name=".view.activities.NavigationDrawerActivity"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

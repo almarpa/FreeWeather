@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
-    tools:context=".view.DailyFragment"
+    tools:context=".view.fragments.DailyFragment"
     android:id="@+id/frameTabDaily">
 
     <ScrollView

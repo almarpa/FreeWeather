@@ -3,7 +3,37 @@
 
     <!--NavigationDrawerActivity-->
 
+    <!--Activities-->
+    <string name="detailedTemp">Temperature:</string>
+    <string name="detailedTherm">Therm. sensation:</string>
+    <string name="detailedHum">Humidity:</string>
+    <string name="detailedChancePrec">Chance of precipitation:</string>
+    <string name="detailedWind">Wind:</string>
+    <string name="detailedWindGusts">Wind gusts (max):</string>
+    <string name="detailedSnow">Snow levels:</string>
+    <string name="detailedUVRadiation">UV Radiation index:</string>
+    <string name="detailedQuantityPrecip">Precipitation (quantity):</string>
+    <string name="detailedStorm">Storm probability:</string>
+    <string name="detailedQuantitySnow">Snow (quantity):</string>
+    <string name="detailedProbSnow">Snow probability:</string>
+
     <!--Fragments-->
+    <string name="favMsg">There is no favourite location saved</string>
+    <string name="mapsChoose">Choose a type of map:</string>
+    <string name="notifActivate">Activate:</string>
+    <string name="notifTime">Notification time:</string>
+    <string name="notifLocation">Locality to receive notifications:</string>
+    <string name="notifActualAlarm">:</string>
+    <string name="location">Location:</string>
+    <string name="notifMsg">Your alarm will sound at:</string>
+    <string name="activeMsg">Active notification:</string>
+    <string name="vegetationDescription">This image is made with a combination of visible and near infrared data from the NOAA-19 satellite, which gives us an idea of the vegetation development. This is because the vegetation strongly absorbs the radiation of the visible channel, but strongly reflects that of the near infrared.</string>
+    <string name="thunderDescription">Image of the electric shocks that fell in the national territory during a period of 12 hours.</string>
+    <string name="predictionDescription">Significant national maps for the previous or current day, in the time period of 00-12 and 12-24.</string>
+    <string name="fireDescription">Last map prepared of estimated meteorological risk levels of forest fires in Spain.</string>
+    <string name="radarDescription1">-Reflectivity: the color scale indicates reflectivity intervals in decibels Z.</string>
+    <string name="radarDescription2">-Height of the echo stop: the color scale indicates altitude intervals in km.</string>
+    <string name="radarDescription3">-Accumulation of precipitation: the color scale indicates intervals of amount of precipitation, in millimeters</string>
 
     <!--Menus-->
     <string name="menu_fragment_main_window">Notifications</string>

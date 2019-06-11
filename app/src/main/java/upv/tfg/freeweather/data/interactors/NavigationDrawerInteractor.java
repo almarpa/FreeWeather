@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.data;
+package upv.tfg.freeweather.data.interactors;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import upv.tfg.freeweather.data.local.DatabaseHelper;
 import upv.tfg.freeweather.data.local.PreferencesHelper;
 import upv.tfg.freeweather.presenter.interfaces.I_NavigationDrawerPresenter;
 
-public class NavigationDrawerInteractor implements upv.tfg.freeweather.data.interfaces.I_NavigationDrawerInteractor {
+public class NavigationDrawerInteractor implements upv.tfg.freeweather.data.interactors.interfaces.I_NavigationDrawerInteractor {
 
     //Presenter reference
     private I_NavigationDrawerPresenter presenter;

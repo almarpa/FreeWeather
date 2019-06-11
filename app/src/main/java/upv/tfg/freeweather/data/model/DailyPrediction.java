@@ -579,6 +579,7 @@ public class DailyPrediction  implements Serializable {
     }
     private String getDayOfTheWeek(String date) {
         String res = null;
+
         int month = Integer.parseInt(date.substring(5,7));
         int days = Integer.parseInt(date.substring(8,10));
         int year = Integer.parseInt(date.substring(0,4));
@@ -588,25 +589,25 @@ public class DailyPrediction  implements Serializable {
 
         switch (day) {
             case Calendar.SUNDAY:
-                res = "thu.";
+                res = "fro.";
                 break;
             case Calendar.MONDAY:
-                res = "fri.";
-                break;
-            case Calendar.TUESDAY:
                 res = "sat.";
                 break;
-            case Calendar.WEDNESDAY:
+            case Calendar.TUESDAY:
                 res = "sun.";
                 break;
-            case Calendar.THURSDAY:
+            case Calendar.WEDNESDAY:
                 res = "mon.";
                 break;
-            case Calendar.FRIDAY:
+            case Calendar.THURSDAY:
                 res = "tue.";
                 break;
-            case Calendar.SATURDAY:
+            case Calendar.FRIDAY:
                 res = "wed.";
+                break;
+            case Calendar.SATURDAY:
+                res = "thu.";
                 break;
         }
         return res.concat("" + days);

@@ -1,4 +1,4 @@
-package upv.tfg.freeweather.view;
+package upv.tfg.freeweather.view.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -45,7 +45,7 @@ public class FavouritesFragment extends Fragment implements I_FavouritesView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_menu_favorites, container, false);
+        view = inflater.inflate(R.layout.fragment_menu_favourites, container, false);
         navigationView = getActivity().findViewById(R.id.navView);
         tvMsg = view.findViewById(R.id.tvMsgNoFavourites);
         recyclerView = view.findViewById(R.id.favourites_recycler);

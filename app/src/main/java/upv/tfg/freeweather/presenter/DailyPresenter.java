@@ -15,12 +15,13 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.DailyRecyclerViewAdapter;
 import upv.tfg.freeweather.adapters.interfaces.I_DailyRecyclerViewAdapter;
 import upv.tfg.freeweather.data.model.DailyPrediction;
 import upv.tfg.freeweather.presenter.interfaces.I_DailyPresenter;
-import upv.tfg.freeweather.view.fragments.DailyFragment;
 import upv.tfg.freeweather.view.activities.DailyInfoActivity;
+import upv.tfg.freeweather.view.fragments.DailyFragment;
 import upv.tfg.freeweather.view.interfaces.I_DailyView;
 
 public class DailyPresenter implements I_DailyPresenter {
@@ -74,8 +75,7 @@ public class DailyPresenter implements I_DailyPresenter {
             yValues.add(new BarEntry(i, lPrecip.get(i)));
         }
 
-        BarDataSet set = new BarDataSet(yValues, "Chance of precipitation");
-
+        BarDataSet set = new BarDataSet(yValues, context.getString(R.string.textChancePrecip));
 
         BarData bar = new BarData(set);
 
@@ -110,10 +110,10 @@ public class DailyPresenter implements I_DailyPresenter {
         }
 
         LineDataSet lineMaxT, lineMinT;
-        lineMaxT = new LineDataSet(lMaxTemps,"Maximum temperatures");
+        lineMaxT = new LineDataSet(lMaxTemps,context.getString(R.string.textMaxTemps));
         lineMaxT.setColor(Color.RED);
         lineMaxT.setCircleColor(Color.RED);
-        lineMinT = new LineDataSet(lMinTemps, "Minimum temperatures");
+        lineMinT = new LineDataSet(lMinTemps, context.getString(R.string.textMinTemps));
         lineMinT.setColor(Color.BLUE);
         lineMinT.setCircleColor(Color.BLUE);
 

@@ -16,8 +16,5 @@ public interface I_HomeView {
     void removeFavourite();
     void setProgressBarVisible();
     void setProgressBarInvisible();
-    void showMsgNoLocationFound(String location);
-    void showMsgHTTPError();
-    void showMsgLocationEmpty();
-    void showMsgPermissionsRequired();
+    void showAlertMsg(String string);
 }

@@ -2,9 +2,6 @@
 <resources>
     <string name="app_name">FreeWeather</string>
 
-    <!--NavigationDrawerActivity-->
-
-
     <!--Activities-->
     <string name="detailedTemp">Temperatura:</string>
     <string name="detailedTherm">Sens. Térmica:</string>
@@ -36,7 +33,26 @@
     <string name="radarDescription1">-Reflectividad: la escala de color señala intervalos de reflectividad en decibelios Z.</string>
     <string name="radarDescription2">-Altura del tope de ecos: la escala de color señala intervalos de altitud en km.</string>
     <string name="radarDescription3">-Acumulación de precipitación: la escala de color indica intervalos de cantidad de precipitación, en milímetros.</string>
+    <string name="msgNoFound">No hay ninguna localidad con el nombre</string>
+    <string name="msgHTTPError">No se pudo obtener la predicción debido a un error</string>
+    <string name="msgLocationEmpty">Por favor, selecciona una localidad antes</string>
+    <string name="msgPermissionsRequired">Se requieren permisos</string>
+    <string name="AdapterItemToday">Hoy..</string>
+    <string name="AdapterItemTomorrow">Mañ.</string>
+    <string name="AdapterItemMonday">Lun.</string>
+    <string name="AdapterItemTuesday">Mar.</string>
+    <string name="AdapterItemWednesday">Mie.</string>
+    <string name="AdapterItemThursday">Jue.</string>
+    <string name="AdapterItemFriday">Vie.</string>
+    <string name="AdapterItemSaturday">Sáb.</string>
+    <string name="AdapterItemSunday">Dom.</string>
+    <string name="textChancePrecip">Probabilidad de precipitación</string>
+    <string name="textMaxTemps">Temperaturas máximas</string>
+    <string name="textMinTemps">Temperaturas mínimas</string>
+    <string name="msgFindLocation">Busca una localidad</string>
+    <string name="msgNoInternetConnection">No hay conexión a Internet</string>
 
+    Find a location...
     <!--Menus-->
     <string name="menu_fragment_main_window">Notificaciones</string>
     <string name="menu_fragment_home">Inicio</string>
@@ -52,7 +68,6 @@
     <string name="title_help">Ayuda</string>
     <string name="title_notifications">Notificaciones</string>
     <string name="title_detailed_time_info">Information detallada</string>
-
     <string name="tab_text_1">Hoy</string>
     <string name="tab_text_2">Horaria</string>
     <string name="tab_text_3">Diaria</string>

@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment implements I_HomeView {
         //Search View initialization
         final MenuItem searchItem = menu.findItem(R.id.mSearch);
         searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint("Find a location...");
+        searchView.setQueryHint(getContext().getString(R.string.msgFindLocation));
 
         //Suggestion adapter initialization
         suggestionAdapter = new SimpleCursorAdapter(getContext(),
@@ -197,20 +197,9 @@ public class HomeFragment extends Fragment implements I_HomeView {
             progressBar.setVisibility(View.INVISIBLE);
         }
     }
+
     @Override
-    public void showMsgNoLocationFound(String location) {
-        Toast.makeText(getContext(), "No hay información acerca de la localidad: "+ location,Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void showMsgHTTPError() {
-        Toast.makeText(getContext(), "No se pudo obtener la predicción debido a un error",Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void showMsgLocationEmpty() {
-        Toast.makeText(getContext(),"Please, search a location before",Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void showMsgPermissionsRequired() {
-        Toast.makeText(getContext(),"Permissions are required",Toast.LENGTH_SHORT).show();
+    public void showAlertMsg(String msg) {
+        Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
     }
 }

@@ -589,7 +589,7 @@ public class DailyPrediction  implements Serializable {
 
         switch (day) {
             case Calendar.SUNDAY:
-                res = "fro.";
+                res = "fri";
                 break;
             case Calendar.MONDAY:
                 res = "sat.";

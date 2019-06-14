@@ -34,6 +34,24 @@
     <string name="radarDescription1">-Reflectivity: the color scale indicates reflectivity intervals in decibels Z.</string>
     <string name="radarDescription2">-Height of the echo stop: the color scale indicates altitude intervals in km.</string>
     <string name="radarDescription3">-Accumulation of precipitation: the color scale indicates intervals of amount of precipitation, in millimeters</string>
+    <string name="msgNoFound">There is no location with name</string>
+    <string name="msgHTTPError">The prediction could not be obtained due to an error</string>
+    <string name="msgLocationEmpty">Please, search a location before</string>
+    <string name="msgPermissionsRequired">Permissions are required</string>
+    <string name="AdapterItemToday">Tod.</string>
+    <string name="AdapterItemTomorrow">Tom.</string>
+    <string name="AdapterItemMonday">mon.</string>
+    <string name="AdapterItemTuesday">tue.</string>
+    <string name="AdapterItemWednesday">wed.</string>
+    <string name="AdapterItemThursday">thu.</string>
+    <string name="AdapterItemFriday">fri.</string>
+    <string name="AdapterItemSaturday">sat.</string>
+    <string name="AdapterItemSunday">sun.</string>
+    <string name="textChancePrecip">Chance of precipitation</string>
+    <string name="textMaxTemps">Maximum temperatures</string>
+    <string name="textMinTemps">Minimum temperatures</string>
+    <string name="msgFindLocation">Search a location</string>
+    <string name="msgNoInternetConnection">There is no Internet connection</string>
 
     <!--Menus-->
     <string name="menu_fragment_main_window">Notifications</string>

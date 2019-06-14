@@ -9,6 +9,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.BaseColumns;
@@ -90,7 +92,7 @@ public class HomePresenter implements I_HomePresenter {
                 view.makeFavourite();
             }
         }else{
-            view.showMsgLocationEmpty();
+            view.showAlertMsg(context.getString(R.string.msgLocationEmpty));
         }
     }
 
@@ -142,16 +144,7 @@ public class HomePresenter implements I_HomePresenter {
      */
     @Override
     public void notifySearchPrediction(String location) {
-        String code = interactor.getCodeByLocation(location);
-        //Check if location exists in the database
-        if (code != null) {
-            view.setProgressBarVisible();
-            //Obtain predictions from the API
-            AsyncTaskGetPredictions task = new AsyncTaskGetPredictions();
-            task.execute(code);
-        } else {
-            view.showMsgNoLocationFound(location);
-        }
+        getPredictions(location);
     }
 
     /**
@@ -164,7 +157,7 @@ public class HomePresenter implements I_HomePresenter {
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
                     (context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                view.showMsgPermissionsRequired();
+                view.showAlertMsg(context.getString(R.string.msgPermissionsRequired));
             } else {
                 Location location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 Geocoder geocoder = new Geocoder(context, Locale.getDefault());
@@ -173,19 +166,37 @@ public class HomePresenter implements I_HomePresenter {
                     adress = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
                 } catch (Exception e){}
                 if (adress.size() > 0) {
-                    String code = interactor.getCodeByLocation(adress.get(0).getLocality());
-                    if (code != null) {
-                        view.setProgressBarVisible();
-                        //Obtain predictions from the API
-                        AsyncTaskGetPredictions task = new AsyncTaskGetPredictions();
-                        task.execute(code);
-                    } else {
-                        view.showMsgNoLocationFound(adress.toString());
-                    }
+                    getPredictions(adress.get(0).getLocality());
                 }
             }
-        }else{
+        }
+    }
 
+    /**
+     * Obtain hourly and daily prediction from the API
+     * @param location
+     */
+    private void getPredictions(String location){
+        String code = interactor.getCodeByLocation(location);
+        //Check if location exists in the database
+        if (code != null) {
+            //Check internet connection
+            ConnectivityManager cm =
+                    (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            boolean isConnected = activeNetwork != null &&
+                    activeNetwork.isConnectedOrConnecting();
+            if (isConnected){
+                view.setProgressBarVisible();
+                //Obtain predictions from the API
+
+                AsyncTaskGetPredictions task = new AsyncTaskGetPredictions();
+                task.execute(code);
+            }else{
+                view.showAlertMsg(context.getString(R.string.msgNoInternetConnection));
+            }
+        } else {
+            view.showAlertMsg(context.getString(R.string.msgNoFound) + " " + location);
         }
     }
 
@@ -331,7 +342,7 @@ public class HomePresenter implements I_HomePresenter {
             if (hp != null && dp != null){
                 createFragments();
             }else{
-                view.showMsgHTTPError();
+                view.showAlertMsg(context.getString(R.string.msgHTTPError));
             }
             view.closeSearchView();
             view.setProgressBarInvisible();

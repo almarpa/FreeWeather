@@ -4,8 +4,15 @@ import java.util.Map;
 
 public interface I_NotificationsInteractor {
     Map<String,?> getFavouriteLocations();
+
+    ////////////////////////////////
+    ///       DATABASE          ////
+    ////////////////////////////////
     String getCodeByLocation(String location);
 
+    ////////////////////////////////
+    ///       PREFERENCES       ////
+    ////////////////////////////////
     void saveCurrentNotification(String text);
     void saveSwitchState(int checked);
     void saveTimeOptionChoosed(String time);
@@ -14,4 +21,9 @@ public interface I_NotificationsInteractor {
     int getLastSwitch();
     String getTimeSelected();
     String getLocationSelected();
+
+    ////////////////////////////////
+    ///       ASYNCTASKS        ////
+    ////////////////////////////////
+    void getPredictions(String code);
 }

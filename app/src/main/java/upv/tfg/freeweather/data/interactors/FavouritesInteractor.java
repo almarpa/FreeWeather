@@ -9,7 +9,7 @@ import upv.tfg.freeweather.data.local.PreferencesHelper;
 import upv.tfg.freeweather.data.interactors.interfaces.I_FavouriteInteractor;
 import upv.tfg.freeweather.presenters.interfaces.I_FavouritePresenter;
 
-public class FavouriteInteractor implements I_FavouriteInteractor {
+public class FavouritesInteractor implements I_FavouriteInteractor {
 
     //Presenter reference
     private I_FavouritePresenter presenter;
@@ -20,7 +20,7 @@ public class FavouriteInteractor implements I_FavouriteInteractor {
 
     private Context context;
 
-    public FavouriteInteractor(I_FavouritePresenter presenter, Context context) {
+    public FavouritesInteractor(I_FavouritePresenter presenter, Context context) {
         this.presenter = presenter;
         dbhelper = new DatabaseHelper(context);
         prefHelper = new PreferencesHelper(context);
@@ -36,4 +36,6 @@ public class FavouriteInteractor implements I_FavouriteInteractor {
     public void removeLocationFromFavourites(String location) {
         prefHelper.deleteFavourite(location);
     }
+
+
 }

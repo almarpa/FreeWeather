@@ -6,24 +6,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -34,7 +23,6 @@ import upv.tfg.freeweather.data.interactors.NotificationsInteractor;
 import upv.tfg.freeweather.data.interactors.interfaces.I_NotificationsInteractor;
 import upv.tfg.freeweather.data.model.DailyPrediction;
 import upv.tfg.freeweather.data.model.HourlyPrediction;
-import upv.tfg.freeweather.data.model.serializations.Init;
 import upv.tfg.freeweather.presenters.interfaces.I_NotificationsPresenter;
 import upv.tfg.freeweather.utils.AlarmReceiver;
 import upv.tfg.freeweather.views.interfaces.I_NotificationsView;
@@ -174,9 +162,7 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
             // Save the Switch state in preferences
             interactor.saveSwitchState(1);
 
-            // Run async task to get the prediction at location selected
-            AsyncTaskGetPredictions task = new AsyncTaskGetPredictions();
-            task.execute(interactor.getCodeByLocation(locationSelected));
+            interactor.getPredictions(locationSelected);
         }else{
             view.clearSwitch();
             if(timeSelected != null){
@@ -201,7 +187,8 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
         view.clearCurrentNotification();
     }
 
-    private void setNotificationData(DailyPrediction[] dp) {
+    @Override
+    public void setNotificationData(DailyPrediction[] dp) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, 0);
@@ -218,120 +205,13 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
-    /**
-     * Obtain a DailyPrediction object and an HourlyPrediction object
-     */
-    public class AsyncTaskGetPredictions extends AsyncTask<String, Void, Void> {
+    @Override
+    public void showNoFavouriteExists() {
+        view.showNoFavouriteExists();
+    }
 
-        private Init init;
-        private URL url;
-        private HttpURLConnection connection;
-        private InputStreamReader reader;
-        private GsonBuilder builder;
-        private Gson gson;
-        private String location;
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            location = params[0];
-            try {
-                //  HOURLY PREDICTION   //
-                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/horaria/" + params[0] + "?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                builder = new GsonBuilder();
-                gson = builder.create();
-                init = gson.fromJson(reader, Init.class);
-                reader.close();
-
-                connection.disconnect();
-
-                url = new URL(init.datos);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                builder = new GsonBuilder();
-                gson = builder.create();
-                hp = gson.fromJson(reader, HourlyPrediction[].class);
-                reader.close();
-
-                connection.disconnect();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            //DAILY PREDICTION
-            try {
-                url = new URL("https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/" + params[0] + "?api_key=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGV4X21hcmNvN0BvdXRsb29rLmVzIiwianRpIjoiM2YxYmQyZDAtYTdjNy00MjNhLTljMDktYWFiMmQ4OTdlN2RmIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NDU3Nzk0NTIsInVzZXJJZCI6IjNmMWJkMmQwLWE3YzctNDIzYS05YzA5LWFhYjJkODk3ZTdkZiIsInJvbGUiOiIifQ.rf0HtYhn5FEGYUhZn_y2wnel8GrpuPKuQj2JZ35GG7Q");
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                    builder = new GsonBuilder();
-                    gson = builder.create();
-                    init = gson.fromJson(reader, Init.class);
-                    reader.close();
-                }
-                connection.disconnect();
-
-                url = new URL(init.datos);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setRequestProperty("Content-Type", "application/json; charset=ISO_8859_1");
-                connection.setDoInput(true);
-                connection.connect();
-
-                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    reader = new InputStreamReader(connection.getInputStream(), StandardCharsets.ISO_8859_1);
-                    builder = new GsonBuilder();
-                    gson = builder.create();
-                    try {
-                        dp = gson.fromJson(reader, DailyPrediction[].class);
-                    }catch (RuntimeException e){
-                        Log.d("error", "HA SALTADO EXCEPCIÓN");
-                    }
-                    reader.close();
-                }
-                connection.disconnect();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void params) {
-            if(dp!=null && hp!=null){
-                setNotificationData(dp);
-            }else if(location == null){
-                view.showNoFavouriteExists();
-            }else{
-                view.showHTTPMsgError();
-            }
-        }
-
+    @Override
+    public void showHTTPMsgError() {
+        view.showHTTPMsgError();
     }
 }

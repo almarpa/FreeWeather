@@ -200,7 +200,6 @@ public class HomeFragment extends Fragment implements I_HomeView {
             progressBar.setVisibility(View.INVISIBLE);
         }
     }
-
     @Override
     public void showAlertMsg(String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();

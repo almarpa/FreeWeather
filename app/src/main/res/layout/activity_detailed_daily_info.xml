@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/descarga"
     android:orientation="vertical"
-    tools:context=".view.activities.HourlyInfoActivity"
+    tools:context=".views.activities.HourlyInfoActivity"
     >
 
     <android.support.design.widget.AppBarLayout

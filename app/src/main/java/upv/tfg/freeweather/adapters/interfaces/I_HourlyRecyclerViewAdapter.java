@@ -2,7 +2,7 @@ package upv.tfg.freeweather.adapters.interfaces;
 
 import java.util.ArrayList;
 
-import upv.tfg.freeweather.presenter.interfaces.I_HourlyPresenter;
+import upv.tfg.freeweather.presenters.interfaces.I_HourlyPresenter;
 
 public interface I_HourlyRecyclerViewAdapter {
     void onAttach(I_HourlyPresenter presenter);

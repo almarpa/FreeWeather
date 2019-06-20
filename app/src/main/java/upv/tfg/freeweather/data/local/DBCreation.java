@@ -13,7 +13,6 @@ public class DBCreation extends SQLiteOpenHelper {
 
     public DBCreation(Context context) {
         super(context,"myDataBase.db",null,1);
-
     }
 
     @Override

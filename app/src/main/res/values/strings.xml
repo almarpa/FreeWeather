@@ -16,6 +16,7 @@
     <string name="detailedStorm">Storm probability:</string>
     <string name="detailedQuantitySnow">Snow (quantity):</string>
     <string name="detailedProbSnow">Snow probability:</string>
+    <string name="permGranted">Permission granted</string>
 
     <!--Fragments-->
     <string name="favMsg">There is no favourite location saved</string>
@@ -25,7 +26,7 @@
     <string name="notifLocation">Locality to receive notifications:</string>
     <string name="notifActualAlarm">:</string>
     <string name="location">Location:</string>
-    <string name="notifMsg">Your alarm will sound at:</string>
+    <string name="notifMsg">Your alarm will sound at</string>
     <string name="activeMsg">Active notification:</string>
     <string name="vegetationDescription">This image is made with a combination of visible and near infrared data from the NOAA-19 satellite, which gives us an idea of the vegetation development. This is because the vegetation strongly absorbs the radiation of the visible channel, but strongly reflects that of the near infrared.</string>
     <string name="thunderDescription">Image of the electric shocks that fell in the national territory during a period of 12 hours.</string>
@@ -52,6 +53,12 @@
     <string name="textMinTemps">Minimum temperatures</string>
     <string name="msgFindLocation">Search a location</string>
     <string name="msgNoInternetConnection">There is no Internet connection</string>
+    <string name="NoSelection">No selection</string>
+    <string name="MeaningfulMap">Meteorological map</string>
+    <string name="RadarMap">Radar map</string>
+    <string name="RayMap">Ray map</string>
+    <string name="FireIndexMap">Fire risk map</string>
+    <string name="VegetationMap">Vegetation map</string>
 
     <!--Menus-->
     <string name="menu_fragment_main_window">Notifications</string>

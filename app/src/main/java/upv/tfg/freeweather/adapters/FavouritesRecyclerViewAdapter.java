@@ -17,8 +17,8 @@ import java.util.List;
 import upv.tfg.freeweather.R;
 import upv.tfg.freeweather.adapters.interfaces.I_FavouritesRecyclerViewAdapter;
 import upv.tfg.freeweather.adapters.interfaces.I_OnRecyclerItemListener;
-import upv.tfg.freeweather.presenter.interfaces.I_FavouritePresenter;
-import upv.tfg.freeweather.view.fragments.FavouritesFragment;
+import upv.tfg.freeweather.presenters.interfaces.I_FavouritePresenter;
+import upv.tfg.freeweather.views.fragments.FavouritesFragment;
 
 
 public class FavouritesRecyclerViewAdapter extends RecyclerView.Adapter<FavouritesRecyclerViewAdapter.ViewHolder> implements I_OnRecyclerItemListener, I_FavouritesRecyclerViewAdapter {

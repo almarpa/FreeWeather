@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/transparent"
     android:orientation="vertical"
-    tools:context=".view.fragments.NotificationsFragment">
+    tools:context=".views.fragments.NotificationsFragment">
 
     <ScrollView
         android:layout_width="match_parent"

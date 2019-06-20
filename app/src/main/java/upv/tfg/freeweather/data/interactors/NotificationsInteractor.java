@@ -7,7 +7,7 @@ import java.util.Map;
 import upv.tfg.freeweather.data.local.DatabaseHelper;
 import upv.tfg.freeweather.data.local.PreferencesHelper;
 import upv.tfg.freeweather.data.interactors.interfaces.I_NotificationsInteractor;
-import upv.tfg.freeweather.presenter.interfaces.I_NotificationsPresenter;
+import upv.tfg.freeweather.presenters.interfaces.I_NotificationsPresenter;
 
 public class NotificationsInteractor implements I_NotificationsInteractor {
 

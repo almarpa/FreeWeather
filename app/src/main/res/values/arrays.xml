@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="spinnerData">
-        <item>No selection</item>
-        <item>Meaningful map</item>
-        <item>Radar map</item>
-        <item>Ray map</item>
-        <item>Fire index map</item>
-        <item>Vegetation map</item>
+        <item>@string/NoSelection</item>
+        <item>@string/MeaningfulMap</item>
+        <item>@string/RadarMap</item>
+        <item>@string/RayMap</item>
+        <item>@string/FireIndexMap</item>
+        <item>@string/VegetationMap</item>
     </array>
 </resources>

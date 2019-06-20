@@ -2,7 +2,7 @@ package upv.tfg.freeweather.adapters.interfaces;
 
 import java.util.ArrayList;
 
-import upv.tfg.freeweather.presenter.interfaces.I_FavouritePresenter;
+import upv.tfg.freeweather.presenters.interfaces.I_FavouritePresenter;
 
 public interface I_FavouritesRecyclerViewAdapter {
     void removeFavourite(int pos);

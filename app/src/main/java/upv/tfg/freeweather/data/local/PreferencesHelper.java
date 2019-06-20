@@ -7,76 +7,79 @@ import java.util.Map;
 
 public class PreferencesHelper {
 
-    private SharedPreferences prefs;
-    final String preferencesFile = "SHARED_PREFERENCES";
+    private SharedPreferences userPrefs;
+    private SharedPreferences dataPrefs;
+    final String userPreferences = "USER_PREFERENCES";
+    final String dataPreferences = "DATA_PREFERENCES";
 
     public PreferencesHelper(Context context){
-        prefs = context.getSharedPreferences(preferencesFile,Context.MODE_PRIVATE);
+        userPrefs = context.getSharedPreferences(userPreferences,Context.MODE_PRIVATE);
+        dataPrefs = context.getSharedPreferences(dataPreferences,Context.MODE_PRIVATE);
     }
 
     public boolean getIsFirstTimeRunning() {
-        return prefs.getBoolean("firstStart", true);
+        return userPrefs.getBoolean("firstStart", true);
     }
 
     public void saveDBCreation() {
-        prefs.edit().putBoolean("firstStart", false).apply();
+        userPrefs.edit().putBoolean("firstStart", false).apply();
     }
 
     public boolean getIsItFavourite(String location){
-        return prefs.getBoolean(location,false);
+        return dataPrefs.getBoolean(location,false);
     }
 
     public void addFavourite(String location){
-        prefs.edit().putBoolean(location,true).apply();
+        dataPrefs.edit().putBoolean(location,true).apply();
     }
 
     public void deleteFavourite(String location){
-        prefs.edit().putBoolean(location,false).apply();
-        prefs.edit().putString("LOCATION_CHOOSED",null).apply();
+        dataPrefs.edit().putBoolean(location,false).apply();
+        dataPrefs.edit().putString("LOCATION_CHOOSED",null).apply();
     }
 
     public Map<String,?> getAllFavourites(){
-            Map<String,?> keys = prefs.getAll();
+        Map<String,?> keys = dataPrefs.getAll();
         return keys;
     }
 
     public void saveCurrentNotification(String text) {
-        prefs.edit().putString("CURRENT_NOTIFICATION",text).apply();
+        userPrefs.edit().putString("CURRENT_NOTIFICATION",text).apply();
     }
 
     public void saveSwicthState(int checked) {
-        prefs.edit().putInt("SWITCH_STATE",checked).apply();
+        userPrefs.edit().putInt("SWITCH_STATE",checked).apply();
     }
 
     public void saveTimeOptionChoosed(String time) {
-        prefs.edit().putString("TIME_CHOOSED",time).apply();
+        userPrefs.edit().putString("TIME_CHOOSED",time).apply();
     }
 
     public void saveLocationChoosed(String location) {
-        prefs.edit().putString("LOCATION_CHOOSED",location).apply();
+        userPrefs.edit().putString("LOCATION_CHOOSED",location).apply();
     }
 
     public String getCurrentNotification() {
-        return prefs.getString("CURRENT_NOTIFICATION",null);
+        return userPrefs.getString("CURRENT_NOTIFICATION",null);
     }
 
     public int getLastSwitch() {
-        return prefs.getInt("SWITCH_STATE",0);
+        return userPrefs.getInt("SWITCH_STATE",0);
     }
 
     public String getIntervalTimeChoosed() {
-        Map<String,?> keys = prefs.getAll();
+        Map<String,?> keys = userPrefs.getAll();
         if(keys.containsKey("TIME_CHOOSED")){
-            return prefs.getString("TIME_CHOOSED",null);
+            return userPrefs.getString("TIME_CHOOSED",null);
         }else{
             return null;
         }
     }
 
     public String getLocationChoosed() {
-        Map<String, ?> keys = prefs.getAll();
+        Map<String, ?> keys = userPrefs.getAll();
         if (keys.containsKey("LOCATION_CHOOSED")) {
-            return prefs.getString("LOCATION_CHOOSED", null);
+            return userPrefs.getString("LOCATION_CHOOSED", null);
         }else{
             return null;
         }

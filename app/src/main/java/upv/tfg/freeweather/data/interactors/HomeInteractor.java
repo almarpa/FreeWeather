@@ -8,7 +8,7 @@ import java.util.List;
 import upv.tfg.freeweather.data.local.DatabaseHelper;
 import upv.tfg.freeweather.data.local.PreferencesHelper;
 import upv.tfg.freeweather.data.interactors.interfaces.I_HomeInteractor;
-import upv.tfg.freeweather.presenter.interfaces.I_HomePresenter;
+import upv.tfg.freeweather.presenters.interfaces.I_HomePresenter;
 
 public class HomeInteractor implements I_HomeInteractor {
 

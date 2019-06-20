@@ -4,7 +4,7 @@ import android.content.Context;
 
 import upv.tfg.freeweather.data.local.DatabaseHelper;
 import upv.tfg.freeweather.data.local.PreferencesHelper;
-import upv.tfg.freeweather.presenter.interfaces.I_NavigationDrawerPresenter;
+import upv.tfg.freeweather.presenters.interfaces.I_NavigationDrawerPresenter;
 
 public class NavigationDrawerInteractor implements upv.tfg.freeweather.data.interactors.interfaces.I_NavigationDrawerInteractor {
 

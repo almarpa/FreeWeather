@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     android:orientation="vertical"
-    tools:context=".view.fragments.HomeFragment">
+    tools:context=".views.fragments.HomeFragment">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"

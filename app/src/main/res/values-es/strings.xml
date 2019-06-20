@@ -15,6 +15,7 @@
     <string name="detailedStorm">Prob. Tormenta:</string>
     <string name="detailedQuantitySnow">Nieve (cantidad):</string>
     <string name="detailedProbSnow">Prob. Nieve:</string>
+    <string name="permGranted">Permiso concedido</string>
 
     <!--Fragments-->
     <string name="favMsg">No hay ninguna localidad favorita guardada</string>
@@ -24,7 +25,7 @@
     <string name="notifLocation">Localidad para recibir notificaciones:</string>
     <string name="notifActualAlarm">:</string>
     <string name="location">Localidad:</string>
-    <string name="notifMsg">Tu alarma sonará:</string>
+    <string name="notifMsg">Tu alarma sonará a las</string>
     <string name="activeMsg">Notificación activa:</string>
     <string name="vegetationDescription">Esta imagen se realiza con una combinación de datos visibles e infrarrojos cercanos del satélite NOAA-19, que nos da una idea del desarrollo de la vegetación. Esto se debe a que la vegetación absorbe fuertemente la radiación del canal visible, pero refleja fuertemente la del infrarrojo cercano.</string>
     <string name="thunderDescription">Imagen de las descargas eléctricas que cayeron en el territorio nacional durante un período de 12 horas.</string>
@@ -51,8 +52,13 @@
     <string name="textMinTemps">Temperaturas mínimas</string>
     <string name="msgFindLocation">Busca una localidad</string>
     <string name="msgNoInternetConnection">No hay conexión a Internet</string>
+    <string name="NoSelection">Ninguna elección</string>
+    <string name="MeaningfulMap">Mapa meteorológico</string>
+    <string name="RadarMap">Imagen de radar</string>
+    <string name="RayMap">Mapa de rayos</string>
+    <string name="FireIndexMap">Mapa riesgo de incendios</string>
+    <string name="VegetationMap">Mapa de vegetación</string>
 
-    Find a location...
     <!--Menus-->
     <string name="menu_fragment_main_window">Notificaciones</string>
     <string name="menu_fragment_home">Inicio</string>

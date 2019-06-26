@@ -25,7 +25,7 @@
     <string name="notifLocation">Localidad para recibir notificaciones:</string>
     <string name="notifActualAlarm">:</string>
     <string name="location">Localidad:</string>
-    <string name="notifMsg">Tu alarma sonará a las</string>
+    <string name="notifMsg">Tu notificación llegará a las:</string>
     <string name="activeMsg">Notificación activa:</string>
     <string name="vegetationDescription">Esta imagen se realiza con una combinación de datos visibles e infrarrojos cercanos del satélite NOAA-19, que nos da una idea del desarrollo de la vegetación. Esto se debe a que la vegetación absorbe fuertemente la radiación del canal visible, pero refleja fuertemente la del infrarrojo cercano.</string>
     <string name="thunderDescription">Imagen de las descargas eléctricas que cayeron en el territorio nacional durante un período de 12 horas.</string>
@@ -58,6 +58,8 @@
     <string name="RayMap">Mapa de rayos</string>
     <string name="FireIndexMap">Mapa riesgo de incendios</string>
     <string name="VegetationMap">Mapa de vegetación</string>
+    <string name="notification_title">%1s, %2s</string>
+    <string name="country">,España</string>
 
     <!--Menus-->
     <string name="menu_fragment_main_window">Notificaciones</string>
@@ -73,7 +75,7 @@
     <string name="title_map">Mapas</string>
     <string name="title_help">Ayuda</string>
     <string name="title_notifications">Notificaciones</string>
-    <string name="title_detailed_time_info">Information detallada</string>
+    <string name="title_detailed_time_info">Información detallada</string>
     <string name="tab_text_1">Hoy</string>
     <string name="tab_text_2">Horaria</string>
     <string name="tab_text_3">Diaria</string>

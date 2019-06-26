@@ -33,10 +33,10 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),intent.getIntExtra("IMAGE", 0)))
-                .setContentTitle(intent.getStringExtra("NAME")+", España")
-                .setContentText(intent.getStringExtra("STATE")+ ", " + intent.getStringExtra("TEMPERATURE"))
+                .setContentTitle(String.format(intent.getStringExtra("NAME"),context.getResources().getString(R.string.country)))
+                .setContentText(String.format(intent.getStringExtra("STATE"),intent.getStringExtra("TEMPERATURE")))
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(intent.getStringExtra("STATE")+ ", " + intent.getStringExtra("TEMPERATURE")))
+                        .bigText(String.format(intent.getStringExtra("STATE"), intent.getStringExtra("TEMPERATURE"))))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true);
 

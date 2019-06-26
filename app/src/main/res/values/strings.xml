@@ -26,7 +26,7 @@
     <string name="notifLocation">Locality to receive notifications:</string>
     <string name="notifActualAlarm">:</string>
     <string name="location">Location:</string>
-    <string name="notifMsg">Your alarm will sound at</string>
+    <string name="notifMsg">Your notification will arrive at:</string>
     <string name="activeMsg">Active notification:</string>
     <string name="vegetationDescription">This image is made with a combination of visible and near infrared data from the NOAA-19 satellite, which gives us an idea of the vegetation development. This is because the vegetation strongly absorbs the radiation of the visible channel, but strongly reflects that of the near infrared.</string>
     <string name="thunderDescription">Image of the electric shocks that fell in the national territory during a period of 12 hours.</string>
@@ -59,6 +59,8 @@
     <string name="RayMap">Ray map</string>
     <string name="FireIndexMap">Fire risk map</string>
     <string name="VegetationMap">Vegetation map</string>
+    <string name="notification_title">%1s, %2s</string>
+    <string name="country">,Spain</string>
 
     <!--Menus-->
     <string name="menu_fragment_main_window">Notifications</string>

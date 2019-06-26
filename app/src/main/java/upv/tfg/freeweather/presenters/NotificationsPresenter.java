@@ -1,8 +1,6 @@
 package upv.tfg.freeweather.presenters;
 
 import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -59,20 +57,8 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
         // Poblate the radiogroup items in the view
         getNotificationTimes();
         getFavouriteLocations();
-        // Create the notification channel in order to be able to send notifications
-        createNotificationChannel();
     }
 
-    private void createNotificationChannel() {
-        CharSequence name = "name";
-        String description = "description";
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel(CHANNEL_1_ID, name, importance);
-        channel.setDescription(description);
-        // Register the channel with the system
-        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-        notificationManager.createNotificationChannel(channel);
-    }
     private void getNotificationTimes(){
         RadioGroup rg = new RadioGroup(context);
         rg.setOrientation(LinearLayout.VERTICAL);

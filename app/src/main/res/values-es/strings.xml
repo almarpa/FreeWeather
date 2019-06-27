@@ -59,7 +59,7 @@
     <string name="FireIndexMap">Mapa riesgo de incendios</string>
     <string name="VegetationMap">Mapa de vegetación</string>
     <string name="notification_title">%1s, %2s</string>
-    <string name="country">,España</string>
+    <string name="country">España</string>
 
     <!--Menus-->
     <string name="menu_fragment_main_window">Notificaciones</string>

@@ -60,7 +60,7 @@
     <string name="FireIndexMap">Fire risk map</string>
     <string name="VegetationMap">Vegetation map</string>
     <string name="notification_title">%1s, %2s</string>
-    <string name="country">,Spain</string>
+    <string name="country">Spain</string>
 
     <!--Menus-->
     <string name="menu_fragment_main_window">Notifications</string>

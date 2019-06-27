@@ -8,8 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +28,7 @@ public class NotificationsFragment extends Fragment implements I_NotificationsVi
 
     private Switch swthActivate;
     private RadioGroup rgTime;
-    private RadioGroup rgLocations;
+    private Spinner spLocations;
     private TextView tvCurrentNotification;
 
     private View view;
@@ -47,7 +50,7 @@ public class NotificationsFragment extends Fragment implements I_NotificationsVi
         context = view.getContext();
 
         rgTime = view.findViewById(R.id.rgTime);
-        rgLocations = view.findViewById(R.id.rgLocations);
+        spLocations = view.findViewById(R.id.spLocations);
         swthActivate = view.findViewById(R.id.stchNotifications);
         tvCurrentNotification = view.findViewById(R.id.tvNotification);
 
@@ -63,7 +66,16 @@ public class NotificationsFragment extends Fragment implements I_NotificationsVi
                 }
             }
         });
+        spLocations.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                presenter.notifySpinner2Clicked(spLocations.getSelectedItem().toString());
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
         return view;
     }
 
@@ -78,12 +90,11 @@ public class NotificationsFragment extends Fragment implements I_NotificationsVi
 
     /**
      * Method called by the presenter to set rgLocations (RadioButton) view
-     * @param rgLocations radiogroup item
+     * @param adapter Spinner adapter
      */
-
     @Override
-    public void setLocationsView(RadioGroup rgLocations) {
-        this.rgLocations.addView(rgLocations);
+    public void setLocationsView(SpinnerAdapter adapter) {
+        this.spLocations.setAdapter(adapter);
     }
 
     /**

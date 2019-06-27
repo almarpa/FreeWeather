@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -87,28 +89,19 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
     private void getFavouriteLocations() {
         // Obtain the favourite locations saved by the user
         Map<String, ?> mFavourites = interactor.getFavouriteLocations();
-
-        RadioGroup rg = new RadioGroup(context);
-        rg.setOrientation(LinearLayout.VERTICAL);
+        List<String> list = new ArrayList<>();
+        final Spinner sp = new Spinner(context);
         for (Map.Entry<String, ?> entry : mFavourites.entrySet()) {
+
             //Check if the location is saved as favourite
             if (entry.getValue().toString() == "true") {
-                RadioButton rdbtn = new RadioButton(context);
-                rdbtn.setId(View.generateViewId());
-                rdbtn.setText(entry.getKey());
-                if(entry.getKey().equals(interactor.getLocationSelected())){
-                    rdbtn.setChecked(true);
-                }
-                rg.addView(rdbtn);
+                list.add(entry.getKey().toString());
             }
         }
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup rg, int checkedId) {
-                RadioButton rb = rg.getRootView().findViewById(checkedId);
-                interactor.saveLocationChoosed(rb.getText().toString());            }
-        });
-        view.setLocationsView(rg);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, list);
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+
+        view.setLocationsView(adapter);
     }
 
     /**
@@ -171,6 +164,14 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
         manager.cancelAll();
         interactor.saveSwitchState(0);
         view.clearCurrentNotification();
+    }
+
+    /**
+     * Method called by the view to notify that the spinner item has been selected
+     */
+    @Override
+    public void notifySpinner2Clicked(String location) {
+        interactor.saveLocationChoosed(location);
     }
 
     @Override

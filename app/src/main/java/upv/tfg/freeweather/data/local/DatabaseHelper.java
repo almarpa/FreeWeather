@@ -45,7 +45,7 @@ public class DatabaseHelper {
             db.beginTransaction();
 
             while ((line = buffer.readLine()) != null) {
-                String[] colums = line.split(",");
+                String[] colums = line.split(";");
 
                 ContentValues cv = new ContentValues();
                 cv.put("codAuto", colums[0].trim());
@@ -77,9 +77,15 @@ public class DatabaseHelper {
             int cont = 0;
             while (!cursor.isAfterLast() && cont != 3) {
                 String name = cursor.getString(5);
-                list.add(name);
-                cursor.moveToNext();
-                cont++;
+                if(!list.isEmpty() && list.get(0).equals(name)){
+                    cursor.moveToNext();
+                    cont++;
+                }else{
+                    list.add(name);
+                    cursor.moveToNext();
+                    cont++;
+                }
+
             }
         }
         return list;

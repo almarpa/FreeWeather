@@ -589,25 +589,25 @@ public class DailyPrediction  implements Serializable {
 
         switch (day) {
             case Calendar.SUNDAY:
-                res = "fri";
+                res = "jue.";
                 break;
             case Calendar.MONDAY:
-                res = "sat.";
+                res = "vie.";
                 break;
             case Calendar.TUESDAY:
-                res = "sun.";
+                res = "sab.";
                 break;
             case Calendar.WEDNESDAY:
-                res = "mon.";
+                res = "dom.";
                 break;
             case Calendar.THURSDAY:
-                res = "tue.";
+                res = "lun.";
                 break;
             case Calendar.FRIDAY:
-                res = "wed.";
+                res = "mar.";
                 break;
             case Calendar.SATURDAY:
-                res = "thu.";
+                res = "mie.";
                 break;
         }
         return res.concat("" + days);

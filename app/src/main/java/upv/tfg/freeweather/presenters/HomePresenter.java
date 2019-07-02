@@ -2,10 +2,9 @@ package upv.tfg.freeweather.presenters;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.database.MatrixCursor;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -13,7 +12,6 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.provider.BaseColumns;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
@@ -58,7 +56,7 @@ public class HomePresenter implements I_HomePresenter {
 
     /**
      * Assigns the adapter to the presenter
-     * @param adapter
+     * @param adapter viewpager adapter
      */
     @Override
     public void attachAdapter(ViewPagerAdapter adapter) {
@@ -111,23 +109,7 @@ public class HomePresenter implements I_HomePresenter {
     public void notifySearchTextChanged(String text) {
         if(text.length() > 1) {
             //Obtain the list of possible locations suggested by the text introduced
-            List<String> possibleLocations = interactor.findPossibleLocation(text);
-            List<String> suggestions = new ArrayList<>();
-
-            if (possibleLocations != null) {
-                for (int i = 0; i < possibleLocations.size(); i++) {
-                    suggestions.add(possibleLocations.get(i));
-                }
-
-                String[] columns = {BaseColumns._ID, SearchManager.SUGGEST_COLUMN_TEXT_1};
-                MatrixCursor c = new MatrixCursor(columns);
-                for (int i = 0; i < possibleLocations.size(); i++) {
-                    String[] tmp = {Integer.toString(i), suggestions.get(i)};
-                    c.addRow(tmp);
-                }
-                //Notify the view to show the suggestions
-                view.displaySearchSuggestions(c);
-            }
+            interactor.getSuggestions(text);
         }
     }
 
@@ -208,8 +190,6 @@ public class HomePresenter implements I_HomePresenter {
                 view.setProgressBarVisible();
                 //Obtain predictions from the API
                 interactor.getPredictions(code);
-                //AsyncTaskGetPredictions task = new AsyncTaskGetPredictions();
-                //task.execute(code);
             }else{
                 view.showAlertMsg(context.getString(R.string.msgNoInternetConnection));
             }
@@ -255,6 +235,15 @@ public class HomePresenter implements I_HomePresenter {
 
         //Ask if this location is favourite or not
         notifyIsItFavourite(dp[0].getNombre());
+    }
+
+    /**
+     * Show the list with some suggested locations
+     * @param suggestions cursor with locations
+     */
+    @Override
+    public void showSuggestions(Cursor suggestions) {
+        view.displaySearchSuggestions(suggestions);
     }
 
     /**

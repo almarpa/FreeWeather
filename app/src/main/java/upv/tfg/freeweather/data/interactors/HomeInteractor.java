@@ -1,8 +1,11 @@
 package upv.tfg.freeweather.data.interactors;
 
 
+import android.app.SearchManager;
 import android.content.Context;
+import android.database.MatrixCursor;
 import android.os.AsyncTask;
+import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -85,9 +88,47 @@ public class HomeInteractor implements I_HomeInteractor {
     ///       AsyncTasks        ////
     ////////////////////////////////
     @Override
+    public void getSuggestions(String text) {
+        AsyncTaskGetSuggestions task = new AsyncTaskGetSuggestions();
+        task.execute(text);
+    }
+
+    @Override
     public void getPredictions(String code) {
         AsyncTaskGetPredictions task = new AsyncTaskGetPredictions();
         task.execute(code);
+    }
+
+    /**
+     * Asynchronous task that obtain a DailyPrediction object and a HourlyPrediction object
+     */
+    public class AsyncTaskGetSuggestions extends AsyncTask<String, Void, Void> {
+
+        List<String> lSuggestions;
+        MatrixCursor cSuggestions;
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            lSuggestions = dbhelper.findPossibleLocation(params[0]);
+            //If there are locations suggested
+            if (lSuggestions != null) {
+                String[] columns = {BaseColumns._ID, SearchManager.SUGGEST_COLUMN_TEXT_1};
+                cSuggestions = new MatrixCursor(columns);
+                for (int i = 0; i < lSuggestions.size(); i++) {
+                    String[] tmp = {Integer.toString(i), lSuggestions.get(i)};
+                    cSuggestions.addRow(tmp);
+                }
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void params) {
+            presenter.showSuggestions(cSuggestions);
+        }
     }
 
     /**

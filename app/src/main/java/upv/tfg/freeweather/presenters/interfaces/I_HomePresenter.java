@@ -1,6 +1,8 @@
 package upv.tfg.freeweather.presenters.interfaces;
 
 
+import android.database.Cursor;
+
 import upv.tfg.freeweather.adapters.ViewPagerAdapter;
 import upv.tfg.freeweather.data.model.DailyPrediction;
 import upv.tfg.freeweather.data.model.HourlyPrediction;
@@ -18,6 +20,7 @@ public interface I_HomePresenter {
 
     //METHODS CALLED BY THE MODEL
     void createFragments(HourlyPrediction[] hp, DailyPrediction[] dp);
+    void showSuggestions(Cursor suggestions);
     void showAlertMsg(String string);
     void closeSearchView();
     void setProgressBarInvisible();

@@ -64,10 +64,10 @@ public class HourlyPrediction implements Serializable {
     public ArrayList<String> getDays() {
         ArrayList<String> res = new ArrayList<>();
         for (int i= 0; i < getPrediccion().getHoraria().get(0).getEstadoCielo().size(); i++) {
-            res.add("Tod.");
+            res.add("Hoy.");
         }
         for (int i= 0; i < getPrediccion().getHoraria().get(1).getEstadoCielo().size(); i++) {
-            res.add("Tom.");
+            res.add("Mañ.");
         }
         return res;
     }

@@ -31,12 +31,12 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(context, CHANNEL_1_ID)
                 .setContentIntent(pendingIntent)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),intent.getIntExtra("IMAGE", 0)))
-                .setContentTitle(String.format(intent.getStringExtra("NAME"),context.getResources().getString(R.string.country)))
-                .setContentText(String.format(intent.getStringExtra("STATE"),intent.getStringExtra("TEMPERATURE")))
+                .setContentTitle(String.format(context.getResources().getString(R.string.notification_title), intent.getStringExtra("NAME"),context.getResources().getString(R.string.country)))
+                .setContentText(String.format(context.getResources().getString(R.string.notification_title), intent.getStringExtra("STATE"),intent.getStringExtra("TEMPERATURE")))
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(String.format(intent.getStringExtra("STATE"), intent.getStringExtra("TEMPERATURE"))))
+                        .bigText(String.format(context.getResources().getString(R.string.notification_title), intent.getStringExtra("STATE"), intent.getStringExtra("TEMPERATURE"))))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true);
 

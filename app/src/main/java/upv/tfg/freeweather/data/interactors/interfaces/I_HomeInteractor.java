@@ -11,5 +11,10 @@ public interface I_HomeInteractor {
     boolean isItFavourite(String location);
     String getCodeByLocation(String location);
     List<String> findPossibleLocation(String text);
+
+    ////////////////////////////////
+    ///       AsyncTasks        ////
+    ////////////////////////////////
+    void getSuggestions(String text);
     void getPredictions(String code);
 }

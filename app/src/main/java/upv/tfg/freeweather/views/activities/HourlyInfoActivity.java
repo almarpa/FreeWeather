@@ -31,7 +31,6 @@ public class HourlyInfoActivity extends AppCompatActivity {
     private TextView tvSnow;
     private TextView tvStormProb;
     private TextView tvSnowProb;
-    private TextView tvWind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

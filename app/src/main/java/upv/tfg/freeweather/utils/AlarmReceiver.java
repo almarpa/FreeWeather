@@ -31,7 +31,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder mNotifyBuilder = new NotificationCompat.Builder(context, CHANNEL_1_ID)
                 .setContentIntent(pendingIntent)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.nube)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),intent.getIntExtra("IMAGE", 0)))
                 .setContentTitle(String.format(context.getResources().getString(R.string.notification_title), intent.getStringExtra("NAME"),context.getResources().getString(R.string.country)))
                 .setContentText(String.format(context.getResources().getString(R.string.notification_title), intent.getStringExtra("STATE"),intent.getStringExtra("TEMPERATURE")))

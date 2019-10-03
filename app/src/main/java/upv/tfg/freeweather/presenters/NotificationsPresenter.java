@@ -59,21 +59,6 @@ public class NotificationsPresenter extends AppCompatActivity implements I_Notif
         // Poblate the radiogroup items in the view
         getNotificationTimes();
         getFavouriteLocations();
-        //TODO: createNotificationsChannel();
-    }
-
-    private void createNotificationsChannel() {
-        /*
-     //TODO:
-        CharSequence name = "name";
-        String description = "description";
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel(CHANNEL_1_ID, name, importance);
-        channel.setDescription(description);
-        // Register the channel with the system
-        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-        notificationManager.createNotificationChannel(channel);
-         */
     }
 
     private void getNotificationTimes(){

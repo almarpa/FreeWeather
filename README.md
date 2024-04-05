@@ -7,4 +7,5 @@ Predictions are obtained from AEMET's API.
 ![Detailed Info](https://user-images.githubusercontent.com/38918727/65866842-d114f080-e375-11e9-93fc-2bd3ff02bc2d.jpg)
 ![Favourites](https://user-images.githubusercontent.com/38918727/65866843-d114f080-e375-11e9-81d0-25d1636dc7e9.jpg)
 ![Notifications](https://user-images.githubusercontent.com/38918727/65866844-d114f080-e375-11e9-972e-6c53d9f16064.jpg)
+![Maps](https://user-images.githubusercontent.com/38918727/65866842-d114f080-e375-11e9-93fc-2bd3ff02bc2d.jpg)
 

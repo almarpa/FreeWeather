@@ -1,4 +1,4 @@
-![image](https://github.com/almarpa/FreeWeather/assets/38918727/c0c5285e-7c9c-49cb-a15a-e7a45d5beab8)# FreeWeather
+# FreeWeather
 Android application to consult the weather forecast developed for an end-of-degree project.  
 Predictions are obtained from AEMET's API.
 
